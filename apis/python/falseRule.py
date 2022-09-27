@@ -10,12 +10,12 @@ def falseRule(f, xi, xf, tol, niter):
     error = 1000
     if(f.subs(x,xi)*f.subs(x,xf) == 0):
         if(f.subs(x,xi) == 0):
-            print(str(xi) + " es raíz")
+            print(str(xi) + " is a root")
         else:
-            print(str(xf) + " es raíz")
+            print(str(xf) + " is a root")
     
     elif(f.subs(x,xi)*f.subs(x,xf) > 0):
-        print("Intervalo no válido")
+        print("Invalid interval")
     
     else:
         fxi = f.subs(x,xi)
@@ -38,13 +38,13 @@ def falseRule(f, xi, xf, tol, niter):
             iter = iter +1
 
         if(f.subs(x,pm) == 0):
-            print(str(pm) + " es raíz y fue encontrada en la iteración " + str(iter))
+            print(str(pm) + " is root and was found in the iteration " + str(iter))
         else: 
-            print(str(round(pm,2)) + " es raíz con tolerancia " + str(tol) + " y fue encontrada en la iteración " + str(iter))
+            print(str(round(pm,2)) + " is root with tolerance " + str(tol) + " and was found in the iteration " + str(iter))
 
-f = x**3 - 7.51*x**2 + 18.4239*x - 14.8331   # Función
-xi = 3                                       # Lado derecho del intervalo 
-xf = 3.5                                     # Lado izquierdo del intervalo 
-tol = 5*10**-5                               # Tolerancia
-niter = 10                                   # Número máximo de iteraciones
+f = x**3 - 7.51*x**2 + 18.4239*x - 14.8331
+xi = 3                                        
+xf = 3.5                                      
+tol = 5*10**-5                               
+niter = 10                                   
 falseRule(f,xi,xf,tol, niter)

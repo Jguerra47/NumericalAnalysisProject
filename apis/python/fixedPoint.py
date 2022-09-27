@@ -7,7 +7,7 @@ x = sm.symbols('x')
 
 def fixedPoint(f, xi, tol, g, maxIter):
     if(f.subs(x,xi) == 0):
-        print(str(xi) + " es una raíz")
+        print(str(xi) + " is a root")
 
     else:
         ite = 0
@@ -23,14 +23,14 @@ def fixedPoint(f, xi, tol, g, maxIter):
             xi = xn
 
         if error < tol:
-            print(str(round(xi,4)) + " es raiz con tolerancia " + str(tol) + " en " + str(ite) + " iteraciones")
+            print(str(round(xi,4)) + " is root with tolerance " + str(tol) + " in " + str(ite) + " iteration")
         else:
-            print("No se halló raíz")
+            print("No root was found")
 
-f =  sm.exp(-x) - x         # Función original
-g =  sm.exp(-x)             # Función punto fijo
-xi = 0.5                    # Punto inicial de búsqueda
-tol = 0.005                 # Máximo error absoluto permitido
-niter = 100                 # Número máximo de iteraciones en el algoritmo 
+f =  sm.exp(-x) - x
+g =  sm.exp(-x)
+xi = 0.5
+tol = 0.005
+niter = 100
 
 fixedPoint(f, xi,tol ,g, niter)

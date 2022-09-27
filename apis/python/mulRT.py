@@ -10,7 +10,7 @@ def mulRT(f, xi, tol, nIter):
     dx2 = sm.diff(dx,x)
 
     if(f.subs(f,x) == 0):
-        print(str(xi) + " es una raíz")
+        print(str(xi) + " is a root")
     
     else:
         iter = 0 
@@ -22,10 +22,10 @@ def mulRT(f, xi, tol, nIter):
             xi = xn 
 
         if(error < tol):
-            print(str(xi) + " es raíz con tolerancia " + str(tol) + " en la iteración " + str(iter))
+            print(str(xi) + " is root with tolerance " + str(tol) + " in the iteration " + str(iter))
         
         else:
-            print("No se halló raíz")
+            print("No root found")
 
 
 f = x**3 - x**2 - 2*x + 2 + sm.sin(x-1)

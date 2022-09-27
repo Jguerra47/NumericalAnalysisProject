@@ -10,33 +10,31 @@ def bisection(xi, xf, f, tol):
         print("x0 o xf es raíz")
     
     elif(f.subs(x,xi)*f.subs(x,xf)>0):
-        print("Intervalo no válido")
+        print("Invalid interval")
     else:
-        xmedio = (xi+xf)/2
-        error = math.fabs(xmedio - xi)
+        mid = (xi+xf)/2
+        error = math.fabs(mid - xi)
         
-        while(error > tol and f.subs(x,xmedio) != 0):
-            if(f.subs(x,xi)*f.subs(x,xmedio)<0):
-                xf = xmedio
+        while(error > tol and f.subs(x,mid) != 0):
+            if(f.subs(x,xi)*f.subs(x,mid)<0):
+                xf = mid
                 xi = xi
             else:
-                xi = xmedio
+                xi = mid
                 xf = xf
             
-            xmedio = (xi+xf)/2
-            error = math.fabs(xmedio - xi)
+            mid = (xi+xf)/2
+            error = math.fabs(mid - xi)
         
-        if(f.subs(x,xmedio)==0):
-            print("xmedio es raíz")
+        if(f.subs(x,mid)==0):
+            print("mid is a root")
             
         else:
-            print(str(round(xmedio,2)) + " es una raíz con tolerancia " + str(tolerancia))
+            print(str(round(mid,2)) + " is a root with tolerance " + str(tol))
 
-# En este método se requiere un intervalo que contenga por lo menos una raíz 
+f = sm.exp(3*x-12) + x*sm.cos(3*x)-x**2+4
+xi = 2                                       
+xf = 3                                       
+tol = 0.5*10**-3                    
 
-f = sm.exp(3*x-12) + x*sm.cos(3*x)-x**2+4   # Función a la que se le encontrará la raíz
-xi = 2                                      # Lado izquierdo del intervalo 
-xf = 3                                      # Lado derecho del intervalo 
-tolerancia = 0.5*10**-3                     # Máximo error absoluto permitido
-
-bisection(xi,xf,f,tolerancia)
+bisection(xi,xf,f,tol)

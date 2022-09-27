@@ -12,14 +12,14 @@ def elimination(Ab,n):
         for i in range(k+1,n):
             
             if(Ab[k][k] == 0):
-                print("División por 0, no es posible realizar eliminación Gaussiana")
+                print("Division by 0, Gaussian elimination is not possible.")
                 return Ab
                 break
                 
-            multiplicador = Ab[i][k]/Ab[k][k]
+            multiplier = Ab[i][k]/Ab[k][k]
             
             for j in range(k, n+1):
-                Ab[i,j] = Ab[i,j] - multiplicador*Ab[k,j]
+                Ab[i,j] = Ab[i,j] - multiplier*Ab[k,j]
         print()
         print("=============================")
         print(Ab)

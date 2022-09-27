@@ -14,50 +14,46 @@ def gausTotalPivot(A,b):
         x.append(name)
     x.append('b')
     if (n1!=m1):
-        print("La matriz no es cuadrada")
+        print("The matrix is not square")
         return 
     else:
         Ab = np.append(A,b, axis = 1)
         Ab=np.array(Ab,dtype='float')
         n,m=Ab.shape
-        #matriz multiplicador
+
         M=np.ones((n,m))
         for k in range(n-1):
             mayor=0
-            filaMayor=k
-            columnaMayor=k
+            majorRow=k
+            majorColumn=k
 
-      #recorremos elementos de la matriz desde
-      # k hasta n
         for f in range(k,n):
             for c in range(k,n):
                 if(mayor<abs(Ab[f][c])):
                     mayor=abs(Ab[f][c])
-                    filaMayor=f
-                    columnaMayor=c
+                    majorRow=f
+                    majorColumn=c
 
         if(mayor==0):
-            print("El sistema tiene infinitas soluciones")
+            print("The system has infinite solutions")
             return 
         else:
 
-            if(filaMayor!=k):
+            if(majorRow!=k):
                 for j in range(n+1):
                     aux=Ab[k,j]
-                    Ab[k,j]=Ab[filaMayor,j]
-                    Ab[filaMayor,j]=aux
+                    Ab[k,j]=Ab[majorRow,j]
+                    Ab[majorRow,j]=aux
 
-            if(columnaMayor!=k):
+            if(majorColumn!=k):
                 for i in range(n):
-                    #cambiamos la columna en Ab
                     aux=Ab[i,k]
-                    Ab[i,k]=Ab[i,columnaMayor]     
-                    Ab[i,columnaMayor]=aux
+                    Ab[i,k]=Ab[i,majorColumn]     
+                    Ab[i,majorColumn]=aux
 
-                # cambiamos la pos de x
                 aux1=x[k]
-                x[k]=x[columnaMayor]
-                x[columnaMayor]=aux1
+                x[k]=x[majorColumn]
+                x[majorColumn]=aux1
             
         for i in range(k+1,n):   
             M[i,k]=Ab[i][k]/Ab[k][k]

@@ -21,18 +21,18 @@ def newton(f,x0 ,tol ,nIter):
         cont = cont + 1
     
     if(y0 == 0):
-        print(str(x0) + " es raíz ")
+        print(str(x0) + " is a root ")
     
     elif(error < tol):
-        print(str(x0) + " es una raíz aproximada con una tolerancia de " + str(tol))
+        print(str(x0) + " is an approximate root with a tolerance of " + str(tol))
     
     else:
-        print("Fracasó en " + str(nIter) + " iteraciones")
+        print("Failed in " + str(nIter) + " iterations")
      
 
-f = 2*x               # Función
-x0 = -2               # Punto Inicial
-tol = 5*10**-2        # Tolerancia
-nIter = 10            # Número máximo de iteraciones en el algoritmo 
+f = 2*x
+x0 = -2
+tol = 5*10**-2
+nIter = 10
 
 newton(f,x0,tol,nIter)

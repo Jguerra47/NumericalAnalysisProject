@@ -7,7 +7,7 @@ x = sm.symbols('x')
 
 def incrementalSearch(f,xi,delta,niter):
     if(f.subs(x,xi)==0):
-        print(str(xi) + " es una raíz")
+        print(str(xi) + " is a root")
         
     else:
         xf = xi + delta
@@ -18,18 +18,18 @@ def incrementalSearch(f,xi,delta,niter):
             ite += 1
             
         if((f.subs(x,xi)*f.subs(x,xf))==0):
-            print(str(xf) + " es una raíz")
+            print(str(xf) + " is a root")
         
         elif((f.subs(x,xi)*f.subs(x,xf))<0):
-            print("Entre " + str(xi) + " y " + str(xf) + " hay una raíz")
+            print("Between " + str(xi) + " and " + str(xf) + " there is a root")
         
         else:
-            print("No se encontró raíz")
+            print("No root found")
 
 
-f = sm.exp(3*x-12) + x*sm.cos(3*x)-x**2+4    # Función
-xi = -10                                     # Punto inicial
-delta = 1                                    # Cambio en cada intervalo
-niter = 10                                   # Número máximo de iteraciones
+f = sm.exp(3*x-12) + x*sm.cos(3*x)-x**2+4
+xi = -10
+delta = 1
+niter = 10
 
 incrementalSearch(f,xi,delta,niter)

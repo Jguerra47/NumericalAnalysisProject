@@ -11,7 +11,7 @@ def secant(f, x0, x1, tol, nIter):
     fx1 = f.subs(x, x1)
     
     if(fx0 == 0):
-        print(str(x0) + " es raíz")
+        print(str(x0) + " is root")
     
     else:
         cont = 0
@@ -33,16 +33,16 @@ def secant(f, x0, x1, tol, nIter):
             cont = cont + 1
         
         if(fx1 == 0):
-            print(str(x1) +  " es una raíz")
+            print(str(x1) +  " is a root")
                 
         elif(error < tol):
-            print(str(x1) +  " es una aproximación a una raíz con una tolerancia de " + str(tol))
+            print(str(x1) +  " is an approximation to a root with a tolerance of " + str(tol))
                 
         elif(den == 0):
-            print("Hay una posible raíz múltiple")
+            print("There is a possible multiple root")
             
         else:
-            print("Fracasó en " + str(nIter) +  " iteraciones")
+            print("Failed in " + str(nIter) +  " iterations")
 
 
 
