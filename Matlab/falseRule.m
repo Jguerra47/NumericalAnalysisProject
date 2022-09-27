@@ -5,17 +5,10 @@ Yi=f(Xi);
 Ys=f(Xs); 
 
 if Yi==0 
-<<<<<<< HEAD
     fprintf('Xi is root\n'); 
 else
     if Ys==0 
-        fprintf('Xs is root\n'); 
-=======
-    fprintf('Xi is a root\n'); 
-else
-    if Ys==0 
-        fprintf('Xs is a root\n'); 
->>>>>>> e75fcdf95c7f56c17b861bf92b51f46bf22d9060
+        fprintf('Xs is root\n');
     else
         if Yi*Ys<0 
             Xm=(Xi)-((f(Xi)*(Xi-Xs))/(f(Xi)-f(Xs)));
