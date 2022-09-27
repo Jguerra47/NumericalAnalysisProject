@@ -37,4 +37,6 @@ elseif(fLeft*fRight<0)
     else
         answer = "The method failed in "+niter+" iterations";
     end
+else
+    panswer = "inappropriate interval"
 end
