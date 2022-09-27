@@ -68,7 +68,7 @@ func Secant(f string, x0, x1, tol float64, n int) (domain.ResultLine, error) {
 			s := fmt.Sprintf("%v is an approximation with tolerance %v.\n", utils.ConvF(x1), tol)
 			ans.Ans = s
 		} else if d == 0.0 {
-			s := fmt.Sprintf("%v the denominator is zero, fail.")
+			s := fmt.Sprintf("denominator is zero, fail.")
 			ans.Ans = s
 		} else {
 			s := fmt.Sprintf("The method fails in iterarion %d.\n", counter)

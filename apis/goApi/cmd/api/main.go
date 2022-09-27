@@ -18,9 +18,29 @@ func main() {
 	// 	fmt.Println(res.Ans)
 	// }
 
+	// // Newton
+	// // function - x0 - fx - dfc - error
+	// res, err := methods.Newton("x**3", -3, 6, 0.0001, 20)
+	// if err != nil {
+	// 	fmt.Println(err)
+	// } else {
+	// 	utils.PrintMatrix(res.Result)
+	// 	fmt.Println(res.Ans)
+	// }
+
+	// // Newton
+	// // function - x0 - fx - dfc - error
+	// res, err := methods.Secant("x**3", -3, 6, 0.0001, 20)
+	// if err != nil {
+	// 	fmt.Println(err)
+	// } else {
+	// 	utils.PrintMatrix(res.Result)
+	// 	fmt.Println(res.Ans)
+	// }
+
 	// Newton
 	// function - x0 - fx - dfc - error
-	res, err := methods.Secant("x**3", -3, 6, 0.0001, 20)
+	res, err := methods.FixedPoint("Sqrt(9,3)", "Sqrt(9,3)", -10, 0.0001, 20)
 	if err != nil {
 		fmt.Println(err)
 	} else {
