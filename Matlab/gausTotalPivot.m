@@ -61,7 +61,7 @@ end
 function [m,marks] = upperTriangular(A,b,n)   
     m = [A b];
     [marks] = generateMark(n);
-    disp('Etapa 0')
+    disp('Stage 0')
     disp(m)
     
     for i = 1:1:n-1
@@ -80,7 +80,7 @@ function [m,marks] = upperTriangular(A,b,n)
                 m(j,:) = m(j,:) - (m(j,i)/m(i,i)).*m(i,:);
             end
         end
-        disp(['Etapa ',num2str(i)])
+        disp(['Stage ',num2str(i)])
         disp(m)
     end
 end

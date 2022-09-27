@@ -17,11 +17,11 @@ function [answer,matrix]=newton(f,fder,tolerance,x0,niter)
         matrix=[matrix;B];
     end
     if(fx==0)
-        answer=x0+" es una raiz";
+        answer=x0+" is a root";
     elseif(error<tolerance)
-        answer=x1+" es una aproximacion de raiz con tolerancia de "+tolerance;
+        answer=x1+" is a root approximation with a tolerance of "+tolerance;
     elseif(dfx==0)
-        answer=x1+" es una posible raiz multiple";
+        answer=x1+" is a possible multiple root";
     else
-        answer="El metodo fallo en "+niter+" iteraciones"
+        answer="The method failed in "+niter+" iterations"
     end

@@ -2,7 +2,7 @@ function [x] = raicesMul(f,f1,f2,x0,tolerance,nMax)
     xi = x0;
     fxi = f(xi);
     if fxi == 0
-        disp(['Se encontre una raiz: ', num2str(xi,12)])
+        disp(['A root was found: ', num2str(xi,12)])
     else 
         counter = 0;
         f1xi = f1(xi);
@@ -26,11 +26,11 @@ function [x] = raicesMul(f,f1,f2,x0,tolerance,nMax)
         disp(iterations)
 
         if fxi == 0 
-            disp(['Una raiz fue encontrada: ', num2str(xi,12)])
+            disp(['A root was found: ', num2str(xi,12)])
         elseif error <= tolerance
-            disp(['Una aproximacion es: ', num2str(xi,12)])
+            disp(['One approach is: ', num2str(xi,12)])
         else
-            disp('El metodo fallo')
+            disp('Method failure')
         end
         
     end

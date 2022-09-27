@@ -1,14 +1,14 @@
 format long;
 
-Xo=input('ingrese xo\n');
-X1=input('\ningrese x1\n');
-Tol=input('\ningrese la tolerancia\n');
-Iter=input('\ningrese el número de iteraciones\n');
-Fun=input('\ningrese la función entre comillas simples\n');
+Xo=input('enter xo: ');
+X1=input('\nenter x1: ');
+Tol=input('\nenter the tolerance: ');
+Iter=input('\nenter the number of iterations: ');
+Fun=input('\nenter the function between single quotation marks: ');
 yo=f(Xo);
 
 if yo==0
-    fprintf('xo es raiz\n');
+    fprintf('xo is a root\n');
 else
     y1=f(X1);
     d=(y1-yo);
@@ -34,20 +34,20 @@ else
     end
 
     if y1==0
-    fprintf('%g es raíz\n\n',X1);
+    fprintf('%g is a root\n\n',X1);
     else
         if e<Tol
-            fprintf( '%g es una aproximacion a una raìz con una tolerancia %g \n',X1,Tol)
+            fprintf( '%g is an approximation to a root with a tolerance %g \n',X1,Tol)
         else
             if d==0
-                fprintf('el denominador es cero, FRACASO\n\n');
+                fprintf('denominator is zero, FAILURE\n\n');
             else
-                fprintf('Fracaso en %g iteraciones\n\n',Iter);
+                fprintf('Failure in %g iterations\n\n',Iter);
             end
         end
     end
 end
-fprintf('TABLA\n\ninteraciones |  Xn |   y1  |  Error\n');
+fprintf('\nIterations |  Xn |   y1  |  Error\n');
 disp(Z1);
 disp(Z);
 

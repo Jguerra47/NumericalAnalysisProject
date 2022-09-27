@@ -21,7 +21,7 @@ function [m] = upperTriangular(A,b,n)
     m = [A b];
     for i = 1:1:n-1
         if (m(1,1)==0)
-            disp('Un 0 fue encontrado en la diagonal')
+            disp('A 0 was found on the diagonal')
             return 
         end
         for j = i+1:1:n
@@ -29,7 +29,7 @@ function [m] = upperTriangular(A,b,n)
                 m(j,:) = m(j,:) - (m(j,i)/m(i,i)).*m(i,:);
             end
         end
-        disp(['Etapa ',num2str(i)])
+        disp(['Stage ',num2str(i)])
         disp(m)
     end
 end

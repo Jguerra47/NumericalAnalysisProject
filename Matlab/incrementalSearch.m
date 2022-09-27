@@ -19,10 +19,10 @@ else
     B=[counter,x0,x1,fx0,fx1,fx0*fx1];
     matrix=[matrix;B];
     if(fx1==0)
-        answer=x1+" es una raiz";
+        answer=x1+" is a root";
     elseif(fx0*fx1<0)
-        answer="Existe almenos una raiz entre "+x0+" y "+x1;
+        answer="There is at least one root between "+x0+" and "+x1;
     else
-        answer="El metodo fallo en "+niter+" iteraciones";
+        answer="The method failed in "+niter+" iterations";
     end
 end

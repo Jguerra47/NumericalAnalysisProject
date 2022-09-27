@@ -1,11 +1,5 @@
-
+function falseRule(Fun,Xi,Xs,Tol,Iter)
 format long;
-
-Xi=input ('\nIngrese el limite inferior: ');
-Xs=input ('\nIngrese el limite superior: ');
-Tol=input ('\nIngrese la tolerancia: ');
-Iter=input ('\nIngrese iteraciones: ');
-Fun=input ('\nIngrese la función: ');
 
 Yi=f(Xi); 
 Ys=f(Xs); 
@@ -44,18 +38,18 @@ else
                     Z(Cont,6)=Error;
             end
             if Ym==0
-                fprintf('%g es raíz\n\n',Xm);
+                fprintf('%g is a root\n\n',Xm);
             else
                 if Error<Tol
-                    fprintf( '%g es una aproximacion a una raìz con una tolerancia %g \n\n',Xm,Tol);
+                    fprintf( '%g is an approximation to a root with a tolerance %g \n\n',Xm,Tol);
                 else
-                    fprintf('Fracaso en %g iteraciones\n\n',Iter);
+                    fprintf('Failure in %g iterations\n\n',Iter);
                 end
             end
-            fprintf('TABLA\n\nIteraciones | Xi |  Xs | Xm | Ym | Error\n');
+            fprintf('\nIterations | Xi |  Xs | Xm | Ym | Error\n');
             disp(Z);
         else
-            fprintf('El intervalo es inadecuado\n\n');
+            fprintf('The interval is inadequate\n\n');
         end
     end
 end
