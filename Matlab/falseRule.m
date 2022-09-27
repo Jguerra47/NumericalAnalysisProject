@@ -1,14 +1,14 @@
-function falseRule(Fun,Xi,Xs,Tol,Iter)
+function falseRule(f,Xi,Xs,Tol,Iter)
 format long;
 
 Yi=f(Xi); 
 Ys=f(Xs); 
 
 if Yi==0 
-    fprintf('Xi es raiz\n'); 
+    fprintf('Xi is root\n'); 
 else
     if Ys==0 
-        fprintf('Xs es raiz\n'); 
+        fprintf('Xs is root\n'); 
     else
         if Yi*Ys<0 
             Xm=(Xi)-((f(Xi)*(Xi-Xs))/(f(Xi)-f(Xs)));

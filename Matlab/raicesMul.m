@@ -1,4 +1,5 @@
-function [x] = raicesMul(f,f1,f2,x0,tolerance,nMax) 
+function [x] = raicesMul(f,f1,f2,x0,tolerance,nMax)
+    format longG
     xi = x0;
     fxi = f(xi);
     if fxi == 0
@@ -9,7 +10,8 @@ function [x] = raicesMul(f,f1,f2,x0,tolerance,nMax)
         f2xi = f2(xi);
         error = tolerance + 1;
         det = (f1xi^2)-(fxi*f2xi);
-        iterations = [counter,xi,fxi,error];
+        iterations = ["counter","xi","fxi","error"];
+        iterations = [iterations;[counter,xi,fxi,error]];
         while(fxi ~= 0 && error > tolerance && counter < nMax && det~=0)
             xiaux = xi;
             xi = xi - ((fxi*f1xi)/((f1xi^2)-(fxi*f2xi)));
@@ -21,8 +23,6 @@ function [x] = raicesMul(f,f1,f2,x0,tolerance,nMax)
             counter = counter +1;
             iterations = [iterations;[counter,xi,fxi,error]];
         end
-
-        disp('   Counter     |      Xi      |         Fxi       |       Error')
         disp(iterations)
 
         if fxi == 0 
