@@ -1,10 +1,7 @@
+function Secante(f,X0,X1,Tol,Iter)
+
 format long;
 
-Xo=input('enter xo: ');
-X1=input('\nenter x1: ');
-Tol=input('\nenter the tolerance: ');
-Iter=input('\nenter the number of iterations: ');
-Fun=input('\nenter the function between single quotation marks: ');
 yo=f(Xo);
 
 if yo==0

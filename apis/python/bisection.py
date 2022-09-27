@@ -7,7 +7,7 @@ x = sm.symbols('x')
 
 def bisection(xi, xf, f, tol):
     if(f.subs(x,xi)*f.subs(x,xf)==0):
-        print("x0 o xf es raíz")
+        print("x0 or xf is a root")
     
     elif(f.subs(x,xi)*f.subs(x,xf)>0):
         print("Invalid interval")
