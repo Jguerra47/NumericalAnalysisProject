@@ -2,27 +2,27 @@ function Secante(f,X0,X1,Tol,Iter)
 
 format long;
 
-yo=f(Xo);
+y0=f(X0);
 
-if yo==0
+if y0==0
     fprintf('xo is a root\n');
 else
     y1=f(X1);
-    d=(y1-yo);
+    d=(y1-y0);
     e=Tol+1;
     cont=0;
     Z1= [cont,X1, y1, e];
     Z= [cont,X1, y1, e];
     while y1~=0 & e>Tol & cont<Iter & d~=0
     
-        X2= X1-((y1*(X1-Xo))/(d));
+        X2= X1-((y1*(X1-X0))/(d));
         %e=abs((X2-X1)/X2);
         e=abs(X2-X1);
-        Xo=X1;
-        yo=y1;
+        X0=X1;
+        y0=y1;
         y1=f(X2);
         X1=X2;
-        d=(y1-yo);
+        d=(y1-y0);
         cont=cont+1;
         Z(cont,1)=cont;
         Z(cont,2)=X1;
@@ -48,6 +48,6 @@ fprintf('\nIterations |  Xn |   y1  |  Error\n');
 disp(Z1);
 disp(Z);
 
-fplot(f,[-1 15]);
+%fplot(f,[-1 15]);
 
-grid on
+%grid on
