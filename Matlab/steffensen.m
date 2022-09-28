@@ -1,7 +1,7 @@
 function [ans,matrix] = steffensen(f,p0,tol,niter)
 count = 0;
 error = tol + 1;
-matrix = et["iteration","p","error"];
+matrix = ["iteration","p","error"];
 b=[count,p0,""];
 matrix=[matrix;b];
 while(count < niter && error > tol) 
@@ -19,5 +19,5 @@ if(f(p0) == 0)
 elseif error < tol
     ans = p0+" is an approximation with tolerance "+tol;
 else 
-    ans = 'failed to converge in 1000 iterations.';
+    ans = "failed to converge in "+niter+" iterations.";
 end
