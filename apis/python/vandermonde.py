@@ -31,9 +31,14 @@ def vandermonde(x, y):
     #Producto matricial
     R = np.dot(AI, y)
     print(R)
-
+    return R
 x = [-1, 0, 3, 4]
 y = [15.5, 3, 8, 1]
-vandermonde(x, y)
+
+ans = vandermonde(x, y)
+ansF = [f"{'+' if i >= 0 else '-'} ({abs(i):.5f}x^{e})" for i,e in zip(ans,range(len(ans)))]
+ansF[0] = ansF[0][1:-4]+')'
+print(" ".join(ansF))
+
 
 
