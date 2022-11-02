@@ -1,5 +1,6 @@
 from math import fabs
 from prettytable import PrettyTable
+from numpy import linalg
 table = PrettyTable()
 
 def sor(A, b, tol, w):
@@ -37,18 +38,10 @@ def sor(A, b, tol, w):
 
 	return Xk1
 
-def normxd(x):
-    return max([fabs(x) for x in x]) #Norm inf
 
-def norm(L):
-	""" Calcula la norma infinita de un vector:
-		||x|| = max {|xi|}, i = 0, 1, ... n.
-	"""
-
-	maximum = fabs(L[0])
-	for i in range(1, len(L)):
-		maximum = max(maximum, fabs(L[i]))
-	return maximum	
+def norm(x):
+    return linalg.norm(x) #norm2
+    #return max([math.fabs(x) for x in x]) #Norm inf
 
 
 A = [[4,-1,0,3],[1,15.5,3,8],[0,-1.3,-4,1.1],[14,5,-2,30]]

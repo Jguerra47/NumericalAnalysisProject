@@ -1,5 +1,6 @@
 import math
 from prettytable import PrettyTable
+from numpy import linalg
 table = PrettyTable()
 
 a = [[4,-1,0,3],
@@ -29,7 +30,8 @@ def calculateNewSeidel(x0):
     return x
 
 def norm(x):
-        return max([math.fabs(x) for x in x]) #Norm inf
+    return linalg.norm(x) #norm2
+    #return max([math.fabs(x) for x in x]) #Norm inf
 
 def minus(x1,x0):
     x = []
