@@ -38,6 +38,7 @@ def cholesky(A,n):
         table.field_names = [f"x{i}" for i in range(n)]
         for row in U:
             table.add_row(['({0.real:.4f} + {0.imag:.2f}i)'.format(i) for i in row])
+        print(table)
     #print ("\n\n\n Prueba: (analiza con la matriz ingresada)\n", np.dot(L,U))
     return L,U
 

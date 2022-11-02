@@ -35,7 +35,6 @@ def doolittle(A,n):
         for row in U:
             table.add_row(["%.5f"%i for i in row])
         print(table)
-    print ("\n\n\n Prueba: (analiza con la matriz ingresada)\n", np.dot(L,U))
     return L,U
 
 #Llenar con la matriz y su tamaño
