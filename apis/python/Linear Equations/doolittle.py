@@ -1,9 +1,13 @@
 import numpy as np
 from prettytable import PrettyTable
-def doolittle(A,n):
+from Sustitution.sustitutions import *
+
+def doolittle(A):
+    n = len(A)
     L = np.zeros((n,n))
     U = np.zeros((n,n))
     for i, j in zip(range(n), range(n)): L[i][j] = 1
+    for i, j in zip(range(n), range(n)): U[i][j] = 1
 
     for k in range(n):
         suma1 = 0.0
@@ -20,16 +24,16 @@ def doolittle(A,n):
             for p in range(k):
                 suma3 += L[k][p]*U[p][j]
             U[k][j]= (A[k][j]-suma3)/(L[k][k])
-        print("\nEtapa ",  k , ":")
+        print("\nStage ",  k+1 , ":")
 
-        print("\nMatriz L:")
+        print("\nMatrix L:")
         table = PrettyTable()
         table.field_names = [f"x{i}" for i in range(n)]
         for row in L:
             table.add_row(["%.5f"%i for i in row])
         print(table)
         
-        print("\nMatriz U:")
+        print("\nMatrix U:")
         table = PrettyTable()
         table.field_names = [f"x{i}" for i in range(n)]
         for row in U:
@@ -37,7 +41,23 @@ def doolittle(A,n):
         print(table)
     return L,U
 
-#Llenar con la matriz y su tamaño
+#Fill data
 A = np.array([[4,-1,0,3],[1,15.5,3,8],[0,-1.3,-4,1.1],[14,5,-2,30]])
-n = 4
-doolittle(A,n)
+b = np.array([[1],[1],[1],[1]], dtype ='float')
+
+L, U = doolittle(A)
+
+n = len(A)
+
+z=sustProg(L,b,n)
+x=sustRegr(U,z,n)
+
+#Show answer
+ans = PrettyTable()
+ans.field_names = [f"x{i}" for i in range(n)]
+ans.add_row(["%.5f"%i for i in x])
+print("\nAnswer: ")
+print(ans)
+
+
+

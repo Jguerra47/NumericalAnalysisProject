@@ -1,4 +1,5 @@
 import pprint
+from sustitutions import *
 
 #                   PYTHON 2.7 !!!
 
@@ -16,12 +17,12 @@ def pivot_matrix(M):
     m = len(M)
 
     # Create an identity matrix, with floating point values                                                                                                                                                                                            
-    id_mat = [[float(i ==j) for i in xrange(m)] for j in xrange(m)]
+    id_mat = [[float(i ==j) for i in range(m)] for j in range(m)]
 
     # Rearrange the identity matrix such that the largest element of                                                                                                                                                                                   
     # each column of M is placed on the diagonal of of M                                                                                                                                                                                               
-    for j in xrange(m):
-        row = max(xrange(j, m), key=lambda i: abs(M[i][j]))
+    for j in range(m):
+        row = max(range(j, m), key=lambda i: abs(M[i][j]))
         if j != row:
             # Swap the rows                                                                                                                                                                                                                            
             id_mat[j], id_mat[row] = id_mat[row], id_mat[j]
@@ -34,43 +35,48 @@ def lu_decomposition(A):
     n = len(A)
 
     # Create zero matrices for L and U                                                                                                                                                                                                                 
-    L = [[0.0] * n for i in xrange(n)]
-    U = [[0.0] * n for i in xrange(n)]
+    L = [[0.0] * n for i in range(n)]
+    U = [[0.0] * n for i in range(n)]
 
     # Create the pivot matrix P and the multipled matrix PA                                                                                                                                                                                            
     P = pivot_matrix(A)
     PA = mult_matrix(P, A)
 
     # Perform the LU Decomposition                                                                                                                                                                                                                     
-    for j in xrange(n):
+    for j in range(n):
         # All diagonal entries of L are set to unity                                                                                                                                                                                                   
         L[j][j] = 1.0
 
         # LaTeX: u_{ij} = a_{ij} - \sum_{k=1}^{i-1} u_{kj} l_{ik}                                                                                                                                                                                      
-        for i in xrange(j+1):
-            s1 = sum(U[k][j] * L[i][k] for k in xrange(i))
+        for i in range(j+1):
+            s1 = sum(U[k][j] * L[i][k] for k in range(i))
             U[i][j] = PA[i][j] - s1
 
         # LaTeX: l_{ij} = \frac{1}{u_{jj}} (a_{ij} - \sum_{k=1}^{j-1} u_{kj} l_{ik} )                                                                                                                                                                  
-        for i in xrange(j, n):
-            s2 = sum(U[k][j] * L[i][k] for k in xrange(j))
+        for i in range(j, n):
+            s2 = sum(U[k][j] * L[i][k] for k in range(j))
             L[i][j] = (PA[i][j] - s2) / U[j][j]
 
     return (P, L, U)
 
 
 #       PYTHON 2.7 !!!
-A = [[3,4,-2], [4,8,-2], [-2,-2,4]]
+A = [[4,-1,0,3],[1,15.5,3,8],[0,-1.3,-4,1.1],[14,5,-2,30]]
+b = [[1],[1],[1],[1]]
+n = len(A)
 P, L, U = lu_decomposition(A)
 
-print "A:"
+z=sustProg(L,b,n)
+x=sustRegr(U,z,n)
+print(x)
+print("A:")
 pprint.pprint(A)
 
-print "P:"
+print("P:")
 pprint.pprint(P)
 
-print "L:"
+print("L:")
 pprint.pprint(L)
 
-print "U:"
+print("U:")
 pprint.pprint(U)

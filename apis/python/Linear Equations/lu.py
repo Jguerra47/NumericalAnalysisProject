@@ -1,36 +1,38 @@
-import numpy as np
+import sympy as sm 
+import numpy as np 
+import math
+from Sustitution.sustitutions import *
 
-#                   PYTHON 3.7 !!!
-#K = [[4,-2,1],[20,-7,12],[-8,13,17]]
+x = sm.symbols('x')
 
-m = int(input("\nintroduce el orden de la matriz: "))
-matriz = np.zeros([m,m])
-u = np.zeros([m,m])
-l = np.zeros([m,m])
+def LUGauss(A,b):
+    n,m = A.shape
+    L=np.zeros((n,n))
+    U=np.zeros((n,n))
+    U[0]=A[0]
+    for k in range(n-1):
+        L[k,k]=1
+        for i in range(k+1,n):
+            m=A[i,k]/A[k,k]
+            L[i,k]=m
+            for j in range(k,n):
+                A[i,j]=A[i,j]-m*A[k,j]
+                U[i,j]=A[i,j]
+        print("Stage ", k+1)
+        print("L: ",L)
+        print("U: ", U)
+    L[n-1,n-1]=1
+    z=sustProg(L,b,n)
+    x=sustRegr(U,z,n)
+    return L,U,x
 
-for r in range(0,m):
-    for c in range(0,m):
-        matriz[r,c]=(input("Elemento a[" + str(r+1) + "," + str(c+1) + "]"))
-        matriz[r,c]=float(matriz[r,c])
-        u[r,c]=matriz[r,c]
-#operaciones para hacer ceros debajo de la diagonal principal
+def LUGaus(A,b):
+    L,U,x = LUGauss(A,b)
+    ans = []
+    for i in range(x.size):
+        ans.append("x"+str(i)+" = "+str(x[i])+"   ")
+    return ans
 
-for k in range (0,m):
-    
-    for r in range(0,m):
-        if (k == r):
-            l[k,r]=1
-        if (k<r):
-            factor=(matriz[r,k]/matriz[k,k])
-            l[r,k]=factor
-            for c in range (0,m):
-                matriz[r,c]=matriz[r,c]-(factor*matriz[k,c])
-                u[r,c]=matriz[r,c]
-    print("\nEtapa ",  k, ":" )
-    print("\nMatriz L")
-    print(l)
-    print("\nMatriz U")
-    print(u)  
-print ("\n\n\n Prueba: (analiza con la matriz ingresada)\n", np.dot(l,u))          
-        
-
+A = np.array([[4,-1,0,3],[1,15.5,3,8],[0,-1.3,-4,1.1],[14,5,-2,30]],dtype='float')
+b = np.array([[1],[1],[1],[1]], dtype ='float')
+print(LUGaus(A,b))
