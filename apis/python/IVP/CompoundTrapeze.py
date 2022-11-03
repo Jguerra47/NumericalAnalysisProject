@@ -1,7 +1,5 @@
 import sympy as sm 
-import numpy as np 
-import math
-import matplotlib.pyplot as plt
+
 
 x = sm.symbols('x')
 
@@ -21,4 +19,4 @@ f = sm.ln(sm.sin(x) ** 2+1)-(1/2)
 a = 1
 b = 10
 n = 20
-print(CompoundTrapeze(a,b,f,b))
+print(str(CompoundTrapeze(a,b,f,b))+" is the result of the integral")
