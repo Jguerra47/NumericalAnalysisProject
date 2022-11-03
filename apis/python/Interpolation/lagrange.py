@@ -7,7 +7,7 @@ def lagrange(valor,x,y):
     pol = ""
     G = Function('G')
     F = Function('F')
-    n = len(x) #numero de puntos
+    n = len(x) #quantity of points
     result = 0
     for k in range(n):
         productoria = 1
@@ -30,7 +30,7 @@ def lagrange(valor,x,y):
             pol += " + "
         result += productoria*y[k]
     G = str(expand(pol))
-    print ("\nPolinomio de Lagrange")
+    print ("\nLagrange´s polynom")
     ans = [f"{y[i]}*L{i} +" for i in range(len(y))] 
     ans[-1] = ans[-1][:-1]
     print(" ".join(ans))

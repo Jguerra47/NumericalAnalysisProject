@@ -1,16 +1,13 @@
-# Trazador cúbico natural
 import numpy as np
 import sympy as sym
 
-def traza3natural(xi,yi):
+def spline3(xi,yi):
     n = len(xi)
     
-    # Valores h
     h = np.zeros(n-1, dtype = float)
     for j in range(0,n-1,1):
         h[j] = xi[j+1] - xi[j]
-    
-    # Sistema de ecuaciones
+ 
     A = np.zeros(shape=(n-2,n-2), dtype = float)
     B = np.zeros(n-2, dtype = float)
     S = np.zeros(n, dtype = float)
@@ -26,15 +23,14 @@ def traza3natural(xi,yi):
     A[n-3,n-3] = 2*(h[n-3]+h[n-2])
     B[n-3] = 6*((yi[n-1]-yi[n-2])/h[n-2] - (yi[n-2]-yi[n-3])/h[n-3])
     
-    # Resolver sistema de ecuaciones
+   
     r = np.linalg.solve(A,B)
-    # S
+
     for j in range(1,n-1,1):
         S[j] = r[j-1]
     S[0] = 0
     S[n-1] = 0
     
-    # Coeficientes
     a = np.zeros(n-1, dtype = float)
     b = np.zeros(n-1, dtype = float)
     c = np.zeros(n-1, dtype = float)
@@ -45,29 +41,23 @@ def traza3natural(xi,yi):
         c[j] = (yi[j+1]-yi[j])/h[j] - (2*h[j]*S[j]+h[j]*S[j+1])/6
         d[j] = yi[j]
     
-    # Polinomio trazador
     x = sym.Symbol('x')
-    polinomio = []
+    polynom = []
     for j in range(0,n-1,1):
-        ptramo = a[j]*(x-xi[j])**3 + b[j]*(x-xi[j])**2 + c[j]*(x-xi[j])+ d[j]
-        ptramo = ptramo.expand()
-        polinomio.append(ptramo)
+        pseg = a[j]*(x-xi[j])**3 + b[j]*(x-xi[j])**2 + c[j]*(x-xi[j])+ d[j]
+        pseg = pseg.expand()
+        polynom.append(str(pseg).replace("**","^").replace("*",""))
     
-    return(polinomio)
+    return(polynom)
 
-# PROGRAMA de prueba
-# INGRESO , Datos de prueba
 xi = np.array([-1 , 0, 3, 4])
 fi = np.array([15.5, 3, 8, 1])
-resolucion = 4 # entre cada par de puntos
 
-# PROCEDIMIENTO
+
 n = len(xi)
-# Obtiene los polinomios por tramos
-polinomio = traza3natural(xi,fi)
+polynom = spline3(xi,fi)
 
-# SALIDA
-print('Polinomios por tramos: ')
-for tramo in range(1,n,1):
-    print(' x = ['+str(xi[tramo-1])+','+str(xi[tramo])+']')
-    print(str(polinomio[tramo-1]))
+print('polynoms by segment: ')
+for seg in range(1,n,1):
+    print(' x = ['+str(xi[seg-1])+','+str(xi[seg])+']')
+    print(str(polynom[seg-1]))

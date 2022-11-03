@@ -1,5 +1,5 @@
 import sympy
-import totalPivoting
+import totalPivoting 
 x = sympy.Symbol('x')
 
 xn =[-1,0,3,4]
@@ -17,7 +17,7 @@ def createInequality():
     
 createInequality() 
     
-def quadratic():
+def spline2():
     superMatrix = [[0 for x in range(3*len(inequality)+1)] for y in range(3*len(inequality))] 
     n = len(superMatrix)
     j = 0
@@ -47,12 +47,13 @@ def quadratic():
     superMatrix[k][0] = 1
     totalPivoting.a = superMatrix
     totalPivoting.n = len(superMatrix)
-    totalPivoting.marcas = [i for i in range(0,totalPivoting.n)]
+    totalPivoting.tags = [i for i in range(0,totalPivoting.n)]
     aux = totalPivoting.elimination()
     j = 0
+    print('polynoms by segment: ')
     for i in range(0,len(inequality)):
-        func = aux[j]*x**2+aux[j+1]*x + aux[j+2]
-        print(str(inequality[i][0][0])+" <= x <= "+str(inequality[i][1][0]))
+        func = f"{aux[j]}x^2 + {aux[j+1]}x + {aux[j+2]}"
+        print("x = "+"["+str(inequality[i][0][0])+","+str(inequality[i][1][0])+"]")
         print(func)
         j += 3
-quadratic()
+spline2()
