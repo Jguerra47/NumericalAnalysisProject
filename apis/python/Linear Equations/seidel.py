@@ -1,4 +1,4 @@
-import math
+import numpy as np
 from prettytable import PrettyTable
 from numpy import linalg
 table = PrettyTable()
@@ -14,6 +14,14 @@ major = []
 initialValues = [0,0,0,0]
 totalResult = [[] for y in range(len(initialValues))]
 b = [1,1,1,1]
+
+def prettyPrint(name,matrix):
+    n = len(matrix)
+    table = PrettyTable()
+    table.field_names = [f"{name}{i}" for i in range(n)]
+    table.add_rows(matrix)
+    table.add_column("",[f"{name}{i}" for i in range(n)])
+    print(table)
 
 def calculateNewSeidel(x0):
     x = []
@@ -31,7 +39,6 @@ def calculateNewSeidel(x0):
 
 def norm(x):
     return linalg.norm(x) #norm2
-    #return max([math.fabs(x) for x in x]) #Norm inf
 
 def minus(x1,x0):
     x = []
@@ -59,7 +66,36 @@ def gaussSeidel(niter,tol,x0):
             table.add_column("x"+str(i),totalResult[i])
         table.add_column("major error",major)
         print(table)
+        return [ col[-1] for col in totalResult ] 
     else:
         print("Failed!")
 
-gaussSeidel(100,10**-7,initialValues)
+
+x = gaussSeidel(100,10**-7,initialValues)
+ 
+ 
+
+D = np.diag((np.diag(a)))
+L = np.tril(a,-1)
+U = np.triu(a,1)
+Tmatrix = np.dot(linalg.inv(D-L), U)
+
+
+
+#print("T Matrix:")
+#prettyPrint("T",Tmatrix)
+ 
+valor1 = np.linalg.eig(Tmatrix)
+lista = []
+for i in range(len(valor1)):
+    lista.append(abs(valor1[i]))
+value = max(lista[0])
+ 
+#print("The spectral radius is: ")
+#print(value)
+ 
+table = PrettyTable()
+table.field_names = [f"x{i}" for i in range(n)]
+table.add_row(x)
+print("\nX:")
+print(table)

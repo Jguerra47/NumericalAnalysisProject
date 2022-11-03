@@ -73,11 +73,13 @@ def jacobi(niter,tol,x0):
 x = jacobi(100,10**-7,initialValues)
  
  
-DiagMatrix = [[a[i][j] if i ==j else 0 for i in range(len(a))] for j in range(len(a))]
-LUmatrix = [[a[i][j] if i != j else 0 for i in range(len(a))] for j in range(len(a))]
 
-InvDiagMatrix = np.linalg.inv(DiagMatrix)
-Tmatrix = np.dot(InvDiagMatrix, LUmatrix)
+D = np.diag((np.diag(a)))
+L = np.tril(a,-1)
+U = np.triu(a,1)
+
+Tmatrix = -1*np.dot(linalg.inv(D), U+L)
+
 
 print("T Matrix:")
 prettyPrint("T",Tmatrix)
