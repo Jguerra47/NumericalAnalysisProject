@@ -7,6 +7,7 @@ def crout(A):
     L = np.zeros((n,n))
     U = np.zeros((n,n))
     for i, j in zip(range(n), range(n)): U[i][j] = 1
+    for i, j in zip(range(n), range(n)): L[i][j] = 1
 
     for k in range(n):
         suma1 = 0.0

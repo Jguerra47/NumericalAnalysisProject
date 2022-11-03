@@ -5,7 +5,7 @@ def sustProg(L,b,n):
   if(L[0][0]==0):
     return
   else:
-    z=np.zeros(n,dtype=np.complex)
+    z=np.zeros(n,dtype=complex)
     suma3=0
     z[0]=b[0][0]/L[0][0]
     for k in range(1,n):

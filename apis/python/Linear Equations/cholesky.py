@@ -9,6 +9,8 @@ def cholesky(A):
     #U = np.zeros((n,n), dtype=np.complex_)
     L = [[0 for j in range(n)] for i in range(n)]
     U = [[0 for j in range(n)] for i in range(n)]
+    for i, j in zip(range(n), range(n)): U[i][j] = 1
+    for i, j in zip(range(n), range(n)): L[i][j] = 1
 
     for k in range(n):
         suma1 = 0
@@ -26,7 +28,7 @@ def cholesky(A):
             for p in range(k):
                 suma3+= L[k][p]*U[p][j]
             U[k][j]= (A[k][j]-suma3)/(L[k][k])
-        print("\nStage ",  k, ":" )
+        print("\nStage ",  k+1, ":" )
 
         print("\nMatrix L:")
         table = PrettyTable()
@@ -45,7 +47,7 @@ def cholesky(A):
 
 #Fill matrix
 A = np.array([[4,-1,0,3],[1,15.5,3,8],[0,-1.3,-4,1.1],[14,5,-2,30]])
-b = np.array([[1],[1],[1],[1]],dtype=np.complex)
+b = np.array([[1],[1],[1],[1]],dtype=complex)
 L,U = cholesky(A)
 n = len(A)
 
