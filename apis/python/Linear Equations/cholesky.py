@@ -1,7 +1,7 @@
 import numpy as np
 from cmath import sqrt
 from prettytable import PrettyTable
-from Sustitution.sustitutions import *
+from Sustitution.sustitutionsComplex import *
 
 def cholesky(A):
     n = len(A)
@@ -45,7 +45,7 @@ def cholesky(A):
 
 #Fill matrix
 A = np.array([[4,-1,0,3],[1,15.5,3,8],[0,-1.3,-4,1.1],[14,5,-2,30]])
-b = np.array([[1],[1],[1],[1]])
+b = np.array([[1],[1],[1],[1]],dtype=np.complex)
 L,U = cholesky(A)
 n = len(A)
 
@@ -56,6 +56,6 @@ x=sustRegr(U,z,n)
 #Show answer
 ans = PrettyTable()
 ans.field_names = [f"x{i}" for i in range(n)]
-ans.add_row(["%.5f"%i for i in x])
+ans.add_row(['({0.real:.4f} + {0.imag:.2f}i)'.format(i) for i in x])
 print("\nAnswer: ")
 print(ans)
