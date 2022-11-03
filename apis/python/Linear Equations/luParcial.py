@@ -1,66 +1,53 @@
-import pprint
-from sustitutions import *
-
-#                   PYTHON 2.7 !!!
-
-def mult_matrix(M, N):
-    """Multiply square matrices of same dimension M and N"""
-
-    # Converts N into a list of tuples of columns                                                                                                                                                                                                      
-    tuple_N = zip(*N)
-
-    # Nested list comprehension to calculate matrix multiplication                                                                                                                                                                                     
-    return [[sum(el_m * el_n for el_m, el_n in zip(row_m, col_n)) for col_n in tuple_N] for row_m in M]
+import numpy as np
+from Sustitution.sustitutions import *
+from prettytable import PrettyTable
 
 def pivot_matrix(M):
-    """Returns the pivoting matrix for M, used in Doolittle's method."""
-    m = len(M)
-
-    # Create an identity matrix, with floating point values                                                                                                                                                                                            
+    m = len(M)                                                                                                                                                                                           
     id_mat = [[float(i ==j) for i in range(m)] for j in range(m)]
-
-    # Rearrange the identity matrix such that the largest element of                                                                                                                                                                                   
-    # each column of M is placed on the diagonal of of M                                                                                                                                                                                               
+                                                                                                                                                                                           
     for j in range(m):
         row = max(range(j, m), key=lambda i: abs(M[i][j]))
-        if j != row:
-            # Swap the rows                                                                                                                                                                                                                            
+        if j != row:                                                                                                                                                                                                                           
             id_mat[j], id_mat[row] = id_mat[row], id_mat[j]
 
     return id_mat
+    
+def prettyPrint(name,matrix):
+    n = len(matrix)
+    print(f"{name}: ")
+    table = PrettyTable()
+    table.field_names = [f"{name}{i}" for i in range(n)]
+    table.add_rows(matrix)
+    table.add_column("",[f"{name}{i}" for i in range(n)])
+    print(table)
 
 def lu_decomposition(A):
-    """Performs an LU Decomposition of A (which must be square)                                                                                                                                                                                        
-    into PA = LU. The function returns P, L and U."""
     n = len(A)
-
-    # Create zero matrices for L and U                                                                                                                                                                                                                 
-    L = [[0.0] * n for i in range(n)]
-    U = [[0.0] * n for i in range(n)]
-
-    # Create the pivot matrix P and the multipled matrix PA                                                                                                                                                                                            
+                                                                                                                                                                                                   
+    L = [[0] * n for i in range(n)]
+    U = [[0] * n for i in range(n)]
+                                                                                                                                                                                       
     P = pivot_matrix(A)
-    PA = mult_matrix(P, A)
-
-    # Perform the LU Decomposition                                                                                                                                                                                                                     
-    for j in range(n):
-        # All diagonal entries of L are set to unity                                                                                                                                                                                                   
+    PA = np.dot(P, A)
+                                                                                                                                                                                              
+    for j in range(n):                                                                                                                                                                                               
         L[j][j] = 1.0
 
-        # LaTeX: u_{ij} = a_{ij} - \sum_{k=1}^{i-1} u_{kj} l_{ik}                                                                                                                                                                                      
         for i in range(j+1):
             s1 = sum(U[k][j] * L[i][k] for k in range(i))
             U[i][j] = PA[i][j] - s1
-
-        # LaTeX: l_{ij} = \frac{1}{u_{jj}} (a_{ij} - \sum_{k=1}^{j-1} u_{kj} l_{ik} )                                                                                                                                                                  
+                                                                                                                                                             
         for i in range(j, n):
             s2 = sum(U[k][j] * L[i][k] for k in range(j))
             L[i][j] = (PA[i][j] - s2) / U[j][j]
 
+        print(f"stage {j+1}")
+        prettyPrint("L",L)
+        prettyPrint("U",U)
     return (P, L, U)
 
 
-#       PYTHON 2.7 !!!
 A = [[4,-1,0,3],[1,15.5,3,8],[0,-1.3,-4,1.1],[14,5,-2,30]]
 b = [[1],[1],[1],[1]]
 n = len(A)
@@ -68,15 +55,10 @@ P, L, U = lu_decomposition(A)
 
 z=sustProg(L,b,n)
 x=sustRegr(U,z,n)
-print(x)
-print("A:")
-pprint.pprint(A)
 
-print("P:")
-pprint.pprint(P)
 
-print("L:")
-pprint.pprint(L)
-
-print("U:")
-pprint.pprint(U)
+table = PrettyTable()
+table.field_names = [f"x{i}" for i in range(len(A))]
+table.add_row(x)
+print("\nX:")
+print(table)
