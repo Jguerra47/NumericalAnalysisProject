@@ -9,6 +9,7 @@ def lagrange(valor,x,y):
     F = Function('F')
     n = len(x) #quantity of points
     result = 0
+    ansL = []
     for k in range(n):
         productoria = 1
         termino = "("
@@ -23,16 +24,18 @@ def lagrange(valor,x,y):
         termino += ")"
         termino = termino.replace(")(",") * (")
         F = parse_expr(termino)
-        print("\n L" + str(k) + "(x) = " + termino.replace("((","(").replace("))",")") + " = " + str(expand(F)))
+        aux = "L" + str(k) + "(x) = " + termino.replace("((","(").replace("))",")") + " = " + str(expand(F))
+        ansL.append(aux)
         toReplace = "L" + str(k) + "(x) = "
         pol += "(" + str(expand(F)) + ")*" + str(y[k])
         if k != n-1:
             pol += " + "
         result += productoria*y[k]
     G = str(expand(pol))
-    print ("\nLagrange´s polynom")
+    # print ("\nLagrange´s polynom")
     ans = [f"{y[i]}*L{i} +" for i in range(len(y))] 
     ans[-1] = ans[-1][:-1]
-    print(" ".join(ans))
+    polynom = (" ".join(ans))
+    return ansL,polynom
 
-lagrange(4,[-1,0,3,4],[15.5,3,8,1])
+print(lagrange(4,[-1,0,3,4],[15.5,3,8,1]))

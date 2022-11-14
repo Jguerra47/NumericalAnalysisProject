@@ -1,5 +1,4 @@
 
-import numpy as np
 import sympy as sp
 
 def spline1(xi,fi):
@@ -15,14 +14,21 @@ def spline1(xi,fi):
         sec = sec + 1
     return(polynom)
 
+
+def spline1Ans(xi,fi):
+    n = len(xi)
+    polynom = spline1(xi,fi)
+
+    segments = []
+    polBySeg = []
+    for sec in range(1,n,1):
+        segments.append(' x = ['+str(xi[sec-1])
+            +','+str(xi[sec])+']')
+        polBySeg.append(str(polynom[sec-1]))
+
+    #Find the polynom (polBySeg_i) that applies to the segment (segments_i)    
+    return segments,polBySeg
+
 xi = [-1 , 0, 3, 4]
 fi = [15.5, 3, 8, 1]
-
-n = len(xi)
-polynom = spline1(xi,fi)
-
-print('polynoms by segments: ')
-for sec in range(1,n,1):
-    print(' x = ['+str(xi[sec-1])
-          +','+str(xi[sec])+']')
-    print(str(polynom[sec-1]))
+print(spline1Ans(xi,fi))

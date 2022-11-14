@@ -50,14 +50,19 @@ def spline3(xi,yi):
     
     return(polynom)
 
-xi = np.array([-1 , 0, 3, 4])
-fi = np.array([15.5, 3, 8, 1])
+def spline3Ans(xi,fi):
+    n = len(xi)
+    polynom = spline3(xi,fi)
+    segments = []
+    polBySeg = []
+    #print('polynoms by segment: ')
+    for seg in range(1,n,1):
+        segments.append(' x = ['+str(xi[seg-1])+','+str(xi[seg])+']')
+        polBySeg.append(str(polynom[seg-1]))
 
+    #Find the polynom (polBySeg_i) that applies to the segment (segments_i)
+    return segments,polBySeg
 
-n = len(xi)
-polynom = spline3(xi,fi)
-
-print('polynoms by segment: ')
-for seg in range(1,n,1):
-    print(' x = ['+str(xi[seg-1])+','+str(xi[seg])+']')
-    print(str(polynom[seg-1]))
+# xi = np.array([-1 , 0, 3, 4])
+# fi = np.array([15.5, 3, 8, 1])
+# print(spline3Ans(xi,fi))

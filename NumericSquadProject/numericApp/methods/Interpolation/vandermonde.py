@@ -1,12 +1,4 @@
 import numpy as np
-from prettytable import PrettyTable
-
-def prettyPrint(name,matrix):
-    n = len(matrix)
-    table = PrettyTable()
-    table.field_names = [f"{name}{i}" for i in range(n)]
-    table.add_rows(matrix)
-    print(table)
 
 def vandermonde(x, y):
     n = len(x)
@@ -38,24 +30,17 @@ def vandermonde(x, y):
     #Producto matricial
     R = np.dot(AI, y)
     return R,A
-'''
-x = [-1, 0, 3, 4]
-y = [15.5, 3, 8, 1]
-ans,A = vandermonde(x, y)
 
-ansF = [f"{'+' if i >= 0 else '-'} ({abs(i):.5f}x^{e})" for i,e in zip(ans,range(len(ans)))]
+def vandermondeAns(x,y):
+    ans,A = vandermonde(x, y)
 
-ansF[0] = ansF[0][0 if ansF[0][0] == '-' else 1:-4]+')'
+    ansF = [f"{'+' if i >= 0 else '-'} ({abs(i):.5f}x^{e})" for i,e in zip(ans,range(len(ans)))]
 
-print("\nVandermonde matrix")
-prettyPrint("x",A)
+    ansF[0] = ansF[0][0 if ansF[0][0] == '-' else 1:-4]+')'
+    f = " ".join(ansF)
+    # Matrix, coefficients, function
+    return A,ans,f
 
-table = PrettyTable()
-table.field_names = [f"x{i}" for i in range(len(ans))]
-table.add_row(ans)
-print("\nPolynomial coefficients:")
-print(table)
-
-print("\nVandermonde polynom")
-print(" ".join(ansF))
-'''
+# x = [-1, 0, 3, 4]
+# y = [15.5, 3, 8, 1]
+# print(vandermondeAns(x,y))
