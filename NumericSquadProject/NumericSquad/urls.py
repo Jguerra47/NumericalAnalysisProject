@@ -22,9 +22,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index),
     path('notfound', views.notfound),
-    path('vandermonde', views.vander_not),
-    path('vandermonde_ans', views.vandermonde_ep, name="script_vandermonde"),
-    path('submit', views.submit),
+    #path('vandermonde', views.vander_not),
+    path('vandermonde', views.vandermonde_ep)#, name="script_vandermonde"),
 ]
 
 urlpatterns += staticfiles_urlpatterns()
