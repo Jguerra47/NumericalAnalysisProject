@@ -20,7 +20,11 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.index)
+    path('', views.index),
+    path('notfound', views.notfound),
+    path('vandermonde', views.vander_not),
+    path('vandermonde_ans', views.vandermonde_ep, name="script_vandermonde"),
+    path('submit', views.submit),
 ]
 
 urlpatterns += staticfiles_urlpatterns()
