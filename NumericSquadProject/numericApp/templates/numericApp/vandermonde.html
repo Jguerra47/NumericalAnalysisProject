@@ -384,7 +384,7 @@
                                                 Result</div>
                                             <div class="h5 mb-0 font-weight-bold text-gray-800">
                                                 
-                                                <form action="vandermonde" method="POST">
+                                                <form action="vandermonde" method="POST" onsubmit="">
                                                     {% csrf_token %}
                                                     <label id="size"></label>
                                                     <div id="resultado"></div>
@@ -393,7 +393,9 @@
                                                     <input type="submit" value="Submit">
                                                 </form>
 
-                                                <script>
+                                               
+
+                                                {% comment %} <script>
                                                     $(document).ready(function(){
                                                     $('#userinfoform').on('submit', function(e){
                                                     
@@ -414,10 +416,60 @@
                                                     
                                                     });
                                                     });
-                                                    </script> 
+                                                    </script>  {% endcomment %}
 
-                                                <script type="text/javascript" src="static/js/matrixHandler.js"></script>
+                                                {% comment %} <script type="text/javascript" src="static/js/matrixHandler.js"></script> {% endcomment %}
+                                                <script type="text/javascript">
+                                                    let size = 3;
+                                                    const program = () => {
+                                                        var tabla="<table class=\"table table-bordered table-primary\">";
+                                                        tabla+="<tr><td></td>";
+                                                        for(j=0;j<size;j++){ 
+                                                            tabla+="<td>"+(j+1)+ "</td>";
+                                                        }
+                                                        tabla+="</tr>";
+                                                        var xvalues = [];
+                                                        var yvalues = [];
 
+                                                        {% if X %}
+                                                        {% for p in X %}
+                                                            xvalues.push({{p}});
+                                                        {% endfor %}
+                                                        {% for p in Y %}
+                                                            yvalues.push({{p}});
+                                                        {% endfor %}
+                                                        {% endif %}
+
+                                                        tabla+="<tr>";
+                                                        tabla+="<td> X </td>";
+                                                        for(j=0;j<size;j++){ 
+                                                            tabla += "<td><input value="+xvalues[j]+" style= \"background: transparent;border: none;outline: none;\" type=\"number\" name=\"X"+j+"\"> </td>";
+                                                        }
+                                                        tabla+="</tr>";
+
+                                                        tabla+="<tr>";
+                                                        tabla+="<td> Y </td>";
+                                                        for(j=0;j<size;j++){ 
+                                                            tabla += "<td><input value="+yvalues[j]+" style= \"background: transparent;border: none;outline: none;\" type=\"number\" name=\"Y"+j+"\"> </td>";
+                                                        }
+                                                        tabla+="</tr>";
+                                                        tabla+="</table>";
+                                                        document.getElementById("resultado").innerHTML=tabla;
+                                                    }
+                                                    window.onload = program
+
+                                                    document.getElementById("sizePlus").addEventListener("click", (e) => {
+                                                        size++;
+                                                        document.getElementById("size").innerHTML = size;
+                                                        program();
+                                                    });
+
+                                                    document.getElementById("sizeMinus").addEventListener("click", (e) => {
+                                                        if (size != 0) size--;
+                                                        document.getElementById("size").innerHTML = size;
+                                                        program();
+                                                    });
+                                                </script>
                                                 {% if state == 1%}
                                                 {% for e in coefficients %}
                                                 {{e}} <br>

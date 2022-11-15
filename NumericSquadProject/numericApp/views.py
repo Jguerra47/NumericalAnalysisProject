@@ -26,7 +26,9 @@ def vandermonde_ep(request):
             "state": 1, #Carga correcta
             "coefficients":coefficients,
             "matrix":matrix,
-            "f":f
+            "f":f,
+            "X":X,
+            "Y":Y
             })
     else:
         return render(request, "numericApp/vandermonde.html")

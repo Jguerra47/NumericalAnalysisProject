@@ -15,11 +15,13 @@ const program = () => {
         tabla+="<tr>";
         tabla+="<td>"+params[i]+"</td>";
         for(j=0;j<size;j++){ 
-            tabla+="<td><input value=\"@Request[\"inputText\"]\" style= \"background: transparent;border: none;outline: none;\" type=\"number\" name=\""+params[i]+j+"\"> </td>";
+            tabla+="<td><input value={{"+params[i]+"."+j+"}} style= \"background: transparent;border: none;outline: none;\" type=\"number\" name=\""+params[i]+j+"\"> </td>";
         }
         tabla+="</tr>";
     }
     tabla+="</table>";
+    tabla+="{% if state == 1%}"
+    tabla+="{{X.0}}";
     document.getElementById("resultado").innerHTML=tabla;
 }
 window.onload = program
@@ -35,5 +37,3 @@ document.getElementById("sizeMinus").addEventListener("click", (e) => {
     document.getElementById("size").innerHTML = size;
     program();
 });
-
-localStorage
