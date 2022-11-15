@@ -373,27 +373,26 @@
                     </div>
 
                     <!-- Content Row -->
-                    <div class="row">
+                    
 
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-primary shadow h-100 py-2">
+                        <div>
+                            <div class="card border-left-primary">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xl font-weight-bold text-primary text-uppercase mb-2">
-                                                Result</div>
+                                                Input
+                                            </div>
                                             <div class="h5 mb-0 font-weight-bold text-gray-800">
                                                 
                                                 <form action="vandermonde" method="POST" onsubmit="">
                                                     {% csrf_token %}
                                                     <label id="size"></label>
-                                                    <div id="resultado"></div>
                                                     <input type="button" id="sizePlus" value="+"/>
                                                     <input type="button" id="sizeMinus" value="-"/>
+                                                    <div id="resultado"></div>
                                                     <input type="submit" value="Submit">
                                                 </form>
-
-                                               
 
                                                 {% comment %} <script>
                                                     $(document).ready(function(){
@@ -423,11 +422,8 @@
                                                     let size = 3;
                                                     const program = () => {
                                                         var tabla="<table class=\"table table-bordered table-primary\">";
-                                                        tabla+="<tr><td></td>";
-                                                        for(j=0;j<size;j++){ 
-                                                            tabla+="<td>"+(j+1)+ "</td>";
-                                                        }
-                                                        tabla+="</tr>";
+                                                            
+                                                        
                                                         var xvalues = [];
                                                         var yvalues = [];
 
@@ -439,20 +435,27 @@
                                                             yvalues.push({{p}});
                                                         {% endfor %}
                                                         {% endif %}
-
+                                                        tabla += "<tr><td> X </td><td> Y </td></tr>"
+                                                        for(j = 0; j < size; j++){
+                                                            tabla += "<tr>";
+                                                            tabla += "<td><input value="+xvalues[j]+" style= \"background: transparent;border: none;outline: none;\" type=\"number\" name=\"X"+j+"\"> </td>";
+                                                            tabla += "<td><input value="+yvalues[j]+" style= \"background: transparent;border: none;outline: none;\" type=\"number\" name=\"Y"+j+"\"> </td>";
+                                                            tabla += "</tr>";
+                                                        }
+                                                        /*
                                                         tabla+="<tr>";
                                                         tabla+="<td> X </td>";
                                                         for(j=0;j<size;j++){ 
-                                                            tabla += "<td><input value="+xvalues[j]+" style= \"background: transparent;border: none;outline: none;\" type=\"number\" name=\"X"+j+"\"> </td>";
+                                                            tabla += "<td><input value="+xvalues[j]+" style= \"background: transparent;max-width: 100%;border: none;outline: none;\" type=\"number\" name=\"X"+j+"\"> </td>";
                                                         }
                                                         tabla+="</tr>";
 
                                                         tabla+="<tr>";
                                                         tabla+="<td> Y </td>";
                                                         for(j=0;j<size;j++){ 
-                                                            tabla += "<td><input value="+yvalues[j]+" style= \"background: transparent;border: none;outline: none;\" type=\"number\" name=\"Y"+j+"\"> </td>";
+                                                            tabla += "<td><input value="+yvalues[j]+" style= \"background: transparent;max-width: 100%;border: none;outline: none;\" type=\"number\" name=\"Y"+j+"\"> </td>";
                                                         }
-                                                        tabla+="</tr>";
+                                                        tabla+="</tr>";*/
                                                         tabla+="</table>";
                                                         document.getElementById("resultado").innerHTML=tabla;
                                                     }
@@ -470,25 +473,6 @@
                                                         program();
                                                     });
                                                 </script>
-                                                {% if state == 1%}
-                                                {% for e in coefficients %}
-                                                {{e}} <br>
-                                                {% endfor %}
-
-                                                <table class="table table-bordered table-primary">
-                                                {% for i in matrix %}
-                                                    <tr>
-                                                        {% for j in i %}
-                                                            <td>
-                                                                {{j}}
-                                                            </td>
-                                                        {% endfor %}
-                                                    </tr>
-                                                {% endfor %}
-                                                </table>
-
-                                                {{f}}
-                                                {% endif %}
                                             </div>
                                         </div>
                                         <div class="col-auto">
@@ -497,7 +481,45 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+
+                            {% comment %} SALTO DE CARD {% endcomment %}
+
+
+                            
+
+                            {% if state == 1%}
+                            <div>
+                                <div class="card border-left-primary">
+                                    <div class="card-body">
+                                        <div class="row no-gutters align-items-center">
+                                            <div class="col mr-2">
+                                                <div class="text-xl font-weight-bold text-primary text-uppercase mb-2">
+                                                    Result
+                                                </div>
+
+                                                <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                    {% for e in coefficients %}
+                                                        {{e}} <br>
+                                                    {% endfor %}
+                                                    <table class="table table-bordered table-primary">
+                                                    {% for i in matrix %}
+                                                        <tr>
+                                                            {% for j in i %}
+                                                                <td>
+                                                                    {{j}}
+                                                                </td>
+                                                            {% endfor %}
+                                                        </tr>
+                                                    {% endfor %}
+                                                    </table>
+                                                    {{f}}
+                                                </div>    
+                                            </div>        
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endif %}
 
 
     <!-- Scroll to Top Button-->
