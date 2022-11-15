@@ -383,24 +383,41 @@
                                             <div class="text-xl font-weight-bold text-primary text-uppercase mb-2">
                                                 Result</div>
                                             <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                
                                                 <form action="vandermonde" method="POST">
                                                     {% csrf_token %}
-                                                    <input type="number" name="size"><br>
-                                                    <table class="table table-bordered table-primary">
-                                                        <tr>
-                                                            <td style="border-color:blue"><input type="number" name="x0"></td>
-                                                            <td style="border-color:blue"><input type="number" name="x1"></td>
-                                                            <td style="border-color:blue"><input type="number" name="x2"></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td style="border-color:blue"><input type="number" name="y0"></td>
-                                                            <td style="border-color:blue"><input type="number" name="y1"></td>
-                                                            <td style="border-color:blue"><input type="number" name="y2"></td>
-                                                        </tr>
-                                                    </table>
+                                                    <label id="size"></label>
+                                                    <div id="resultado"></div>
+                                                    <input type="button" id="sizePlus" value="+"/>
+                                                    <input type="button" id="sizeMinus" value="-"/>
                                                     <input type="submit" value="Submit">
                                                 </form>
-                                                
+
+                                                <script>
+                                                    $(document).ready(function(){
+                                                    $('#userinfoform').on('submit', function(e){
+                                                    
+                                                    $.ajax({
+                                                        method:'POST',
+                                                        url:'/documents/{{eachdocument.slug}}/updatedocumentviews/',
+                                                        data:{
+                                                        firstnamevalue:$('#firstname').val(),
+                                                        lastnamevalue:$('#lastname').val(),
+                                                        csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+                                                    }, 
+                                                    success: function() {
+                                                    
+                                                    alert('Data Successfully Posted');
+                                                        
+                                                    },
+                                                    });
+                                                    
+                                                    });
+                                                    });
+                                                    </script> 
+
+                                                <script type="text/javascript" src="static/js/matrixHandler.js"></script>
+
                                                 {% if state == 1%}
                                                 {% for e in coefficients %}
                                                 {{e}} <br>

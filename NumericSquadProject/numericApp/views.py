@@ -14,13 +14,14 @@ def notfound(request):
 
 def vandermonde_ep(request):
     if request.method == 'POST':
-        x = []
-        y = []
-        for i in range(int(request.POST["size"])):
-            x.append(float(request.POST["x"+str(i)]))
-            y.append(float(request.POST["y"+str(i)]))
+        X = []
+        Y = []
+        size = (len(request.POST) - 1)//2
+        for i in range(size):
+            X.append(float(request.POST["X"+str(i)]))
+            Y.append(float(request.POST["Y"+str(i)]))
 
-        matrix, coefficients, f = vandermondeAns(x, y)
+        matrix, coefficients, f = vandermondeAns(X, Y)
         return render(request, "numericApp/vandermonde.html", {
             "state": 1, #Carga correcta
             "coefficients":coefficients,
