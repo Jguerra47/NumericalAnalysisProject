@@ -19,7 +19,7 @@
         rel="stylesheet">
 
     <!-- Custom styles for this template-->
-    <link href="{% static 'css/sb-admin-2.min.css' %}" rel="stylesheet">
+    <link href="static/css/cssa.css" rel="stylesheet">
 
 </head>
 
@@ -380,22 +380,22 @@
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                            <div class="text-xl font-weight-bold text-primary text-uppercase mb-2">
                                                 Result</div>
                                             <div class="h5 mb-0 font-weight-bold text-gray-800">
                                                 <form action="vandermonde" method="POST">
                                                     {% csrf_token %}
                                                     <input type="number" name="size"><br>
-                                                    <table>
+                                                    <table class="table table-bordered ">
                                                         <tr>
-                                                            <td><input type="number" name="x0"></td>
-                                                            <td><input type="number" name="x1"></td>
-                                                            <td><input type="number" name="x2"></td>
+                                                            <td style="border-color:blue"><input type="number" name="x0"></td>
+                                                            <td style="border-color:blue"><input type="number" name="x1"></td>
+                                                            <td style="border-color:blue"><input type="number" name="x2"></td>
                                                         </tr>
                                                         <tr>
-                                                            <td><input type="number" name="y0"></td>
-                                                            <td><input type="number" name="y1"></td>
-                                                            <td><input type="number" name="y2"></td>
+                                                            <td style="border-color:blue"><input type="number" name="y0"></td>
+                                                            <td style="border-color:blue"><input type="number" name="y1"></td>
+                                                            <td style="border-color:blue"><input type="number" name="y2"></td>
                                                         </tr>
                                                     </table>
                                                     <input type="submit" value="Submit">
