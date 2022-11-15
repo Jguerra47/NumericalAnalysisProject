@@ -386,7 +386,7 @@
                                                 <form action="vandermonde" method="POST">
                                                     {% csrf_token %}
                                                     <input type="number" name="size"><br>
-                                                    <table class="table table-bordered ">
+                                                    <table class="table table-bordered table-primary">
                                                         <tr>
                                                             <td style="border-color:blue"><input type="number" name="x0"></td>
                                                             <td style="border-color:blue"><input type="number" name="x1"></td>
@@ -406,7 +406,7 @@
                                                 {{e}} <br>
                                                 {% endfor %}
 
-                                                <table style="table-layout: fixed">
+                                                <table class="table table-bordered table-primary">
                                                 {% for i in matrix %}
                                                     <tr>
                                                         {% for j in i %}
