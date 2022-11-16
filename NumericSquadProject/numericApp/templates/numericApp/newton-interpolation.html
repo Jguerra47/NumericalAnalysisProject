@@ -137,7 +137,7 @@
                                     
                                     <!-- AQUI VA TODO EL CONTENT INPUT-->
                                     <div class="h5 mb-0 font-weight-bold text-gray-800">                     
-                                        <form action="vandermonde" method="POST" onsubmit="">
+                                        <form action="newton-interpolation" method="POST" onsubmit="">
                                             {% csrf_token %}
                                             <p style="text-align:center;">Size</p>
                                             <div class="container text-center">
@@ -209,12 +209,12 @@
                                 
 
                                 <div class="card-body">
-                                    <p style="text-align:center">MATRIX</p>
+                                    <p style="text-align:center">Divided Difference Table</p>
                                     
                                         <div style="text-align:center;">
                                             <p>
                                             \(\begin{bmatrix}
-                                                {% for i in matrix %}
+                                                {% for i in DDTable %}
                                                     {% for j in i %}
                                                         {% if j < 1e5 and j > 0.001 %}                                              
                                                             {{j|floatformat:"-4" }}
@@ -239,7 +239,7 @@
                                             </p>
                                         </div>
                                         <div>
-                                            <p style="text-align:center; font-size:big;"> Vandermonde's Polynom \(p(x) = {{f}}\) </p>
+                                            <p style="text-align:center; font-size:big;"> Newton's interpolation Polynom \({{polynom}}\) </p>
                                         </div>
                                     
                                 </div>

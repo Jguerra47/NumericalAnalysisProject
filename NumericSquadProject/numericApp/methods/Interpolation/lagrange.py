@@ -2,8 +2,8 @@ from sympy import *
 from sympy.parsing.sympy_parser import parse_expr
 import math
 
-def lagrange(valor,x,y):
-
+def lagrange(x,y):
+    valor = len(x)
     pol = ""
     G = Function('G')
     F = Function('F')
@@ -24,7 +24,7 @@ def lagrange(valor,x,y):
         termino += ")"
         termino = termino.replace(")(",") * (")
         F = parse_expr(termino)
-        aux = "L" + str(k) + "(x) = " + termino.replace("((","(").replace("))",")") + " = " + str(expand(F))
+        aux = "L" + str(k) + "(x) = " + termino.replace("((","(").replace("))",")")
         ansL.append(aux)
         toReplace = "L" + str(k) + "(x) = "
         pol += "(" + str(expand(F)) + ")*" + str(y[k])
@@ -36,6 +36,7 @@ def lagrange(valor,x,y):
     ans = [f"{y[i]}*L{i} +" for i in range(len(y))] 
     ans[-1] = ans[-1][:-1]
     polynom = (" ".join(ans))
+    #AnsL is each one of lagrange's polynom and polynom is the use of them with its respective coefficients
     return ansL,polynom
 
-print(lagrange(4,[-1,0,3,4],[15.5,3,8,1]))
+print(lagrange([-1,0,3,4],[15.5,3,8,1]))

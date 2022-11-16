@@ -137,7 +137,7 @@
                                     
                                     <!-- AQUI VA TODO EL CONTENT INPUT-->
                                     <div class="h5 mb-0 font-weight-bold text-gray-800">                     
-                                        <form action="vandermonde" method="POST" onsubmit="">
+                                        <form action="lagrange" method="POST" onsubmit="">
                                             {% csrf_token %}
                                             <p style="text-align:center;">Size</p>
                                             <div class="container text-center">
@@ -209,37 +209,22 @@
                                 
 
                                 <div class="card-body">
-                                    <p style="text-align:center">MATRIX</p>
+                                    <p style="text-align:center">Lagrange's polynoms</p>
                                     
                                         <div style="text-align:center;">
                                             <p>
                                             \(\begin{bmatrix}
-                                                {% for i in matrix %}
-                                                    {% for j in i %}
-                                                        {% if j < 1e5 and j > 0.001 %}                                              
-                                                            {{j|floatformat:"-4" }}
-                                                        {% elif  j > -1e5 and j < -0.001%}
-                                                            {{j|floatformat:"-4" }}
-                                                        {% elif  j == 0 %}
-                                                            {{j|floatformat:"-4" }}
-                                                        {% else %}
-                                                            {{ j|stringformat:".4e" }}
-                                                        {% endif %}
-
-                                                        {% if not forloop.last %}
-                                                            &
-                                                        {% endif %}
-                                                    {% endfor %}
-
+                                                {% for i in lPolynoms %}
+                                                    {{i}}
                                                     {% if not forloop.last %}
-                                                        \\\
+                                                    \\\
                                                     {% endif %}
                                                 {% endfor %}
                                             \end{bmatrix}\)
                                             </p>
                                         </div>
                                         <div>
-                                            <p style="text-align:center; font-size:big;"> Vandermonde's Polynom \(p(x) = {{f}}\) </p>
+                                            <p style="text-align:center; font-size:big;"> Lagrange's Polynom \(p(x) = {{polynom}}\) </p>
                                         </div>
                                     
                                 </div>

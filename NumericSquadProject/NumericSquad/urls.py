@@ -23,7 +23,10 @@ urlpatterns = [
     path('', views.index),
     path('notfound', views.notfound),
     #path('vandermonde', views.vander_not),
-    path('vandermonde', views.vandermonde_ep)#, name="script_vandermonde"),
+    path('vandermonde', views.vandermonde_ep),#, name="script_vandermonde"),
+    path('lagrange', views.lagrange_ep),
+    path('newton-interpolation', views.newton_interpolation_ep),
+
 ]
 
 urlpatterns += staticfiles_urlpatterns()
