@@ -9,7 +9,7 @@ def incrementalSearch(f,xi,delta,niter):
     else:
         xf = xi + delta
         ite = 0
-        while((f.subs(x,xi)*f.subs(x,xf))>0 and ite < niter):
+        while((float(f.subs(x,xi))*float(f.subs(x,xf)))>0 and ite < niter):
             xi = xf 
             xf = xf + delta
             ite += 1
