@@ -24,12 +24,12 @@ def sor(A, b, tol, w):
 	minus = lambda x, y: [x[i]-y[i] for i in range(n)]
 
 	for j in range(n):
-	 	dominancia = 0.0
-	 	for i in range(n):
-	 		if j != i:
-	 			dominancia += abs(A[i][j])
-	 	if A[i][i] < dominancia:
-	 		exit('La matriz no converge')
+		dominancia = 0.0
+		for i in range(n):
+			if j != i:
+				dominancia += abs(A[i][j])
+		if A[i][i] < dominancia:
+			exit('La matriz no converge')
 	itera = 0
 	err = None
 

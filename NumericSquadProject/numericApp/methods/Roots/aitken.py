@@ -1,7 +1,4 @@
 import sympy as sm 
-import numpy as np 
-import math
-import matplotlib.pyplot as plt
 
 x = sm.symbols('x')
 
@@ -43,17 +40,19 @@ def aitken(f,x0,tol,n):
             ans = 'The method fails with the maximum number of iterations given'
         return ans,matrix
 
-f = sm.ln(sm.sin(x) ** 2+1)-(1/2)
-x0 = 1
-tol = 1e-7
-niter = 20
+# f = sm.ln(sm.sin(x) ** 2+1)-(1/2)
+# x0 = 1
+# tol = 1e-7
+# niter = 20
 
-ans,matrix = aitken(f,x0,tol,niter)
-print(ans)
-print()
-if len(matrix)>1:
-  print(f"%11s | %15s | %15s | %15s"%(matrix[0][0],matrix[0][1],matrix[0][2],matrix[0][3]))
-  i = 1
-  while (i < len(matrix)):
-    print(f"%11s | %15E | %15E | %15E"%(matrix[i][0],matrix[i][1],matrix[i][2],matrix[i][3]))
-    i +=1
+# ans,matrix = aitken(f,x0,tol,niter)
+# print(ans)
+# print(matrix)
+# print(ans)
+# print()
+# if len(matrix)>1:
+#   print(f"%11s | %15s | %15s | %15s"%(matrix[0][0],matrix[0][1],matrix[0][2],matrix[0][3]))
+#   i = 1
+#   while (i < len(matrix)):
+#     print(f"%11s | %15E | %15E | %15E"%(matrix[i][0],matrix[i][1],matrix[i][2],matrix[i][3]))
+#     i +=1
