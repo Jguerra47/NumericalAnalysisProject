@@ -10,7 +10,7 @@
     <meta name="author" content="">
     
     
-    <title>SB Admin 2 - Dashboard</title>
+    <title>NumericSquad-Vandermonde</title>
 
     <!-- Custom fonts for this template-->
     <link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
@@ -36,9 +36,9 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{% static 'index.html' %}">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
                 <div class="sidebar-brand-icon rotate-n-15">
-                    <i class='fas fa-crow'></i>
+                    <i class="fas fa-crow"></i>
                 </div>
                 <div class="sidebar-brand-text mx-3">Numeric Squad</div>
             </a>
@@ -210,46 +210,45 @@
 
                                 <div class="card-body">
                                     <p style="text-align:center">MATRIX</p>
-                                    
-                                        <div style="text-align:center;">
-                                            <p>
-                                            \(\begin{bmatrix}
-                                                {% for i in matrix %}
-                                                    {% for j in i %}
-                                                        {% if j < 1e5 and j > 0.001 %}                                              
-                                                            {{j|floatformat:"-4" }}
-                                                        {% elif  j > -1e5 and j < -0.001%}
-                                                            {{j|floatformat:"-4" }}
-                                                        {% elif  j == 0 %}
-                                                            {{j|floatformat:"-4" }}
-                                                        {% else %}
-                                                            {{ j|stringformat:".4e" }}
-                                                        {% endif %}
-
-                                                        {% if not forloop.last %}
-                                                            &
-                                                        {% endif %}
-                                                    {% endfor %}
+                                    <div style="text-align:center;">
+                                        <p>
+                                        \(\begin{bmatrix}
+                                            {% for i in matrix %}
+                                                {% for j in i %}
+                                                    {% if j < 1e5 and j > 0.001 %}                                              
+                                                        {{j|floatformat:"-4" }}
+                                                    {% elif  j > -1e5 and j < -0.001%}
+                                                        {{j|floatformat:"-4" }}
+                                                    {% elif  j == 0 %}
+                                                        {{j|floatformat:"-4" }}
+                                                    {% else %}
+                                                        {{ j|stringformat:".4e" }}
+                                                    {% endif %}
 
                                                     {% if not forloop.last %}
-                                                        \\\
+                                                        &
                                                     {% endif %}
                                                 {% endfor %}
-                                            \end{bmatrix}\)
-                                            </p>
-                                        </div>
-                                        <div>
-                                            <p style="text-align:center; font-size:big;"> Vandermonde's Polynom \(p(x) = {{f}}\) </p>
-                                        </div>
-                                    
+
+                                                {% if not forloop.last %}
+                                                    \\\
+                                                {% endif %}
+                                            {% endfor %}
+                                        \end{bmatrix}\)
+                                        </p>
+                                    </div>
+                                    <div>
+                                        <p style="text-align:center; font-size:big;"> Vandermonde's Polynom \(p(x) = {{f}}\) </p>
+                                    </div>                                    
                                 </div>
                             </div>
                         </div>
                         {% endif %}
                     </div>
-
-                    
-    
+                </div>
+            </div>
+        </div>  
+    </div>
 
     <!-- Bootstrap core JavaScript-->
     <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
