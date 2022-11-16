@@ -34,9 +34,9 @@ def vandermonde(x, y):
 def vandermondeAns(x,y):
     ans,A = vandermonde(x, y)
 
-    ansF = [f"{'+' if i >= 0 else '-'} ({abs(i):.5f}x^{e})" for i,e in zip(ans,range(len(ans)))]
+    ansF = [f"{'+' if i >= 0 else '-'}{abs(i):g}x^{e}" for i,e in zip(ans,range(len(ans)))]
 
-    ansF[0] = ansF[0][0 if ansF[0][0] == '-' else 1:-4]+')'
+    ansF[0] = ansF[0][0 if ansF[0][0] == '-' else 1:-3]
     f = " ".join(ansF)
     # Matrix, coefficients, function
     return A,ans,f

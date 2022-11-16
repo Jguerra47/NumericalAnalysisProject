@@ -28,7 +28,8 @@ def vandermonde_ep(request):
             "matrix":matrix,
             "f":f,
             "X":X,
-            "Y":Y
+            "Y":Y,
+            "size":size
             })
     else:
         return render(request, "numericApp/vandermonde.html")

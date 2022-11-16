@@ -10,6 +10,9 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
     <title>SB Admin 2 - Dashboard</title>
 
     <!-- Custom fonts for this template-->
@@ -372,156 +375,70 @@
                                 class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
                     </div>
 
-                    <!-- Content Row -->
-                    
-
-                        <div>
-                            <div class="card border-left-primary">
+                    <div class="row">
+                        <!-- INPUT CARD -->
+                        <div class="col-xl-4 col-lg-5">
+                            <div class="card shadow mb-4">
+                                <div
+                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                    <h6 class="m-0 font-weight-bold text-primary">Input</h6>
+                                </div>
+                                <!-- Card Body -->
                                 <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xl font-weight-bold text-primary text-uppercase mb-2">
-                                                Input
-                                            </div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                                
-                                                <form action="vandermonde" method="POST" onsubmit="">
-                                                    {% csrf_token %}
-                                                    <label id="size"></label>
-                                                    <input type="button" id="sizePlus" value="+"/>
-                                                    <input type="button" id="sizeMinus" value="-"/>
-                                                    <div id="resultado"></div>
-                                                    <input type="submit" value="Submit">
-                                                </form>
+                                    <!-- AQUI VA TODO EL CONTENT INPUT-->
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">                     
+                                        <form action="vandermonde" method="POST" onsubmit="">
+                                            {% csrf_token %}
+                                            <label id="size"></label>
+                                            <input type="button" id="sizePlus" value="+"/>
+                                            <input type="button" id="sizeMinus" value="-"/>
+                                            <div id="resultado"></div>
+                                            <input type="submit" value="Submit">
+                                        </form>
+                                    </div>
+                                    <!-- AQUI TERMINA TODO EL CONTENT INPUT-->
+                                </div>
+                            </div>
+                        </div>
 
-                                                {% comment %} <script>
-                                                    $(document).ready(function(){
-                                                    $('#userinfoform').on('submit', function(e){
-                                                    
-                                                    $.ajax({
-                                                        method:'POST',
-                                                        url:'/documents/{{eachdocument.slug}}/updatedocumentviews/',
-                                                        data:{
-                                                        firstnamevalue:$('#firstname').val(),
-                                                        lastnamevalue:$('#lastname').val(),
-                                                        csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
-                                                    }, 
-                                                    success: function() {
-                                                    
-                                                    alert('Data Successfully Posted');
-                                                        
-                                                    },
-                                                    });
-                                                    
-                                                    });
-                                                    });
-                                                    </script>  {% endcomment %}
-
-                                                {% comment %} <script type="text/javascript" src="static/js/matrixHandler.js"></script> {% endcomment %}
-                                                <script type="text/javascript">
-                                                    let size = 3;
-                                                    const program = () => {
-                                                        var tabla="<table class=\"table table-bordered table-primary\">";
-                                                            
-                                                        
-                                                        var xvalues = [];
-                                                        var yvalues = [];
-
-                                                        {% if X %}
-                                                        {% for p in X %}
-                                                            xvalues.push({{p}});
-                                                        {% endfor %}
-                                                        {% for p in Y %}
-                                                            yvalues.push({{p}});
-                                                        {% endfor %}
+                        <!-- RESULT CARD -->
+                        {% if state == 1%}
+                        <div class="col-xl-8 col-lg-7">
+                            <div class="card shadow mb-4">
+                                <!-- Card Header - Dropdown -->
+                                <div
+                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                    <h6 class="m-0 font-weight-bold text-primary">Results</h6>
+                                </div>
+                                <!-- Card Body -->
+                                <div class="card-body">
+                                    <div class="h5 mb-0 text-gray-800">
+                                        <table class="table table-bordered table-primary">
+                                        {% for i in matrix %}
+                                            <tr>
+                                                {% for j in i %}
+                                                    <td>
+                                                        {% if j < 1e5 and j > 0.001 %}                                              
+                                                            {{j|floatformat:"-4" }}
+                                                        {% elif  j > -1e5 and j < -0.001%}
+                                                            {{j|floatformat:"-4" }}
+                                                        {% elif  j == 0 %}
+                                                            {{j|floatformat:"-4" }}
+                                                        {% else %}
+                                                            {{ j|stringformat:".4e" }}
                                                         {% endif %}
-                                                        tabla += "<tr><td> X </td><td> Y </td></tr>"
-                                                        for(j = 0; j < size; j++){
-                                                            tabla += "<tr>";
-                                                            tabla += "<td><input value="+xvalues[j]+" style= \"background: transparent;border: none;outline: none;\" type=\"number\" name=\"X"+j+"\"> </td>";
-                                                            tabla += "<td><input value="+yvalues[j]+" style= \"background: transparent;border: none;outline: none;\" type=\"number\" name=\"Y"+j+"\"> </td>";
-                                                            tabla += "</tr>";
-                                                        }
-                                                        /*
-                                                        tabla+="<tr>";
-                                                        tabla+="<td> X </td>";
-                                                        for(j=0;j<size;j++){ 
-                                                            tabla += "<td><input value="+xvalues[j]+" style= \"background: transparent;max-width: 100%;border: none;outline: none;\" type=\"number\" name=\"X"+j+"\"> </td>";
-                                                        }
-                                                        tabla+="</tr>";
-
-                                                        tabla+="<tr>";
-                                                        tabla+="<td> Y </td>";
-                                                        for(j=0;j<size;j++){ 
-                                                            tabla += "<td><input value="+yvalues[j]+" style= \"background: transparent;max-width: 100%;border: none;outline: none;\" type=\"number\" name=\"Y"+j+"\"> </td>";
-                                                        }
-                                                        tabla+="</tr>";*/
-                                                        tabla+="</table>";
-                                                        document.getElementById("resultado").innerHTML=tabla;
-                                                    }
-                                                    window.onload = program
-
-                                                    document.getElementById("sizePlus").addEventListener("click", (e) => {
-                                                        size++;
-                                                        document.getElementById("size").innerHTML = size;
-                                                        program();
-                                                    });
-
-                                                    document.getElementById("sizeMinus").addEventListener("click", (e) => {
-                                                        if (size != 0) size--;
-                                                        document.getElementById("size").innerHTML = size;
-                                                        program();
-                                                    });
-                                                </script>
-                                            </div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
-                                        </div>
+                                                    </td>
+                                                {% endfor %}
+                                            </tr>
+                                        {% endfor %}
+                                        </table>
+                                        \(p(x) = {{f}}\)
                                     </div>
                                 </div>
                             </div>
-
-                            {% comment %} SALTO DE CARD {% endcomment %}
-
-
-                            
-
-                            {% if state == 1%}
-                            <div>
-                                <div class="card border-left-primary">
-                                    <div class="card-body">
-                                        <div class="row no-gutters align-items-center">
-                                            <div class="col mr-2">
-                                                <div class="text-xl font-weight-bold text-primary text-uppercase mb-2">
-                                                    Result
-                                                </div>
-
-                                                <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                                    {% for e in coefficients %}
-                                                        {{e}} <br>
-                                                    {% endfor %}
-                                                    <table class="table table-bordered table-primary">
-                                                    {% for i in matrix %}
-                                                        <tr>
-                                                            {% for j in i %}
-                                                                <td>
-                                                                    {{j}}
-                                                                </td>
-                                                            {% endfor %}
-                                                        </tr>
-                                                    {% endfor %}
-                                                    </table>
-                                                    {{f}}
-                                                </div>    
-                                            </div>        
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            {% endif %}
-
-
+                        </div>
+                        {% endif %}
+                    </div>
     <!-- Scroll to Top Button-->
     <a class="scroll-to-top rounded" href="{% static '#' %} page-top">
         <i class="fas fa-angle-up"></i>
@@ -563,6 +480,51 @@
     <!-- Page level custom scripts -->
     <script src="{% static 'js/demo/chart-area-demo.js' %}"></script>
     <script src="{% static 'js/demo/chart-pie-demo.js' %}"></script>
+
+    <!-- Handle matrix -->
+    <script type="text/javascript">
+        let size = 3;
+        {% if size %}
+        size = {{size}};
+        {% endif %}
+        const program = () => {
+            var tabla="<table class=\"table table-bordered table-primary\">";
+            var xvalues = [];
+            var yvalues = [];
+
+            {% if X %}
+            {% for p in X %}
+                xvalues.push({{p}});
+            {% endfor %}
+            {% for p in Y %}
+                yvalues.push({{p}});
+            {% endfor %}
+            {% endif %}
+            tabla += "<tr><td> X </td><td> Y </td></tr>"
+            for(j = 0; j < size; j++){
+                tabla += "<tr>";
+                tabla += "<td><input value="+xvalues[j]+" style= \"background: transparent;border: none; width: 100%; outline: none;\" type=\"number\" step=\"1e-8\" name=\"X"+j+"\"> </td>";
+                tabla += "<td><input value="+yvalues[j]+" style= \"background: transparent;border: none; width: 100%; outline: none;\" type=\"number\" step=\"1e-8\" name=\"Y"+j+"\"> </td>";
+                tabla += "</tr>";
+            }
+
+            tabla+="</table>";
+            document.getElementById("resultado").innerHTML=tabla;
+        }
+        window.onload = program
+
+        document.getElementById("sizePlus").addEventListener("click", (e) => {
+            size++;
+            document.getElementById("size").innerHTML = size;
+            program();
+        });
+
+        document.getElementById("sizeMinus").addEventListener("click", (e) => {
+            if (size != 0) size--;
+            document.getElementById("size").innerHTML = size;
+            program();
+        });
+    </script>
 
 </body>
 
