@@ -46,6 +46,7 @@ def spline3(xi,yi):
     for j in range(0,n-1,1):
         pseg = a[j]*(x-xi[j])**3 + b[j]*(x-xi[j])**2 + c[j]*(x-xi[j])+ d[j]
         pseg = pseg.expand()
+    
         polynom.append(str(pseg).replace("**","^").replace("*",""))
     
     return(polynom)
@@ -57,12 +58,13 @@ def spline3Ans(xi,fi):
     polBySeg = []
     #print('polynoms by segment: ')
     for seg in range(1,n,1):
-        segments.append(' x = ['+str(xi[seg-1])+','+str(xi[seg])+']')
-        polBySeg.append(str(polynom[seg-1]))
+        
+        segments.append(f"{xi[seg-1]:g} ≤ x ≤ {xi[seg]:g}")
+        polBySeg.append(polynom[seg-1])
 
     #Find the polynom (polBySeg_i) that applies to the segment (segments_i)
     return segments,polBySeg
 
-# xi = np.array([-1 , 0, 3, 4])
-# fi = np.array([15.5, 3, 8, 1])
-# print(spline3Ans(xi,fi))
+xi = np.array([-1 , 0, 3, 4])
+fi = np.array([15.5, 3, 8, 1])
+print(spline3Ans(xi,fi))

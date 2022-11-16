@@ -19,7 +19,8 @@ def polynomNewton(table,n):
     polynom = polynom.replace("- -","+").replace("+ -","-").replace("- +","-").replace("(x - 0.0)","x").replace("(x + 0.0)","x")
     return table,polynom,coef
 
-def newton(n, x, y):
+def newton_interpolation(x, y):
+    n = len(x)
     table = np.zeros((n+1,n+1))
 
     for i in range(n):
@@ -34,4 +35,4 @@ def newton(n, x, y):
     # Divided Difference Table, polynom, coefficients
     return np.array(res).tolist(),polynom,coef
 
-print(newton(4,[-1,0,3,4],[15.5,3,8,1]))
+print(newton_interpolation([1,3,5],[2,4,6]))
