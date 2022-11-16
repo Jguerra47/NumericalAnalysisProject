@@ -1,13 +1,9 @@
-import sympy
-import totalPivoting 
+import numericApp.methods.Interpolation.totalPivoting as totalPivoting
 
 
-def spline2Ans(x,xn,fxn):
+def spline2Ans(xn,fxn):
     inequality =[]
-    functions =[]
-    result =[]
-    des = []
-
+    
     def createInequality():
         for i in range(0,len(xn)-1):
             if(i < len(xn)):
@@ -21,7 +17,6 @@ def spline2Ans(x,xn,fxn):
         j = 0
         z = 0
         for i in inequality:
-            auxj = str(z-j)
             superMatrix[j][z] = i[0][0]**2
             superMatrix[j][z+1] = i[0][0]
             superMatrix[j][z+2] = 1
@@ -51,15 +46,15 @@ def spline2Ans(x,xn,fxn):
         segments = []
         polBySeg = []
         for i in range(0,len(inequality)):
-            polBySeg.append(f"{aux[j]}x^2 + {aux[j+1]}x + {aux[j+2]}")
-            segments.append("x = "+"["+str(inequality[i][0][0])+","+str(inequality[i][1][0])+"]")
+            polBySeg.append(f"{aux[j]:4g}x^2 + {aux[j+1]:4g}x + {aux[j+2]:4g}")
+            segments.append(f"{inequality[i][0][0]:g} ≤ x ≤ {inequality[i][1][0]:g}")
             j += 3
         
         #Find the polynom (polBySeg_i) that applies to the segment (segments_i)
         return segments,polBySeg
     return spline2()
 
-x = sympy.Symbol('x')
+
 xn =[-1,0,3,4]
 fxn =[15.5,3,8,1]
-print(spline2Ans(x,xn,fxn))
+print(spline2Ans(xn,fxn))
