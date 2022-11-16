@@ -1,7 +1,4 @@
-import sympy as sm 
-import numpy as np 
-import math
-import matplotlib.pyplot as plt
+import sympy as sm
 
 x = sm.symbols('x')
 
@@ -61,18 +58,19 @@ def trisection(f,left,right,tol,n):
     else:
         return "bad range",[]
 
-f = sm.ln(sm.sin(x) ** 2+1)-(1/2)    # Función
-x0 = 1                                     # Punto inicial
-x1 = 10
-tol = 1e-7                               # Cambio en cada intervalo
-niter = 20                                 # Número máximo de iteraciones
+# f = sm.ln(sm.sin(x) ** 2+1)-(1/2)    # Función
+# x0 = 1                                     # Punto inicial
+# x1 = 10
+# tol = 1e-7                               # Cambio en cada intervalo
+# niter = 20                                 # Número máximo de iteraciones
 
-ans,matrix = trisection(f,x0,x1,tol,niter)
-print(ans)
-print()
-if len(matrix)>1:
-    print(f"%11s | %15s | %15s | %15s | %15s | %15s | %15s | %15s | %15s"%(matrix[0][0],matrix[0][1],matrix[0][2],matrix[0][3],matrix[0][4],matrix[0][5],matrix[0][6],matrix[0][7],matrix[0][8]))
-    i = 1
-    while (i < len(matrix)):
-        print(f"%11s | %15E | %15E | %15E | %15E | %15E | %15E | %15E | %15E"%(matrix[i][0],matrix[i][1],matrix[i][2],matrix[i][3],matrix[i][4],matrix[i][5],matrix[i][6],matrix[i][7],matrix[i][8]))
-        i += 1
+# ans,matrix = trisection(f,x0,x1,tol,niter)
+# print(ans)
+# print(matrix)
+# print()
+# if len(matrix)>1:
+#     print(f"%11s | %15s | %15s | %15s | %15s | %15s | %15s | %15s | %15s"%(matrix[0][0],matrix[0][1],matrix[0][2],matrix[0][3],matrix[0][4],matrix[0][5],matrix[0][6],matrix[0][7],matrix[0][8]))
+#     i = 1
+#     while (i < len(matrix)):
+#         print(f"%11s | %15E | %15E | %15E | %15E | %15E | %15E | %15E | %15E"%(matrix[i][0],matrix[i][1],matrix[i][2],matrix[i][3],matrix[i][4],matrix[i][5],matrix[i][6],matrix[i][7],matrix[i][8]))
+#         i += 1

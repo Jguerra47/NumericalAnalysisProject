@@ -1,7 +1,4 @@
-import sympy as sm 
-import numpy as np 
-import math
-import matplotlib.pyplot as plt
+import sympy as sm
 
 x = sm.symbols('x')
 
@@ -21,18 +18,18 @@ def newton(f,x0 ,tol ,nIter):
         cont = cont + 1
     
     if(y0 == 0):
-        print(str(x0) + " is a root ")
+        return (str(x0) + " is a root ")
     
     elif(error < tol):
-        print(str(x0) + " is an approximate root with a tolerance of " + str(tol))
+        return (str(x0) + " is an approximate root with a tolerance of " + str(tol))
     
     else:
-        print("Failed in " + str(nIter) + " iterations")
+        return ("Failed in " + str(nIter) + " iterations")
      
 
-f = 2*x
-x0 = -2
-tol = 5*10**-2
-nIter = 10
+# f = 2*x
+# x0 = -2
+# tol = 5*10**-2
+# nIter = 10
 
-newton(f,x0,tol,nIter)
+# print(newton(f,x0,tol,nIter))
