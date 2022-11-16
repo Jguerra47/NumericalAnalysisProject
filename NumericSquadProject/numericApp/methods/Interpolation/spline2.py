@@ -55,6 +55,6 @@ def spline2Ans(xn,fxn):
     return spline2()
 
 
-xn =[-1,0,3,4]
-fxn =[15.5,3,8,1]
-print(spline2Ans(xn,fxn))
+#xn =[-1,0,3,4]
+#fxn =[15.5,3,8,1]
+#print(spline2Ans(xn,fxn))

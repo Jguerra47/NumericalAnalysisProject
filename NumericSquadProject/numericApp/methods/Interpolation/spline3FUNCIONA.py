@@ -1,14 +1,13 @@
 from math import *
 import numpy as np
-import scipy
 
-def matrix(x,y):
+
+def spline3Ans(x,y):
     A = []
     B = []
     n = len(x)
     m = 4*(n-1)
     A = np.zeros([m,m])
-    print(A)
     B = np.zeros([m,1])
     Coef = np.zeros([n-1,4])
     z = 0
@@ -69,19 +68,26 @@ def matrix(x,y):
     B[m-2][0]=0
     inverse= np.linalg.inv(A)
     result = np.dot(inverse,B)
-    newarray = np.zeros((3,4))
-    print(A)
+    newarray = np.zeros((n-1,4))
     toit=0
     for i in range(1, len(newarray)+1):
-        print("as")
         newarray[i-1][0] = result[toit]
         newarray[i-1][1] = result[toit+1]
         newarray[i-1][2] = result[toit+2]
         newarray[i-1][3] = result[toit+3]
         toit = toit+4
-    return newarray
 
-x = [1,2,3,4]
-y = [5,6,7,8]
+    segments = []
+    polBySeg = []
+    print('a')
+    print(newarray)
+    for seg in range(1,n,1):
+        segments.append(f"{x[seg-1]:g} ≤ x ≤ {x[seg]:g}")
+        polBySeg.append(f"{newarray[seg-1,0]:4g}x^3 + {newarray[seg-1,1]:4g}x^2 + {newarray[seg-1,2]:4g}x + {newarray[seg-1,3]:4g}")
+        
+        
+    return segments,polBySeg
 
-print(matrix(x,y))
+x = [1,2,3,4,5,6]
+y = [5,6,7,8,6,7]
+print(spline3Ans(x,y))

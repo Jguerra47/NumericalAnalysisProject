@@ -4,7 +4,7 @@ from numericApp.methods.Interpolation.lagrange import lagrange
 from numericApp.methods.Interpolation.divideddiff import newton_interpolation
 from numericApp.methods.Interpolation.spline1 import spline1Ans
 from numericApp.methods.Interpolation.spline2 import spline2Ans
-from numericApp.methods.Interpolation.spline3 import spline3Ans
+from numericApp.methods.Interpolation.spline3FUNCIONA import spline3Ans
 # Create your views here.
 
 def index(request):

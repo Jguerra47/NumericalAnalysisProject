@@ -39,4 +39,4 @@ def lagrange(x,y):
     #AnsL is each one of lagrange's polynom and polynom is the use of them with its respective coefficients
     return ansL,polynom
 
-print(lagrange([-1,0,3,4],[15.5,3,8,1]))
+#print(lagrange([-1,0,3,4],[15.5,3,8,1]))

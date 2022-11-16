@@ -35,4 +35,4 @@ def newton_interpolation(x, y):
     # Divided Difference Table, polynom, coefficients
     return np.array(res).tolist(),polynom,coef
 
-print(newton_interpolation([1,3,5],[2,4,6]))
+#print(newton_interpolation([1,3,5],[2,4,6]))
