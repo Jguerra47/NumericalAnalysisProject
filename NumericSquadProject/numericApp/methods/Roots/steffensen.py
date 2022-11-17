@@ -3,9 +3,10 @@ import sympy as sm
 x = sm.symbols('x')
 
 def steffensen(f,p0,tol,niter):
+    f = sm.sympify(f)
     count = 0
     error = tol + 1
-    matrix = [["iterations","p","error"]]
+    matrix = []
     matrix.append([count,p0,error])
     while (count < niter and error > tol):
         p1 = float(f.subs(x,p0))

@@ -20,6 +20,7 @@ from numericApp.methods.Roots.falsePosition import falsePosition
 from numericApp.methods.Roots.mulRT import mulRT
 from numericApp.methods.LinearEquations.seidel import seidelAns
 from numericApp.methods.Roots.muller import muller
+from numericApp.methods.Roots.steffensen import steffensen
 from numericApp.methods.Roots.aitken import aitken
 
 
@@ -333,7 +334,31 @@ def muller_ep(request):
     else:
         return render(request, "numericApp/muller.html")
 
+def steffensen_ep(request):
+    if request.method == 'POST':
+        try:
+            ans, procedure = steffensen(request.POST['equation'],
+            float(request.POST['x0']),
+            float(request.POST['tolerance']),
+            float(request.POST['iterations']))
 
+            return render(request, "numericApp/steffensen.html", {
+                "state":1,
+                "ans":ans,
+                "procedure":procedure,
+                "equation":request.POST['equation'],
+
+                "x0":request.POST['x0'],
+                "tolerance":request.POST['tolerance'],
+                "iterations":request.POST['iterations']
+                })
+        except:
+            return render(request, "numericApp/steffensen.html", {
+                "state":2,
+                "error": "error",
+                })
+    else:
+        return render(request, "numericApp/steffensen.html")
 
 def aitken_ep(request):
     if request.method == 'POST':
@@ -360,7 +385,6 @@ def aitken_ep(request):
                 })
     else:
         return render(request, "numericApp/aitken.html")
-
 
 def fixedPoint_ep(request):
     if request.method == 'POST':
