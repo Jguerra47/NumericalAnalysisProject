@@ -6,12 +6,15 @@ from numericApp.methods.Interpolation.spline1 import spline1Ans
 from numericApp.methods.Interpolation.spline2 import spline2Ans
 from numericApp.methods.Interpolation.spline3 import spline3Ans
 from numericApp.methods.Roots.secant import secant
+
+from numericApp.methods.Roots.fixedPoint import fixedPoint
 from numericApp.methods.Roots.bisection import bisection
 from numericApp.methods.Roots.newton import newton
 from numericApp.methods.LinearEquations.crout import croutAns
 from numericApp.methods.LinearEquations.jacobi import jacobi_Ans
 from numericApp.methods.Roots.incrementalSearch import incrementalSearch
 from numericApp.methods.Roots.falsePosition import falsePosition
+from numericApp.methods.Roots.mulRT import mulRT
 
 # Create your views here.
 from math import sqrt
@@ -150,6 +153,7 @@ def secant_ep(request):
     else:
         return render(request, "numericApp/secant.html")
 
+
 def bisection_ep(request):
     if request.method == 'POST':
         ans, procedure = bisection(float(request.POST['xi']),
@@ -181,6 +185,7 @@ def newton_roots_ep(request):
             "ans":ans,
             "procedure":procedure,
             "equation":request.POST['equation'],
+
             "x0":request.POST['x0'],
             "tolerance":request.POST['tolerance'],
             "iterations":request.POST['iterations']
@@ -207,6 +212,47 @@ def false_position_ep(request):
             })
     else:
         return render(request, "numericApp/false-position.html")
+
+def mulRT_ep(request):
+    if request.method == 'POST':
+        ans, procedure = mulRT(request.POST['equation'],
+        float(request.POST['x0']),
+        float(request.POST['tolerance']),
+        float(request.POST['iterations']))
+
+        return render(request, "numericApp/mulRT.html", {
+            "state":1,
+            "ans":ans,
+            "procedure":procedure,
+            "equation":request.POST['equation'],
+
+            "x0":request.POST['x0'],
+            "tolerance":request.POST['tolerance'],
+            "iterations":request.POST['iterations']
+            })
+    else:
+        return render(request, "numericApp/mulRT.html")
+
+def fixedPoint_ep(request):
+    if request.method == 'POST':
+        message, matrix = fixedPoint(request.POST['equation'],
+        float(request.POST['x0']),
+        float(request.POST['tolerance']),
+        request.POST['equation2'],
+        int(request.POST['iterations']))
+
+        return render(request, "numericApp/fixedPoint.html", {
+            "state":1,
+            "ans":message,
+            "matrix":matrix,
+            "equation":request.POST['equation'],
+            "equation2":request.POST['equation2'],
+            "x0":request.POST['x0'],
+            "tolerance":request.POST['tolerance'],
+            "iterations":request.POST['iterations']
+            })
+    else:
+        return render(request, "numericApp/fixedPoint.html")
 
 #LINEAR EQUATIONS
 def crout_ep(request):
@@ -256,7 +302,6 @@ def jacobi_ep(request):
             A.append(q)
         
         x,Tmatrix,iterations,spectralRadious = jacobi_Ans(A,b,float(request.POST['tolerance']),x0,int(request.POST['niter']))
-        
 
         return render(request, "numericApp/jacobi.html", {
             "state":1,

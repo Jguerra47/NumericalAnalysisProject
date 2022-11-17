@@ -1,8 +1,14 @@
 import sympy as sm
+import numpy as np
+
 
 x = sm.symbols('x')
 
 def fixedPoint(f, xi, tol, g, maxIter):
+    f = sm.sympify(f)
+    g = sm.sympify(g)
+    if(type(f.subs(x, xi)) is sm.core.numbers.ComplexInfinity):
+        return "complex numbers not supported",[]
     if(float(f.subs(x,xi)) == 0):
         return(str(xi) + " is a root"),[]
 
@@ -20,9 +26,11 @@ def fixedPoint(f, xi, tol, g, maxIter):
             xi = xn
 
         if error < tol:
-            return(str(round(xi,8)) + " is root with tolerance " + str(tol)),matrix
+            message = str(round(xi,8)) + " is root with tolerance " + str(tol)
+            return message,matrix
         else:
-            return("No root was found"),matrix
+            message = "No root was found"
+            return message,matrix
 
 f =  sm.sympify("log(sin(x)^2 + 1)-(1/2)-x")
 g =  sm.sympify("log(sin(x)^2 + 1)-(1/2)")
