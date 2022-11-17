@@ -18,6 +18,9 @@ from numericApp.methods.Roots.incrementalSearch import incrementalSearch
 from numericApp.methods.Roots.falsePosition import falsePosition
 from numericApp.methods.Roots.mulRT import mulRT
 
+from numericApp.methods.LinearEquations.lu import LUGauss
+from numericApp.methods.LinearEquations.luParcial import lu_decomposition
+
 # Create your views here.
 from math import sqrt
 
@@ -368,6 +371,7 @@ def cholesky_ep(request):
         stages, x = choleskyAns(A,b)
 
         return render(request, "numericApp/cholesky.html", {
+
             "state":1,
             "A":A,
             "b":b,
@@ -377,3 +381,60 @@ def cholesky_ep(request):
             })
     else:
         return render(request, "numericApp/cholesky.html")
+        
+def simple_LU_ep(request):
+    if request.method == 'POST':
+        A = []
+        b = []
+
+        size= int(sqrt(len(request.POST)))
+        for i in range(size):
+            b.append([float(request.POST["B"+str(i)])])
+
+        for i in range(size):
+            q = []
+            for j in range(size):
+                q.append(float(request.POST["A"+str(i)+str(j)]))
+            A.append(q)
+        
+        stages, x = LUGauss(A, b)
+
+        return render(request, "numericApp/simple_LU.html", {
+            "state":1,
+            "A":A,
+            "b":b,
+            "size":size,
+            "stages":stages,
+            "x":x
+            })
+    else:
+        return render(request, "numericApp/simple_LU.html")
+
+def partial_LU_ep(request):
+    if request.method == 'POST':
+        A = []
+        b = []
+
+        size= int(sqrt(len(request.POST)))
+        for i in range(size):
+            b.append([float(request.POST["B"+str(i)])])
+
+        for i in range(size):
+            q = []
+            for j in range(size):
+                q.append(float(request.POST["A"+str(i)+str(j)]))
+            A.append(q)
+        
+        stages, P, x = lu_decomposition(A, b)
+
+        return render(request, "numericApp/partial_LU.html", {
+            "state":1,
+            "A":A,
+            "b":b,
+            "size":size,
+            "P":P,
+            "stages":stages,
+            "x":x
+            })
+    else:
+        return render(request, "numericApp/partial_LU.html")
