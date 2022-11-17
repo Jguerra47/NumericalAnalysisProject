@@ -13,6 +13,7 @@ from numericApp.methods.Roots.newton import newton
 from numericApp.methods.LinearEquations.crout import croutAns
 from numericApp.methods.LinearEquations.jacobi import jacobi_Ans
 from numericApp.methods.Roots.incrementalSearch import incrementalSearch
+from numericApp.methods.Roots.mulRT import mulRT
 
 # Create your views here.
 from math import sqrt
@@ -190,6 +191,26 @@ def newton_roots_ep(request):
             })
     else:
         return render(request, "numericApp/newton-roots.html")
+
+def mulRT_ep(request):
+    if request.method == 'POST':
+        ans, procedure = mulRT(request.POST['equation'],
+        float(request.POST['x0']),
+        float(request.POST['tolerance']),
+        float(request.POST['iterations']))
+
+        return render(request, "numericApp/mulRT.html", {
+            "state":1,
+            "ans":ans,
+            "procedure":procedure,
+            "equation":request.POST['equation'],
+
+            "x0":request.POST['x0'],
+            "tolerance":request.POST['tolerance'],
+            "iterations":request.POST['iterations']
+            })
+    else:
+        return render(request, "numericApp/mulRT.html")
 
 def fixedPoint_ep(request):
     if request.method == 'POST':

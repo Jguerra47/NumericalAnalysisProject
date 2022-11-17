@@ -3,6 +3,7 @@ import sympy as sm
 x = sm.symbols('x')
 
 def mulRT(f, xi, tol, nIter):
+    f = sm.sympify(f)
     dx = sm.diff(f,x)
     dx2 = sm.diff(dx,x)
 

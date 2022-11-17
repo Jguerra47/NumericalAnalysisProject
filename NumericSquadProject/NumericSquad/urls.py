@@ -35,6 +35,7 @@ urlpatterns = [
     path('bisection', views.bisection_ep),
     path('newton-roots', views.newton_roots_ep),
     path('fixedPoint', views.fixedPoint_ep),
+    path('mulRT', views.mulRT_ep),
 
 
     #Linear equations
