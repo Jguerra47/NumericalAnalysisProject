@@ -166,6 +166,8 @@
         var yvalues = [12.135, 6.3678, -4.61, 2.085];
 
         {% if X %}
+        xvalues = []
+        yvalues = []
         {% for p in X %}
             xvalues.push({{p}});
         {% endfor %}
