@@ -2,8 +2,8 @@ import sympy as sm
 
 x = sm.symbols('x')
 
-def falseRule(f, xi, xf, tol, niter):
-    
+def falsePosition(f, xi, xf, tol, niter):
+    f = sm.sympify(f)
     error = 1000
     if(float(f.subs(x,xi))*float(f.subs(x,xf)) == 0):
         if(float(f.subs(x,xi)) == 0):
@@ -40,9 +40,9 @@ def falseRule(f, xi, xf, tol, niter):
             iter = iter +1
 
         if(float(f.subs(x,pm)) == 0):
-            return(str(round(pm,8)) + " is root and was found in the iteration " + str(iter)),matrix
+            return(str(round(pm,8)) + " is root and was found in the iteration " + str(iter-1)),matrix
         else: 
-            return(str(round(pm,8)) + " is root with tolerance " + str(tol) + " and was found in the iteration " + str(iter)),matrix
+            return(str(round(pm,8)) + " is root with tolerance " + str(tol) + " and was found in the iteration " + str(iter-1)),matrix
 
 # f = sm.sympify("log(sin(x)^2 + 1)-(1/2)")
 # xi = 0     
