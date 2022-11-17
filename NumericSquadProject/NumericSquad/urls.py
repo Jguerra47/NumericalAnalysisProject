@@ -41,6 +41,7 @@ urlpatterns = [
     #Linear equations
     path('crout', views.crout_ep),
     path('jacobi', views.jacobi_ep),
+    path('doolittle',views.doolittle_ep)
 ]
 
 urlpatterns += staticfiles_urlpatterns()

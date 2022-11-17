@@ -1,6 +1,6 @@
 import numpy as np
 from prettytable import PrettyTable
-from Sustitution.sustitutions import *
+from numericApp.methods.LinearEquations.Sustitution.sustitutions import *
 
 def doolittle(A):
     n = len(A)
@@ -58,10 +58,10 @@ def doolittleAns(A,b):
     # ans.add_row(["%.5f"%i for i in x])
     # print("\nAnswer: ")
     # print(ans)
-
+    return stages,x
 #Fill data
 A = np.array([[4,-1,0,3],[1,15.5,3,8],[0,-1.3,-4,1.1],[14,5,-2,30]])
 b = np.array([[1],[1],[1],[1]], dtype ='float')
 
-doolittleAns(A,b)
+print(doolittleAns(A,b))
 
