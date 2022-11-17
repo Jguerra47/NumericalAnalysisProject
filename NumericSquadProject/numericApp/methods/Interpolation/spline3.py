@@ -2,13 +2,15 @@ import numpy as np
 import sympy as sym
 
 def spline3(xi,yi):
+    print("DEBUGGING ___________________________")
     n = len(xi)
     
     h = np.zeros(n-1, dtype = float)
     for j in range(0,n-1,1):
         h[j] = xi[j+1] - xi[j]
  
-    A = np.zeros(shape=(n-2,n-2), dtype = float)
+    A = np.zeros(shape=(n-1,n-1), dtype = float)
+    print(A)
     B = np.zeros(n-2, dtype = float)
     S = np.zeros(n, dtype = float)
     A[0,0] = 2*(h[0]+h[1])
@@ -65,6 +67,6 @@ def spline3Ans(xi,fi):
     #Find the polynom (polBySeg_i) that applies to the segment (segments_i)
     return segments,polBySeg
 
-xi = np.array([-1 , 0, 3, 4])
-fi = np.array([15.5, 3, 8, 1])
+xi = np.array([1, 2, 3, 7])
+fi = np.array([4, 5, 6, 8])
 print(spline3Ans(xi,fi))

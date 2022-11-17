@@ -1,7 +1,6 @@
 import sympy as sm 
 import numpy as np 
 import math
-import matplotlib.pyplot as plt
 
 x = sm.symbols('x')
 

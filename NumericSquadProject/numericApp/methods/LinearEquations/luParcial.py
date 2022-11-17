@@ -22,7 +22,7 @@ def prettyPrint(name,matrix):
     table.add_column("",[f"{name}{i}" for i in range(n)])
     print(table)
 
-def lu_decomposition(A):
+def lu_decomposition(A,b):
     n = len(A)
                                                                                                                                                                                                    
     L = [[0] * n for i in range(n)]
@@ -30,7 +30,7 @@ def lu_decomposition(A):
                                                                                                                                                                                        
     P = pivot_matrix(A)
     PA = np.dot(P, A)
-                                                                                                                                                                                              
+    stages = []                                                                                                                                                                       
     for j in range(n):                                                                                                                                                                                               
         L[j][j] = 1.0
 
@@ -42,23 +42,22 @@ def lu_decomposition(A):
             s2 = sum(U[k][j] * L[i][k] for k in range(j))
             L[i][j] = (PA[i][j] - s2) / U[j][j]
 
-        print(f"stage {j+1}")
-        prettyPrint("L",L)
-        prettyPrint("U",U)
-    return (P, L, U)
+        # print(f"stage {j+1}")
+        # prettyPrint("L",L)
+        # prettyPrint("U",U)
+        stages.append([L,U])
+    n = len(A)
+    z=sustProg(L,b,n)
+    x=sustRegr(U,z,n)
+    return stages,P,x
 
 
 A = [[4,-1,0,3],[1,15.5,3,8],[0,-1.3,-4,1.1],[14,5,-2,30]]
 b = [[1],[1],[1],[1]]
-n = len(A)
-P, L, U = lu_decomposition(A)
+stages,P,x = lu_decomposition(A,b)
 
-z=sustProg(L,b,n)
-x=sustRegr(U,z,n)
-
-
-table = PrettyTable()
-table.field_names = [f"x{i}" for i in range(len(A))]
-table.add_row(x)
-print("\nX:")
-print(table)
+# table = PrettyTable()
+# table.field_names = [f"x{i}" for i in range(len(A))]
+# table.add_row(x)
+# print("\nX:")
+# print(table)
