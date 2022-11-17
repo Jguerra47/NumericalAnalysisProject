@@ -1,5 +1,5 @@
 import numpy as np
-from Sustitution.sustitutions import *
+from numericApp.methods.LinearEquations.Sustitution.sustitutions import *
 from prettytable import PrettyTable
 
 def pivot_matrix(M):
