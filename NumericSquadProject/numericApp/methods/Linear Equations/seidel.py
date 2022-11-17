@@ -49,26 +49,15 @@ def minus(x1,x0):
 def gaussSeidel(niter,tol,x0):
     cont = 0
     dispersion = tol + 1
-    major.append(0)
-    iters.append(0)
-    for i in range(0,len(x0)):
-        totalResult[i].append(x0[i]) 
+    matrix = []
+    matrix.append([0,0] + x0)
     while(dispersion > tol and cont < niter ):
         x1 = calculateNewSeidel(x0)
         dispersion = norm (minus(x1, x0))
-        major.append("%e" % dispersion)
         x0 = x1
         cont = cont +1
-        iters.append(cont)
-    if (dispersion < tol):
-        table.add_column("n",iters)
-        for i in range(0,len(totalResult)):
-            table.add_column("x"+str(i),totalResult[i])
-        table.add_column("major error",major)
-        print(table)
-        return [ col[-1] for col in totalResult ] 
-    else:
-        print("Failed!")
+        matrix.append([cont,dispersion]+x1)
+    return [ matrix[-1][2+i] for i in range(len(matrix[-1])-2) ],matrix
 
 
 x = gaussSeidel(100,10**-7,initialValues)
