@@ -6,8 +6,10 @@ from numericApp.methods.Interpolation.spline1 import spline1Ans
 from numericApp.methods.Interpolation.spline2 import spline2Ans
 from numericApp.methods.Interpolation.spline3 import spline3Ans
 from numericApp.methods.Roots.secant import secant
+from numericApp.methods.Roots.fixedPoint import fixedPoint
 from numericApp.methods.LinearEquations.crout import croutAns
 from numericApp.methods.LinearEquations.jacobi import jacobi_Ans
+
 # Create your views here.
 from math import sqrt
 
@@ -127,6 +129,28 @@ def secant_ep(request):
     else:
         return render(request, "numericApp/secant.html")
 
+#(f, xi, tol, g, maxIter)
+def fixedPoint_ep(request):
+    if request.method == 'POST':
+        message, matrix = fixedPoint(request.POST['equation'],
+        float(request.POST['x0']),
+        float(request.POST['tolerance']),
+        request.POST['equation2'],
+        int(request.POST['iterations']))
+
+        return render(request, "numericApp/fixedPoint.html", {
+            "state":1,
+            "ans":message,
+            "matrix":matrix,
+            "equation":request.POST['equation'],
+            "equation2":request.POST['equation2'],
+            "x0":request.POST['x0'],
+            "tolerance":request.POST['tolerance'],
+            "iterations":request.POST['iterations']
+            })
+    else:
+        return render(request, "numericApp/fixedPoint.html")
+
 #LINEAR EQUATIONS
 def crout_ep(request):
     if request.method == 'POST':
@@ -175,7 +199,6 @@ def jacobi_ep(request):
             A.append(q)
         
         x,Tmatrix,iterations,spectralRadious = jacobi_Ans(A,b,float(request.POST['tolerance']),x0,int(request.POST['niter']))
-        
 
         return render(request, "numericApp/jacobi.html", {
             "state":1,
