@@ -11,6 +11,7 @@ from numericApp.methods.Roots.fixedPoint import fixedPoint
 from numericApp.methods.Roots.bisection import bisection
 from numericApp.methods.Roots.newton import newton
 from numericApp.methods.LinearEquations.crout import croutAns
+from numericApp.methods.LinearEquations.cholesky import choleskyAns
 from numericApp.methods.LinearEquations.jacobi import jacobi_Ans
 from numericApp.methods.LinearEquations.doolittle import doolittleAns
 from numericApp.methods.Roots.incrementalSearch import incrementalSearch
@@ -348,3 +349,31 @@ def doolittle_ep(request):
             })
     else:
         return render(request, "numericApp/doolittle.html")
+    
+def cholesky_ep(request):
+    if request.method == 'POST':
+        A = []
+        b = []
+
+        size= int(sqrt(len(request.POST)))
+        for i in range(size):
+            b.append([float(request.POST["B"+str(i)])])
+
+        for i in range(size):
+            q = []
+            for j in range(size):
+                q.append(float(request.POST["A"+str(i)+str(j)]))
+            A.append(q)
+        
+        stages, x = choleskyAns(A,b)
+
+        return render(request, "numericApp/cholesky.html", {
+            "state":1,
+            "A":A,
+            "b":b,
+            "size":size,
+            "stages":stages,
+            "x":x
+            })
+    else:
+        return render(request, "numericApp/cholesky.html")
