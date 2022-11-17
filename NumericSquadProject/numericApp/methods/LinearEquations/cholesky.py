@@ -28,21 +28,6 @@ def cholesky(A):
             for p in range(k):
                 suma3+= L[k][p]*U[p][j]
             U[k][j]= (A[k][j]-suma3)/(L[k][k])
-        # print("\nStage ",  k+1, ":" )
-
-        # print("\nMatrix L:")
-        # table = PrettyTable()
-        # table.field_names = [f"x{i}" for i in range(n)]
-        # for row in L:
-        #     table.add_row(['({0.real:.4f} + {0.imag:.2f}i)'.format(i) for i in row])
-        # print(table)
-        
-        # print("\nMatrix U:")
-        # table = PrettyTable()
-        # table.field_names = [f"x{i}" for i in range(n)]
-        # for row in U:
-        #     table.add_row(['({0.real:.4f} + {0.imag:.2f}i)'.format(i) for i in row])
-        # print(table)
         stages.append([L,U])
     return stages
 
