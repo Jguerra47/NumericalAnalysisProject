@@ -29,7 +29,7 @@ SECRET_KEY = 'django-insecure-f0(&+!^sgggc0)z2-wn=)&a)#8i*nl%&2b5+nl!@w4qikcospt
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['littlecrow.pythonanywhere.com','127.0.0.1']
+ALLOWED_HOSTS = ['littlecrow.pythonanywhere.com','127.0.0.1', 'localhost']
 
 
 # Application definition

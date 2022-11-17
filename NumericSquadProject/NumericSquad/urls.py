@@ -34,6 +34,7 @@ urlpatterns = [
     path('incremental-search', views.incremental_search_ep),
     path('bisection', views.bisection_ep),
     path('newton-roots', views.newton_roots_ep),
+    path('false-position', views.false_position_ep),
 
     #Linear equations
     path('crout', views.crout_ep),

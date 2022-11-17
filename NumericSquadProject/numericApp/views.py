@@ -11,6 +11,8 @@ from numericApp.methods.Roots.newton import newton
 from numericApp.methods.LinearEquations.crout import croutAns
 from numericApp.methods.LinearEquations.jacobi import jacobi_Ans
 from numericApp.methods.Roots.incrementalSearch import incrementalSearch
+from numericApp.methods.Roots.falsePosition import falsePosition
+
 # Create your views here.
 from math import sqrt
 
@@ -185,6 +187,26 @@ def newton_roots_ep(request):
             })
     else:
         return render(request, "numericApp/newton-roots.html")
+
+def false_position_ep(request):
+    if request.method == 'POST':
+        ans, procedure = falsePosition(request.POST['equation'],
+        float(request.POST['xi']),
+        float(request.POST['xf']),
+        float(request.POST['tolerance']),
+        int(request.POST['iterations']))
+
+        return render(request, "numericApp/false-position.html", {
+            "state":1,
+            "ans":ans,
+            "procedure":procedure,
+            "equation":request.POST['equation'],
+            "xi":request.POST['xi'],
+            "xf":request.POST['xf'],
+            "tolerance":request.POST['tolerance']
+            })
+    else:
+        return render(request, "numericApp/false-position.html")
 
 #LINEAR EQUATIONS
 def crout_ep(request):
