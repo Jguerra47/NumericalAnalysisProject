@@ -37,6 +37,7 @@ urlpatterns = [
     path('false-position', views.false_position_ep),
     path('fixedPoint', views.fixedPoint_ep),
     path('mulRT', views.mulRT_ep),
+    path('muller', views.muller_ep),
 
     #Linear equations
     path('crout', views.crout_ep),
