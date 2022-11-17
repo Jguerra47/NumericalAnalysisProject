@@ -1,7 +1,8 @@
 import numpy as np
 from cmath import sqrt
 from prettytable import PrettyTable
-from Sustitution.sustitutionsComplex import *
+from numericApp.methods.LinearEquations.Sustitution.sustitutionsComplex import *
+# from Sustitution.sustitutionsComplex import *
 
 def cholesky(A):
     n = len(A)
