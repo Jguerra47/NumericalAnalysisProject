@@ -33,7 +33,8 @@ urlpatterns = [
     path('secant', views.secant_ep),
 
     #Linear equations
-    path('crout', views.crout_ep)
+    path('crout', views.crout_ep),
+    path('jacobi', views.jacobi_ep),
 ]
 
 urlpatterns += staticfiles_urlpatterns()

@@ -1,0 +1,320 @@
+{% extends 'aux/base.html' %}
+{%load static%}
+
+{% block title %}
+<title>Little Crow - Jacobi</title>
+{% endblock title %}
+
+{% block content %}
+<nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+        <i class="fa fa-bars"></i>
+    </button>
+    <h2>Jacobi</h2>
+    <ul class="navbar-nav ml-auto">
+        
+    </ul>
+</nav>
+
+<!-- Begin Page Content -->
+<div class="container-fluid">
+    <div class="row">
+        <!-- INPUT CARD -->
+        <div style="width:100%;">
+            
+            <div class="card shadow mb-4">
+                <div
+                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">Input</h6>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                    <!-- AQUI VA TODO EL CONTENT INPUT-->                   
+                    <form action="jacobi" method="POST" onsubmit="">
+                        {% csrf_token %}
+                        <p style="text-align:center;">Size</p><hr class="sidebar-divider">
+                        <div class="container text-center">
+                            <div class="row justify-content-center">
+                                
+                                <div class="col-5">
+                                    <a id="sizeMinus" class="btn btn-primary btn-icon-split">
+                                        <span class="icon text-white-5">
+                                            -
+                                        </span>
+                                    </a>
+                                </div>
+                                
+                                <div class="col-0">
+                                    <label id="size">
+                                        {% if size %}
+                                            {{size}}
+                                        {% else %}
+                                            4
+                                        {% endif %}
+                                    </label>
+                                </div>
+
+                                <div class="col-5">
+                                    <a id="sizePlus" class="btn btn-primary btn-icon-split">
+                                        <span class="icon text-white-5">
+                                            +
+                                        </span>
+                                    </a>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        <br>
+
+                        <div class="mb-3">
+                            <label for="tolerance" class="form-label">Tolerance:</label>
+                            <input
+                            value={% if tolerance %}"{{tolerance}}"{% else %}"1e-7"{% endif %}
+                            type="number" step="1e-8" class="form-control" id="tolerance" placeholder="Insert a tolerance" name="tolerance">
+                        </div>
+                        <div class="mb-3">
+                            <label for="niter" class="form-label">Iterations:</label>
+                            <input
+                            value={% if niter %}"{{niter}}"{% else %}"100"{% endif %}
+                            type="number" class="form-control" id="niter" placeholder="Insert a value" name="niter">
+                        </div>
+
+                        <div id="resultado"></div>
+                        
+                        <div class="container text-center">
+                            <div class="row justify-content-center">
+                                <div class="col-8">
+                                    <a class="btn btn-primary btn-icon-split">
+                                        <input style="color:white;" class="icon text-white-5" type="submit" value="Submit">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <!-- AQUI TERMINA TODO EL CONTENT INPUT-->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- RESULT CARD -->
+    {% if state == 1%}
+    <div style="width:100%">
+        
+        <div class="card shadow mb-4">
+            <!-- Card Header - Dropdown -->
+            <div
+                class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">Results</h6>
+            </div>
+            <!-- Card Body -->
+            <div class="card-body">
+                {% comment %} {% for stage in stages%}
+                    <h5 style="text-align:center">Stage {{forloop.counter}}</h5>
+                    <div style="text-align:center">
+                        {% for element in stage %}
+                            <div style="font-size:100%">
+                                \({% if forloop.last %}U{% else %}L{% endif %}=\begin{bmatrix}
+                                    {% for i in element %}
+                                        {% for j in i %}
+                                            {% if j < 1e5 and j > 0.001 %}                                              
+                                                {{j|floatformat:"-4" }}
+                                            {% elif  j > -1e5 and j < -0.001%}
+                                                {{j|floatformat:"-4" }}
+                                            {% elif  j == 0 %}
+                                                {{j|floatformat:"-4" }}
+                                            {% else %}
+                                                {{ j|stringformat:".4e" }}
+                                            {% endif %}
+
+                                            {% if not forloop.last %}
+                                                &
+                                            {% endif %}
+                                        {% endfor %}
+
+                                        {% if not forloop.last %}
+                                            \\\
+                                        {% endif %}
+                                    {% endfor %}
+                                \end{bmatrix}\)
+                            </div>
+                            <br>
+                        {% endfor %}
+                    </div>
+                    <hr class="sidebar-divider">
+                {% endfor %} {% endcomment %}
+
+                <h5 style="text-align:center">Answer</h5>
+                <div style="text-align:center;">
+                    <table class="table table-bordered table-secondary">
+                        <p>
+                            \(T = \begin{bmatrix}
+                                {% for i in Tmatrix %}
+                                    {% for j in i %}
+                                        {% if j < 1e5 and j > 0.001 %}                                              
+                                            {{j|floatformat:"-4" }}
+                                        {% elif  j > -1e5 and j < -0.001%}
+                                            {{j|floatformat:"-4" }}
+                                        {% elif  j == 0 %}
+                                            {{j|floatformat:"-4" }}
+                                        {% else %}
+                                            {{ j|stringformat:".4e" }}
+                                        {% endif %}
+
+                                        {% if not forloop.last %}
+                                        &
+                                        {% endif %}
+                                    {% endfor %}
+                                    {% if not forloop.last %}
+                                    \\\
+                                    {% endif %}
+                                {% endfor %}
+                            \end{bmatrix}\)
+                        </p>
+                        <p>
+                            \(C = \begin{bmatrix}
+                                {% for j in x %}
+                                    {% if j < 1e5 and j > 0.001 %}                                              
+                                        {{j|floatformat:"-4" }}
+                                    {% elif  j > -1e5 and j < -0.001%}
+                                        {{j|floatformat:"-4" }}
+                                    {% elif  j == 0 %}
+                                        {{j|floatformat:"-4" }}
+                                    {% else %}
+                                        {{ j|stringformat:".4e" }}
+                                    {% endif %}
+
+                                    {% if not forloop.last %}
+                                    \\\
+                                    {% endif %}
+                                {% endfor %}
+                            \end{bmatrix}\)
+                        </p>
+                        <p>
+                            \(\rho (T) =                        
+                                {{spectralRadious}}
+                            \)
+                        </p>
+                        <p>
+                            \(Iterations = \begin{bmatrix}
+                            iterations & Error &
+                            {% for i in x %} 
+                            x{{forloop.counter0}}
+                            {% if not forloop.last %}
+                            &
+                            {% endif %}
+                            {% endfor %} \\\
+
+                            {% for i in iterations %}
+                                {% for j in i %}
+                                    {% if j < 1e5 and j > 0.001 %}                                              
+                                        {{j|floatformat:"-4" }}
+                                    {% elif  j > -1e5 and j < -0.001%}
+                                        {{j|floatformat:"-4" }}
+                                    {% elif  j == 0 %}
+                                        {{j|floatformat:"-4" }}
+                                    {% else %}
+                                        {{ j|stringformat:".4e" }}
+                                    {% endif %}
+
+                                    {% if not forloop.last %}
+                                    &
+                                    {% endif %}
+                                {% endfor %}
+                                {% if not forloop.last %}
+                                \\\
+                                {% endif %}
+                            {% endfor %}
+                            \end{bmatrix}\)
+                        </p>
+                        
+                    </table>
+                </div>                                   
+            </div>
+        </div>
+    {% endif %}
+
+
+    <!-- This scripts handles representation of the matrix and the vector for the method -->
+    <script type="text/javascript">
+        let size = 4;
+        {% if size %}
+        size = {{size}};
+        {% endif %}
+        const program = () => {
+            var Ai = [[4, -1, 0, 3,0,0,0,0],
+                    [1, 15.5, 3, 8,0,0,0,0],
+                    [0,-1.3,-4,1.1,0,0,0,0],
+                    [14,5,-2,30,0,0,0,0],
+                    [0,0,0,0,0,0,0,0],
+                    [0,0,0,0,0,0,0,0],
+                    [0,0,0,0,0,0,0,0],
+                    [0,0,0,0,0,0,0,0]];
+
+            var bi = [[1],[1],[1],[1],[1],[1],[1],[1]];
+
+            var x0 = [[0],[0],[0],[0],[0],[0],[0],[0]];
+
+            {% if A %}
+            A = []
+            {% for e in Ai %}
+                Ai.push({{e}});
+            {% endfor %}
+            {% for e in b%}
+                bi.push({{e}});
+            {% endfor %}
+            {% for e in x0%}
+                x0.push({{e}});
+            {% endfor %}
+            {% endif %}
+
+
+            var matrixHtml = "<div style=\"flex: 84\"><h4 style=\"text-align:center;\">A</h4><table class=\"table table-bordered table-secondary\" >";
+                for(i = 0; i < size; i++){
+                    matrixHtml += "<tr>";
+                    for (j = 0; j < size; j++){
+                        matrixHtml += "<td><input value="+ Ai[i][j] +" style= \"background: transparent;border: none; width: 100%; outline: none;\" type=\"number\" step=\"1e-8\" name=\"A"+i+j+"\"> </td>";
+                    }
+                    matrixHtml += "</tr>";
+                }
+    
+                matrixHtml+="</table></div>";
+
+
+            var vectorHtml = "<div style=\"flex: 16\"><h4 style=\"text-align:center;\">B</h4><table class=\"table table-bordered table-secondary\">";
+
+            var vectorHtmlX0 = "<div style=\"flex: 16\"><h4 style=\"text-align:center;\">X0</h4><table class=\"table table-bordered table-secondary\">";
+            
+            for(j = 0; j < size; j++){
+                vectorHtml += "<tr>";
+                vectorHtml += "<td><input value="+ bi[j][0] +" style= \"background: transparent;border: none; width: 100%; outline: none;\" type=\"number\" step=\"1e-8\" name=\"B"+j+"\"> </td>";
+                vectorHtml += "</tr>";
+
+                vectorHtmlX0 += "<tr>";
+                vectorHtmlX0 += "<td><input value="+ x0[j][0] +" style= \"background: transparent;border: none; width: 100%; outline: none;\" type=\"number\" step=\"1e-8\" name=\"x0"+j+"\"> </td>";
+                vectorHtmlX0 += "</tr>";
+            }
+
+            vectorHtml+="</table></div>"; 
+
+            var block = "<div style='display:flex; gap: 20px; '>"+matrixHtml+vectorHtml+vectorHtmlX0+"</div>"
+            
+            document.getElementById("resultado").innerHTML=block;
+        }
+        window.onload = program
+
+        document.getElementById("sizePlus").addEventListener("click", (e) => {
+            if (size != 8) size++;
+            else alert("You cannot increase the size above 8 for webapp health. If you want to try with higher values use our script.");
+            document.getElementById("size").innerHTML = size;
+            program();
+        });
+
+        document.getElementById("sizeMinus").addEventListener("click", (e) => {
+            if (size != 2) size--;
+            else alert("You cannot reduce the size above 2");
+            document.getElementById("size").innerHTML = size;
+            program();
+        });
+    </script>
+{% endblock content %}

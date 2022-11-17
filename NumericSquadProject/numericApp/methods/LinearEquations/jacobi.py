@@ -18,8 +18,9 @@ def calculateNewJacobi(x0,a,b):
         sumi = 0
         for j in range(0,n):
             if(j != i):
-                sumi = sumi + a[i][j]*x0[j]
-        value = (b[i]- sumi)/a[i][i]
+                
+                sumi = sumi + a[i][j]*x0[j][0]
+        value = (b[i][0]- sumi)/a[i][i]
         x.append(value)
     return x
  
@@ -30,7 +31,7 @@ def norm(x):
 def minus(x1,x0):
     x = []
     for i in range(0,len(x1)):
-        x.append(x1[i]-x0[i])
+        x.append(x1[i]-x0[i][0])
     return x
     
 def jacobi(niter,tol,x0,a,b):
@@ -41,17 +42,17 @@ def jacobi(niter,tol,x0,a,b):
     while(dispersion > tol and cont < niter ):
         x1 = calculateNewJacobi(x0,a,b)
         dispersion = norm (minus(x1, x0)) 
-        x0 = x1
+        x0 = [[i] for i in x1]
         cont = cont +1
         matrix.append([cont,dispersion] + x1)
     return [ matrix[-1][2+i] for i in range(len(matrix[-1])-2) ],matrix
 
-def jacobi_Ans(a,b,initialValues):
+def jacobi_Ans(a,b,tol,initialValues,itera):
     n = len(a)
-    x,matrix = jacobi(100,1e-7,initialValues,a,b)
+    x,iterations = jacobi(itera,tol,initialValues,a,b)
     
     # print("matrix")
-    # print(matrix)
+    # print(iterations)
 
     D = np.diag((np.diag(a)))
     L = np.tril(a,-1)
@@ -67,22 +68,22 @@ def jacobi_Ans(a,b,initialValues):
     lista = []
     for i in range(len(valor1)):
         lista.append(abs(valor1[i]))
-    value = max(lista[0])
+    spectralRadious = max(lista[0])
     
     # print("The spectral radius is: ")
-    # print(value)
+    # print(spectralRadious)
     
-    # table = PrettyTable()
-    # table.field_names = [f"x{i}" for i in range(n)]
-    # table.add_row(x)
-    # print("\nX:")
-    # print(table)
-    return x,Tmatrix,matrix,value
+    table = PrettyTable()
+    table.field_names = [f"x{i}" for i in range(n)]
+    table.add_row(x)
+    print("\nX:")
+    print(table)
+    return x,Tmatrix,iterations,spectralRadious
 
 a = [[4, -1,   0,  3],
     [1, 15.5, 3,  8],
     [0, -1.3, -4, 1.1],
     [14, 5,   -2, 30]]
-b = [1,1,1,1]
-initialValues = [0,0,0,0]
-jacobi_Ans(a,b,initialValues)
+b = [[1],[1],[1],[1]]
+initialValues = [[0],[0],[0],[0]]
+jacobi_Ans(a,b,1e-7,initialValues,100)
