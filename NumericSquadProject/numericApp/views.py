@@ -125,7 +125,10 @@ def splines_ep(request):
             for i in range(size):
                 X.append(float(request.POST["X"+str(i)]))
                 Y.append(float(request.POST["Y"+str(i)]))
-            
+
+            Y = [xd for _, xd in sorted(zip(X, Y), key=lambda pair: pair[0])]
+            X.sort()
+
             segments1,polBySeg1 = spline1Ans(X,Y)
             segments2,polBySeg2 = spline2Ans(X,Y)
             segments3,polBySeg3 = spline3Ans(X,Y)
