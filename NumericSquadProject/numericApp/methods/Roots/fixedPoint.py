@@ -1,36 +1,33 @@
-import sympy as sm 
-import numpy as np 
-import math
-import matplotlib.pyplot as plt
+import sympy as sm
 
 x = sm.symbols('x')
 
 def fixedPoint(f, xi, tol, g, maxIter):
-    if(f.subs(x,xi) == 0):
-        print(str(xi) + " is a root")
+    if(float(f.subs(x,xi)) == 0):
+        return(str(xi) + " is a root"),[]
 
     else:
         ite = 0
         error = tol + 1
-
-        while(error >= tol and ite < maxIter):
-            xn = g.subs(x,xi)
-
+        matrix = []
+        while(error >= tol and ite <= maxIter):
+            xn = float(g.subs(x,xi))
+            fxi = float(f.subs(x,xi))
             error = abs(xn - xi)
-
+            matrix.append([ite,xi,xn,fxi,error])
+            print(matrix[-1])
             ite += 1
-
             xi = xn
 
         if error < tol:
-            print(str(round(xi,4)) + " is root with tolerance " + str(tol) + " in " + str(ite) + " iteration")
+            return(str(round(xi,8)) + " is root with tolerance " + str(tol)),matrix
         else:
-            print("No root was found")
+            return("No root was found"),matrix
 
-f =  sm.exp(-x) - x
-g =  sm.exp(-x)
-xi = 0.5
-tol = 0.005
+f =  sm.sympify("log(sin(x)^2 + 1)-(1/2)-x")
+g =  sm.sympify("log(sin(x)^2 + 1)-(1/2)")
+xi = -0.5
+tol = 1e-7
 niter = 100
 
 fixedPoint(f, xi,tol ,g, niter)

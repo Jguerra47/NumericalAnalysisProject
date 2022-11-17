@@ -9,6 +9,7 @@ def crout(A):
     for i, j in zip(range(n), range(n)): U[i][j] = 1
     for i, j in zip(range(n), range(n)): L[i][j] = 1
 
+    stages = []
     for k in range(n):
         suma1 = 0.0
         for p in range(0,k):
@@ -24,36 +25,44 @@ def crout(A):
             for p in range(k):
                 suma3 += L[k][p]*U[p][j]
             U[k][j]= (A[k][j]-suma3)/(L[k][k])
-        print("\nStage ",  k+1 , ":")
+        stages.append([L,U])
+    return stages
 
-        print("\nMatrix L:")
-        table = PrettyTable()
-        table.field_names = [f"x{i}" for i in range(n)]
-        for row in L:
-            table.add_row(["%.5f"%i for i in row])
-        print(table)
-        
-        print("\nMatrix U:")
-        table = PrettyTable()
-        table.field_names = [f"x{i}" for i in range(n)]
-        for row in U:
-            table.add_row(["%.5f"%i for i in row])
-        print(table)
-    return L,U
+
+def croutAns(A,b):
+    stages = crout(A)
+    n = len(A)
+    # for k in range(len(stages)):
+    #     print("\nStage ",  k+1, ":" )
+
+    #     print("\nMatrix L:")
+    #     table = PrettyTable()
+    #     table.field_names = [f"x{i}" for i in range(n)]
+    #     for row in stages[k][0]:#L
+    #         table.add_row(["%.5f"%i for i in row])
+    #     print(table)
+                
+    #     print("\nMatrix U:")
+    #     table = PrettyTable()
+    #     table.field_names = [f"x{i}" for i in range(n)]
+    #     for row in stages[k][1]:#U
+    #         table.add_row(["%.5f"%i for i in row])
+    #     print(table)
+    L = stages[-1][0]
+    U = stages[-1][1]
+    #Apply sustitution
+    z=sustProg(L,b,n)
+    x=sustRegr(U,z,n)
+
+    # #Show answer
+    # ans = PrettyTable()
+    # ans.field_names = [f"x{i}" for i in range(n)]
+    # ans.add_row(["%.5f"%i for i in x])
+    # print("\nAnswer: ")
+    # print(ans)
 
 #Fill matrix
 A = np.array([[4,-1,0,3],[1,15.5,3,8],[0,-1.3,-4,1.1],[14,5,-2,30]])
 b = np.array([[1],[1],[1],[1]])
-L,U = crout(A)
-n = len(A)
 
-#Apply sustitution
-z=sustProg(L,b,n)
-x=sustRegr(U,z,n)
-
-#Show answer
-ans = PrettyTable()
-ans.field_names = [f"x{i}" for i in range(n)]
-ans.add_row(["%.5f"%i for i in x])
-print("\nAnswer: ")
-print(ans)
+croutAns(A,b)
