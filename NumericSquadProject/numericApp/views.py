@@ -12,6 +12,7 @@ from numericApp.methods.Roots.bisection import bisection
 from numericApp.methods.Roots.newton import newton
 from numericApp.methods.LinearEquations.crout import croutAns
 from numericApp.methods.LinearEquations.jacobi import jacobi_Ans
+from numericApp.methods.LinearEquations.sor import sorAns
 from numericApp.methods.LinearEquations.doolittle import doolittleAns
 from numericApp.methods.Roots.incrementalSearch import incrementalSearch
 from numericApp.methods.Roots.falsePosition import falsePosition
@@ -351,6 +352,41 @@ def doolittle_ep(request):
     else:
         return render(request, "numericApp/doolittle.html")
 
+def sor_ep(request):
+    if request.method == 'POST':
+        A = []
+        b = [] 
+        x0 = []
+
+        size = int(sqrt(len(request.POST)))-1
+        for i in range(size):
+            b.append(float(request.POST["B"+str(i)]))
+            x0.append(float(request.POST["x0"+str(i)]))
+
+        for i in range(size):
+            q = []
+            for j in range(size):
+                q.append(float(request.POST["A"+str(i)+str(j)]))
+            A.append(q)
+        
+        x,Tmatrix,iterations,spectralRadious = sorAns(A,b,x0,float(request.POST['tolerance']),float(request.POST['w']))
+        
+
+        return render(request, "numericApp/sor.html", {
+            "state":1,
+            "A":A,
+            "b":b,
+            "x0":x0,
+            "size":size,
+            "tolerance":request.POST['tolerance'],
+            "niter":request.POST['niter'],
+            "Tmatrix":Tmatrix,
+            "iterations":iterations,
+            "spectralRadious":spectralRadious,
+            "x":x
+            })
+    else:
+        return render(request, "numericApp/sor.html")
 
 def seidel_ep(request):
     if request.method == 'POST':
