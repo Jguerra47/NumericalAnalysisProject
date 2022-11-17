@@ -46,7 +46,7 @@ def minus(x1,x0):
         x.append(x1[i]-x0[i])
     return x
     
-def gaussSeidel(niter,tol,x0):
+def gaussSeidel(a,b,niter,tol,x0):
     cont = 0
     dispersion = tol + 1
     matrix = []
@@ -59,10 +59,10 @@ def gaussSeidel(niter,tol,x0):
         matrix.append([cont,dispersion]+x1)
     return [ matrix[-1][2+i] for i in range(len(matrix[-1])-2) ],matrix
 
-def seidelAns(niter,tol,x0):
+def seidelAns(a,b,tol,x0,niter):
     x,iter= gaussSeidel(niter,tol,x0)
     
-  
+
     D = np.diag((np.diag(a)))
     L = np.tril(a,-1)
     U = np.triu(a,1)
