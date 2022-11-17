@@ -10,6 +10,7 @@ from numericApp.methods.Roots.bisection import bisection
 from numericApp.methods.Roots.newton import newton
 from numericApp.methods.LinearEquations.crout import croutAns
 from numericApp.methods.LinearEquations.jacobi import jacobi_Ans
+from numericApp.methods.Roots.incrementalSearch import incrementalSearch
 # Create your views here.
 from math import sqrt
 
@@ -108,6 +109,24 @@ def splines_ep(request):
         return render(request, "numericApp/splines.html")
 
 #ROOTS METHODS
+def incremental_search_ep(request):
+    if request.method == 'POST':
+        ans = incrementalSearch(request.POST['equation'],
+        float(request.POST['x0']),
+        float(request.POST['delta']),
+        int(request.POST['iterations']))
+
+        return render(request, "numericApp/incremental-search.html", {
+            "state":1,
+            "ans":ans,
+            "equation":request.POST['equation'],
+            "x0":request.POST['x0'],
+            "delta":request.POST['delta'],
+            "iterations":request.POST['iterations']
+            })
+    else:
+        return render(request, "numericApp/incremental-search.html")
+
 def secant_ep(request):
     if request.method == 'POST':
         ans, procedure = secant(request.POST['equation'],

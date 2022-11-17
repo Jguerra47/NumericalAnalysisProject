@@ -31,6 +31,7 @@ urlpatterns = [
 
     #Roots
     path('secant', views.secant_ep),
+    path('incremental-search', views.incremental_search_ep),
     path('bisection', views.bisection_ep),
     path('newton-roots', views.newton_roots_ep),
 
