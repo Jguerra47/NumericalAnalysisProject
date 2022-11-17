@@ -2,7 +2,7 @@
 {%load static%}
 
 {% block title %}
-    <title>Little Crow - Newton</title>
+    <title>Little Crow - Newton DD</title>
 {% endblock title %}
 
 {% block content %}
@@ -16,7 +16,7 @@
     </button>
 
     <!-- Topbar Search -->
-    <h2>Newton - Interpolation</h2>
+    <h2>Newton Divided Differences</h2>
 
     <!-- Topbar Navbar -->
     <ul class="navbar-nav ml-auto">
@@ -154,8 +154,8 @@
         {% endif %}
         const program = () => {
             var tabla="<table class=\"table table-bordered table-secondary\">";
-            var xvalues = [-2, -1, 2, 3];
-            var yvalues = [12.135, 6.3678, -4.61, 2.085];
+            var xvalues = [-1, 0, 3, 4];
+            var yvalues = [15.5, 3, 8, 1];
 
             {% if X %}
             var xvalues = [];
