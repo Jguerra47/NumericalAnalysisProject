@@ -2,7 +2,8 @@ import sympy as sm
 
 x = sm.symbols('x')
 
-def newton(f,x0 ,tol ,nIter): 
+def newton(f,x0 ,tol ,nIter):
+    f = sm.sympify(f)
     dx = sm.diff(f,x)
     y0 = float(f.subs(x,x0))
     d0 = float(dx.subs(x,x0))
@@ -31,9 +32,9 @@ def newton(f,x0 ,tol ,nIter):
         return ("Failed in " + str(nIter) + " iterations"),matrix
      
 
-f = sm.sympify("log(sin(x)^2 + 1)-(1/2)")
-x0 = -2
-tol = 1e-7
-nIter = 100
+# f = sm.sympify("log(sin(x)^2 + 1)-(1/2)")
+# x0 = -2
+# tol = 1e-7
+# nIter = 100
 
-print(newton(f,x0,tol,nIter))
+# print(newton(f,x0,tol,nIter))

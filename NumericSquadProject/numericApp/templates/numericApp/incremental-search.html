@@ -1,0 +1,96 @@
+{% extends 'aux/base.html' %}
+{%load static%}
+
+{% block title %}
+<title>Little Crow - Incremental search</title>
+{% endblock title %}
+
+{% block content %}
+<nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+        <i class="fa fa-bars"></i>
+    </button>
+    <h2>Incremental search</h2>
+    <ul class="navbar-nav ml-auto">
+        
+    </ul>
+</nav>
+
+<!-- Begin Page Content -->
+<div class="container-fluid">
+    <div>
+        <!-- INPUT CARD -->
+        <div class="card shadow mb-4">
+            <div
+                class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">Input</h6>
+            </div>
+            <!-- Card Body -->
+            <div class="card-body">
+                <!-- AQUI VA TODO EL CONTENT INPUT-->                   
+                <form action="incremental-search" method="POST" onsubmit="">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="equation" class="form-label">Function:</label>
+                        <input 
+                        value={% if equation %}"{{equation}}"{% else %}"log(sin(x)^2 + 1)-(1/2)"{% endif %}
+                        type="text" class="form-control" id="equation" placeholder="Put the function here..." name="equation">
+                    </div>
+                    <div class="mb-3">
+                        <label for="x0" class="form-label">Initial value:</label>
+                        <input 
+                        value={% if x0 %}"{{x0}}"{% else %}"-3"{% endif %}
+                        type="number" step="1e-8" class="form-control" id="x0" placeholder="Insert a value" name="x0">
+                    </div>
+                    <div class="mb-3">
+                        <label for="delta" class="form-label">Delta \(\Delta\):</label>
+                        <input
+                        value={% if delta %}"{{delta}}"{% else %}"0.5"{% endif %}
+                        type="number" step="1e-8" class="form-control" id="delta" placeholder="Insert a value" name="delta">
+                    </div>
+                    <div class="mb-3">
+                        <label for="iterations" class="form-label">Iterations:</label>
+                        <input
+                        value={% if iterations %}"{{iterations}}"{% else %}"100"{% endif %}
+                        type="number" class="form-control" id="iterations" placeholder="Insert a value" name="iterations">
+                    </div>
+                    <div class="container text-center">
+                        <div class="row justify-content-center">
+                            <div class="col-8">
+                                <a class="btn btn-primary btn-icon-split">
+                                    <input style="color:white;" class="icon text-white-5" type="submit" value="Submit">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <!-- AQUI TERMINA TODO EL CONTENT INPUT-->
+            </div>
+        </div>
+    </div>
+
+    <div>
+
+    <!-- RESULT CARD -->
+    {% if state == 1%}
+    <div class="col-xl-12 col-lg-7">
+        
+        <div class="card shadow mb-4">
+            <!-- Card Header - Dropdown -->
+            <div
+                class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">Results</h6>
+            </div>
+            <!-- Card Body -->
+            
+
+            <div class="card-body">
+                <div>
+                    <p style="text-align:center; font-size:big;">{{ans}}</p>
+                </div>                                    
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+{% endblock content %}

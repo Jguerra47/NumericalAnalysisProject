@@ -3,6 +3,7 @@ import sympy as sm
 x = sm.symbols('x')
 
 def incrementalSearch(f,xi,delta,niter):
+    f = sm.sympify(f)
     if(f.subs(x,xi)==0):
         return (str(xi) + " is a root")
         
