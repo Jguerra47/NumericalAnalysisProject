@@ -13,7 +13,10 @@ from numericApp.methods.Roots.newton import newton
 from numericApp.methods.LinearEquations.crout import croutAns
 from numericApp.methods.LinearEquations.cholesky import choleskyAns
 from numericApp.methods.LinearEquations.jacobi import jacobi_Ans
+from numericApp.methods.LinearEquations.doolittle import doolittleAns
 from numericApp.methods.Roots.incrementalSearch import incrementalSearch
+from numericApp.methods.Roots.falsePosition import falsePosition
+from numericApp.methods.Roots.mulRT import mulRT
 
 # Create your views here.
 from math import sqrt
@@ -192,6 +195,46 @@ def newton_roots_ep(request):
     else:
         return render(request, "numericApp/newton-roots.html")
 
+def false_position_ep(request):
+    if request.method == 'POST':
+        ans, procedure = falsePosition(request.POST['equation'],
+        float(request.POST['xi']),
+        float(request.POST['xf']),
+        float(request.POST['tolerance']),
+        int(request.POST['iterations']))
+
+        return render(request, "numericApp/false-position.html", {
+            "state":1,
+            "ans":ans,
+            "procedure":procedure,
+            "equation":request.POST['equation'],
+            "xi":request.POST['xi'],
+            "xf":request.POST['xf'],
+            "tolerance":request.POST['tolerance']
+            })
+    else:
+        return render(request, "numericApp/false-position.html")
+
+def mulRT_ep(request):
+    if request.method == 'POST':
+        ans, procedure = mulRT(request.POST['equation'],
+        float(request.POST['x0']),
+        float(request.POST['tolerance']),
+        float(request.POST['iterations']))
+
+        return render(request, "numericApp/mulRT.html", {
+            "state":1,
+            "ans":ans,
+            "procedure":procedure,
+            "equation":request.POST['equation'],
+
+            "x0":request.POST['x0'],
+            "tolerance":request.POST['tolerance'],
+            "iterations":request.POST['iterations']
+            })
+    else:
+        return render(request, "numericApp/mulRT.html")
+
 def fixedPoint_ep(request):
     if request.method == 'POST':
         message, matrix = fixedPoint(request.POST['equation'],
@@ -212,7 +255,6 @@ def fixedPoint_ep(request):
             })
     else:
         return render(request, "numericApp/fixedPoint.html")
-
 
 #LINEAR EQUATIONS
 def crout_ep(request):
@@ -280,6 +322,34 @@ def jacobi_ep(request):
         return render(request, "numericApp/jacobi.html")
 
 
+def doolittle_ep(request):
+    if request.method == 'POST':
+        A = []
+        b = []
+
+        size= int(sqrt(len(request.POST)))
+        for i in range(size):
+            b.append([float(request.POST["B"+str(i)])])
+
+        for i in range(size):
+            q = []
+            for j in range(size):
+                q.append(float(request.POST["A"+str(i)+str(j)]))
+            A.append(q)
+        
+        stages, x = doolittleAns(A, b)
+
+        return render(request, "numericApp/doolittle.html", {
+            "state":1,
+            "A":A,
+            "b":b,
+            "size":size,
+            "stages":stages,
+            "x":x
+            })
+    else:
+        return render(request, "numericApp/doolittle.html")
+    
 def cholesky_ep(request):
     if request.method == 'POST':
         A = []
