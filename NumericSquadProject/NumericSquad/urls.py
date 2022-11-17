@@ -31,6 +31,7 @@ urlpatterns = [
 
     #Roots
     path('secant', views.secant_ep),
+    path('bisection', views.bisection_ep),
 
     #Linear equations
     path('crout', views.crout_ep),

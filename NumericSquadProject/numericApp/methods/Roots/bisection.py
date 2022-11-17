@@ -4,6 +4,7 @@ import math
 x = sm.symbols('x')
 
 def bisection(xi, xf, f, tol):
+    f = sm.sympify(f)
     if(float(f.subs(x,xi))*float(f.subs(x,xf))==0):
         return "xi or xf is a root",[]
     
@@ -35,10 +36,10 @@ def bisection(xi, xf, f, tol):
         else:
             return(str(round(mid,8)) + " is a root with tolerance " + str(tol)),matrix
 
-# f = sm.exp(3*x-12) + x*sm.cos(3*x)-x**2+4
-f = sm.sympify("log(sin(x)^2 + 1)-(1/2)")
-xi = 0
-xf = 1    
-tol = 1e-7
+# # f = sm.exp(3*x-12) + x*sm.cos(3*x)-x**2+4
+# f = sm.sympify("log(sin(x)^2 + 1)-(1/2)")
+# xi = 0
+# xf = 1    
+# tol = 1e-7
 
-print(bisection(xi,xf,f,tol))
+# print(bisection(xi,xf,f,tol))
