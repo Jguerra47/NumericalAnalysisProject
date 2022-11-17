@@ -10,7 +10,7 @@
     <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
         <i class="fa fa-bars"></i>
     </button>
-    <h2>Crout</h2>
+    <h2>Cholesky</h2>
     <ul class="navbar-nav ml-auto">
         
     </ul>
@@ -107,18 +107,21 @@
                                     {% for i in element %}
                                         {% for j in i %}
                                             {% if j < 1e5 and j > 0.001 %}                                              
-                                                {{j|floatformat:"-4" }}
+                                                {{j.real|floatformat:"-4" }}
                                             {% elif  j > -1e5 and j < -0.001%}
-                                                {{j|floatformat:"-4" }}
+                                                {{j.real|floatformat:"-4" }}
                                             {% elif  j == 0 %}
-                                                {{j|floatformat:"-4" }}
+                                                {{j.real|floatformat:"-4" }}
                                             {% else %}
-                                                {{ j|stringformat:".4e" }}
+                                                {{ j.real|stringformat:".4e" }}
                                             {% endif %}
-
+                                            {% if j.imag != 0 %}
+                                                {{j.imag|floatformat:"-2" }} {i}
+                                            {% endif %}
                                             {% if not forloop.last %}
                                                 &
                                             {% endif %}
+                                            
                                         {% endfor %}
 
                                         {% if not forloop.last %}

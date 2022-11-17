@@ -297,8 +297,6 @@ def cholesky_ep(request):
         
         stages, x = choleskyAns(A,b)
 
-        print(stages)
-
         return render(request, "numericApp/cholesky.html", {
             "state":1,
             "A":A,
