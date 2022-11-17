@@ -6,6 +6,7 @@ from numericApp.methods.Interpolation.spline1 import spline1Ans
 from numericApp.methods.Interpolation.spline2 import spline2Ans
 from numericApp.methods.Interpolation.spline3 import spline3Ans
 from numericApp.methods.Roots.secant import secant
+from numericApp.methods.Roots.bisection import bisection
 from numericApp.methods.LinearEquations.crout import croutAns
 from numericApp.methods.LinearEquations.jacobi import jacobi_Ans
 # Create your views here.
@@ -119,13 +120,32 @@ def secant_ep(request):
             "ans":ans,
             "procedure":procedure,
             "equation":request.POST['equation'],
-            "x0":request.POST['x0'],
-            "x1":request.POST['x1'],
+            "x0":request.POST['xi'],
+            "x1":request.POST['xf'],
             "tolerance":request.POST['tolerance'],
             "iterations":request.POST['iterations']
             })
     else:
         return render(request, "numericApp/secant.html")
+
+def bisection_ep(request):
+    if request.method == 'POST':
+        ans, procedure = bisection(float(request.POST['xi']),
+        float(request.POST['xf']),
+        request.POST['equation'],
+        float(request.POST['tolerance']))
+
+        return render(request, "numericApp/bisection.html", {
+            "state":1,
+            "ans":ans,
+            "procedure":procedure,
+            "equation":request.POST['equation'],
+            "x0":request.POST['xi'],
+            "x1":request.POST['xf'],
+            "tolerance":request.POST['tolerance']
+            })
+    else:
+        return render(request, "numericApp/bisection.html")
 
 #LINEAR EQUATIONS
 def crout_ep(request):
