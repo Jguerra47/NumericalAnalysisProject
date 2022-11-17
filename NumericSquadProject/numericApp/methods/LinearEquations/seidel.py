@@ -46,7 +46,7 @@ def minus(x1,x0):
         x.append(x1[i]-x0[i])
     return x
     
-def gaussSeidel(a,b,niter,tol,x0):
+def gaussSeidel(niter,tol,x0):
     cont = 0
     dispersion = tol + 1
     matrix = []
@@ -85,4 +85,4 @@ def seidelAns(a,b,tol,x0,niter):
     return x,Tmatrix,iter,spectralRadious
 
 niter,tol,x0 = 100,10**-7,initialValues
-seidelAns(niter,tol,x0)
+# seidelAns(niter,tol,x0)

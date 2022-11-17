@@ -17,7 +17,7 @@ from numericApp.methods.LinearEquations.doolittle import doolittleAns
 from numericApp.methods.Roots.incrementalSearch import incrementalSearch
 from numericApp.methods.Roots.falsePosition import falsePosition
 from numericApp.methods.Roots.mulRT import mulRT
-from numericApp.methods.LinearEquations.seidelAns import seidelAns
+from numericApp.methods.LinearEquations.seidel import seidelAns
 
 
 # Create your views here.
@@ -396,8 +396,8 @@ def seidel_ep(request):
 
         size = int(sqrt(len(request.POST)))-1
         for i in range(size):
-            b.append([float(request.POST["B"+str(i)])])
-            x0.append([float(request.POST["x0"+str(i)])])
+            b.append(float(request.POST["B"+str(i)]))
+            x0.append(float(request.POST["x0"+str(i)]))
 
         for i in range(size):
             q = []
