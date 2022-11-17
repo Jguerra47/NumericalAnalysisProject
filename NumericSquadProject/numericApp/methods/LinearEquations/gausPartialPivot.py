@@ -1,7 +1,6 @@
 import sympy as sm 
 import numpy as np 
 import math
-import matplotlib.pyplot as plt
 
 x = sm.symbols('x')
 
@@ -26,7 +25,6 @@ def partialPivotElimination(Ab,n):
             if(Ab[k][k] == 0):
                 print("Division by 0, Gaussian elimination is not possible.")
                 return Ab
-                break
                 
             multiplier = Ab[i][k]/Ab[k][k]
             

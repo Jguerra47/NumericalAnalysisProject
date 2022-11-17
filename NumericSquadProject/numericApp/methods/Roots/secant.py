@@ -3,7 +3,7 @@ import sympy as sm
 x = sm.symbols('x')
 
 def secant(f, x0, x1, tol, nIter):
-    
+    f = sm.sympify(f)
     fx0 = float(f.subs(x,x0))
     fx1 = float(f.subs(x, x1))
     matrix = []

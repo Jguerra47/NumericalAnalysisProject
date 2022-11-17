@@ -6,7 +6,9 @@ from numericApp.methods.Interpolation.spline1 import spline1Ans
 from numericApp.methods.Interpolation.spline2 import spline2Ans
 #from numericApp.methods.Interpolation.spline3 import spline3Ans
 from numericApp.methods.Roots.secant import secant
+from numericApp.methods.LinearEquations.crout import croutAns
 # Create your views here.
+from math import sqrt
 
 def index(request):
     return render(request, "numericApp/index.html")
@@ -105,17 +107,50 @@ def splines_ep(request):
 #ROOTS METHODS
 def secant_ep(request):
     if request.method == 'POST':
-        X = []
-        Y = []
-        size = (len(request.POST) - 1)//2
-        for i in range(size):
-            X.append(float(request.POST["X"+str(i)]))
-            Y.append(float(request.POST["Y"+str(i)]))
+        ans, procedure = secant(request.POST['equation'],
+        float(request.POST['x0']),
+        float(request.POST['x1']),
+        float(request.POST['tolerance']),
+        int(request.POST['iterations']))
 
         return render(request, "numericApp/secant.html", {
-            "state": 1, #Carga correcta
-            "Y":Y,
-            "size":size
+            "state":1,
+            "ans":ans,
+            "procedure":procedure,
+            "equation":request.POST['equation'],
+            "x0":request.POST['x0'],
+            "x1":request.POST['x1'],
+            "tolerance":request.POST['tolerance'],
+            "iterations":request.POST['iterations']
             })
     else:
         return render(request, "numericApp/secant.html")
+
+#LINEAR EQUATIONS
+def crout_ep(request):
+    if request.method == 'POST':
+        A = []
+        b = []
+
+        size= int(sqrt(len(request.POST)))
+        for i in range(size):
+            b.append([float(request.POST["B"+str(i)])])
+
+        for i in range(size):
+            q = []
+            for j in range(size):
+                q.append(float(request.POST["A"+str(i)+str(j)]))
+            A.append(q)
+        
+        stages, x = croutAns(A, b)
+
+        return render(request, "numericApp/crout.html", {
+            "state":1,
+            "A":A,
+            "b":b,
+            "size":size,
+            "stages":stages,
+            "x":x
+            })
+    else:
+        return render(request, "numericApp/crout.html")

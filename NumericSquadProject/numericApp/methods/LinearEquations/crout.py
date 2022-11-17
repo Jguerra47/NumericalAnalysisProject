@@ -1,6 +1,6 @@
 import numpy as np
 from prettytable import PrettyTable
-from Sustitution.sustitutions import *
+from numericApp.methods.LinearEquations.Sustitution.sustitutions import *
 
 def crout(A):
     n = len(A)
@@ -50,16 +50,18 @@ def croutAns(A,b):
     #     print(table)
     L = stages[-1][0]
     U = stages[-1][1]
-    #Apply sustitution
-    z=sustProg(L,b,n)
-    x=sustRegr(U,z,n)
 
+    #Apply sustitution
+    z = sustProg(L,b,n)
+    x = sustRegr(U,z,n)
+    
     # #Show answer
     # ans = PrettyTable()
     # ans.field_names = [f"x{i}" for i in range(n)]
     # ans.add_row(["%.5f"%i for i in x])
     # print("\nAnswer: ")
     # print(ans)
+    return stages, x
 
 #Fill matrix
 A = np.array([[4,-1,0,3],[1,15.5,3,8],[0,-1.3,-4,1.1],[14,5,-2,30]])
