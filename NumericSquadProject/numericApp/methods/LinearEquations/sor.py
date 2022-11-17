@@ -11,7 +11,7 @@ def prettyPrint(name,matrix):
     table.add_column("",[f"{name}{i}" for i in range(n)])
     print(table)
  
-def sor(A, b, tol, w):
+def sor(A, b,Xk, tol, w):
 
 	n = len(A)
 	Xk = [0.0]*n
@@ -34,7 +34,7 @@ def sor(A, b, tol, w):
 	err = None
 	iterations = []
 	while(norm(minus(Xk1,Xk)) / float(norm(Xk1))) > tol:
-		rowAux = [itera] + ["%.5f"%value for value in Xk] + [err] 
+		rowAux = [itera] + [err] + ["%.5f"%value for value in Xk1] 
 		iterations.append(rowAux)
 		Xk[:] = Xk1[:]
 		for i in range(n):
@@ -57,8 +57,8 @@ b=[1,1,1,1]
 tol=1e-7
 w=0.7
 
-def sorAns(a,b,tol,w):
-	x,iter = sor(a,b,tol,w)
+def sorAns(a,b,Xk,tol,w):
+	x,iter = sor(a,b,Xk,tol,w)
 	D = np.diag(np.diag(a))
 	L = np.tril(a,-1)
 	U = np.triu(a,1)
@@ -74,5 +74,5 @@ def sorAns(a,b,tol,w):
 	spectralRadious = max(lista[0])
 
 	return x,Tmatrix,iter,spectralRadious
-	
-print(sorAns(a,b,tol,w))
+
+#print(sorAns(a,b,[],tol,w))
