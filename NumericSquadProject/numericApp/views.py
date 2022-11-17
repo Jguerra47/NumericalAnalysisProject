@@ -6,6 +6,8 @@ from numericApp.methods.Interpolation.spline1 import spline1Ans
 from numericApp.methods.Interpolation.spline2 import spline2Ans
 from numericApp.methods.Interpolation.spline3 import spline3Ans
 from numericApp.methods.Roots.secant import secant
+from numericApp.methods.Roots.bisection import bisection
+from numericApp.methods.Roots.newton import newton
 from numericApp.methods.LinearEquations.crout import croutAns
 from numericApp.methods.LinearEquations.jacobi import jacobi_Ans
 from numericApp.methods.Roots.incrementalSearch import incrementalSearch
@@ -145,6 +147,44 @@ def secant_ep(request):
             })
     else:
         return render(request, "numericApp/secant.html")
+
+def bisection_ep(request):
+    if request.method == 'POST':
+        ans, procedure = bisection(float(request.POST['xi']),
+        float(request.POST['xf']),
+        request.POST['equation'],
+        float(request.POST['tolerance']))
+
+        return render(request, "numericApp/bisection.html", {
+            "state":1,
+            "ans":ans,
+            "procedure":procedure,
+            "equation":request.POST['equation'],
+            "xi":request.POST['xi'],
+            "xf":request.POST['xf'],
+            "tolerance":request.POST['tolerance']
+            })
+    else:
+        return render(request, "numericApp/bisection.html")
+
+def newton_roots_ep(request):
+    if request.method == 'POST':
+        ans, procedure = newton(request.POST['equation'],
+        float(request.POST['x0']),
+        float(request.POST['tolerance']),
+        float(request.POST['iterations']))
+
+        return render(request, "numericApp/newton-roots.html", {
+            "state":1,
+            "ans":ans,
+            "procedure":procedure,
+            "equation":request.POST['equation'],
+            "x0":request.POST['x0'],
+            "tolerance":request.POST['tolerance'],
+            "iterations":request.POST['iterations']
+            })
+    else:
+        return render(request, "numericApp/newton-roots.html")
 
 #LINEAR EQUATIONS
 def crout_ep(request):
