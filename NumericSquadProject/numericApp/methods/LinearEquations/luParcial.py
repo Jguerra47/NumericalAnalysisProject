@@ -55,6 +55,7 @@ def lu_decomposition(A,b):
 A = [[4,-1,0,3],[1,15.5,3,8],[0,-1.3,-4,1.1],[14,5,-2,30]]
 b = [[1],[1],[1],[1]]
 stages,P,x = lu_decomposition(A,b)
+print(stages)
 
 # table = PrettyTable()
 # table.field_names = [f"x{i}" for i in range(len(A))]

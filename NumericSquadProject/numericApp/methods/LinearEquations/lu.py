@@ -1,6 +1,6 @@
 import sympy as sm 
 import numpy as np 
-from Sustitution.sustitutions import *
+from numericApp.methods.LinearEquations.Sustitution.sustitutions import *
 from prettytable import PrettyTable
 
 x = sm.symbols('x')
@@ -15,6 +15,9 @@ def prettyPrint(name,matrix):
     print(table)
 
 def LUGauss(A,b):
+    A = np.array(A)
+    b = np.array(b)
+    
     n,m = A.shape
     L=np.zeros((n,n))
     U=np.zeros((n,n))
