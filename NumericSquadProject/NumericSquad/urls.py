@@ -41,6 +41,9 @@ urlpatterns = [
     #Linear equations
     path('crout', views.crout_ep),
     path('jacobi', views.jacobi_ep),
+
+    path('seidel',views.seidel_ep),
+    path('sor',views.sor_ep)
     path('simple-lu', views.simple_LU_ep),
     path('partial-lu', views.partial_LU_ep),
     path('cholesky', views.cholesky_ep),
