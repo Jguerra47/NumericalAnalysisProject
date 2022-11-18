@@ -33,6 +33,9 @@ from math import sqrt
 def index(request):
     return render(request, "numericApp/index.html")
 
+def guide(request):
+    return render(request, "numericApp/userGuide.html")
+
 def notfound(request):
     return render(request, "numericApp/notfound.html")
 

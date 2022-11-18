@@ -21,6 +21,7 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index),
+    path('user-guide', views.guide),
     path('notfound', views.notfound),
 
     #Interpolation
