@@ -157,6 +157,10 @@ def splines_ep(request):
 def incremental_search_ep(request):
     if request.method == 'POST':
         try:
+            if 'graph' in request.POST :
+                return render(request, "numericApp/index.html", {
+                "equation":request.POST['equation'],
+                })
             ans = incrementalSearch(request.POST['equation'],
             float(request.POST['x0']),
             float(request.POST['delta']),
@@ -181,6 +185,10 @@ def incremental_search_ep(request):
 def secant_ep(request):
     if request.method == 'POST':
         try:
+            if 'graph' in request.POST :
+                return render(request, "numericApp/index.html", {
+                "equation":request.POST['equation'],
+                })
             ans, procedure = secant(request.POST['equation'],
             float(request.POST['x0']),
             float(request.POST['x1']),
@@ -209,6 +217,10 @@ def secant_ep(request):
 def bisection_ep(request):
     if request.method == 'POST':
         try:
+            if 'graph' in request.POST :
+                return render(request, "numericApp/index.html", {
+                "equation":request.POST['equation'],
+                })
             ans, procedure = bisection(float(request.POST['xi']),
             float(request.POST['xf']),
             request.POST['equation'],
@@ -234,6 +246,10 @@ def bisection_ep(request):
 def newton_roots_ep(request):
     if request.method == 'POST':
         try:
+            if 'graph' in request.POST :
+                return render(request, "numericApp/index.html", {
+                "equation":request.POST['equation'],
+                })
             ans, procedure = newton(request.POST['equation'],
             float(request.POST['x0']),
             float(request.POST['tolerance']),
@@ -260,6 +276,10 @@ def newton_roots_ep(request):
 def false_position_ep(request):
     if request.method == 'POST':
         try:
+            if 'graph' in request.POST :
+                return render(request, "numericApp/index.html", {
+                "equation":request.POST['equation'],
+                })
             ans, procedure = falsePosition(request.POST['equation'],
             float(request.POST['xi']),
             float(request.POST['xf']),
@@ -286,6 +306,10 @@ def false_position_ep(request):
 def mulRT_ep(request):
     if request.method == 'POST':
         try:
+            if 'graph' in request.POST :
+                return render(request, "numericApp/index.html", {
+                "equation":request.POST['equation'],
+                })
             ans, procedure = mulRT(request.POST['equation'],
             float(request.POST['x0']),
             float(request.POST['tolerance']),
@@ -312,6 +336,10 @@ def mulRT_ep(request):
 def muller_ep(request):
     if request.method == 'POST':
         try:
+            if 'graph' in request.POST :
+                return render(request, "numericApp/index.html", {
+                "equation":request.POST['equation'],
+                })
             ans, procedure = muller(request.POST['equation'],
             float(request.POST['x0']),
             float(request.POST['x1']),
@@ -340,6 +368,10 @@ def muller_ep(request):
 def steffensen_ep(request):
     if request.method == 'POST':
         try:
+            if 'graph' in request.POST :
+                return render(request, "numericApp/index.html", {
+                "equation":request.POST['equation'],
+                })
             ans, procedure = steffensen(request.POST['equation'],
             float(request.POST['x0']),
             float(request.POST['tolerance']),
@@ -366,6 +398,10 @@ def steffensen_ep(request):
 def aitken_ep(request):
     if request.method == 'POST':
         try:
+            if 'graph' in request.POST :
+                return render(request, "numericApp/index.html", {
+                "equation":request.POST['equation'],
+                })
             ans, procedure = aitken(request.POST['equation'],
             float(request.POST['x0']),
             float(request.POST['tolerance']),
@@ -392,6 +428,10 @@ def aitken_ep(request):
 def fixedPoint_ep(request):
     if request.method == 'POST':
         try:
+            if 'graph' in request.POST :
+                return render(request, "numericApp/index.html", {
+                "equation":request.POST['equation'],
+                })
             message, matrix = fixedPoint(request.POST['equation'],
             float(request.POST['x0']),
             float(request.POST['tolerance']),

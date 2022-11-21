@@ -24,7 +24,7 @@ def lagrange(x,y):
         termino += ")"
         termino = termino.replace(")(",") * (")
         F = parse_expr(termino)
-        aux = "L" + str(k) + "(x) = " + termino.replace("((","(").replace("))",")")
+        aux = termino.replace("((","(").replace("))",")")
         ansL.append(aux)
         toReplace = "L" + str(k) + "(x) = "
         pol += "(" + str(expand(F)) + ")*" + str(y[k])
