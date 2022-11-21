@@ -60,8 +60,8 @@ def doolittleAns(A,b):
     # print(ans)
     return stages,x
 #Fill data
-A = np.array([[4,-1,0,3],[1,15.5,3,8],[0,-1.3,-4,1.1],[14,5,-2,30]])
-b = np.array([[1],[1],[1],[1]], dtype ='float')
+# A = np.array([[4,-1,0,3],[1,15.5,3,8],[0,-1.3,-4,1.1],[14,5,-2,30]])
+# b = np.array([[1],[1],[1],[1]], dtype ='float')
 
-print(doolittleAns(A,b))
+# print(doolittleAns(A,b))
 

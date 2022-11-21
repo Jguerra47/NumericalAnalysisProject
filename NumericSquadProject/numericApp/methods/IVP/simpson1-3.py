@@ -31,7 +31,7 @@ def simpson(leftLimit, rightLimit, n):
 	return ans
 	
 
-leftLimit = 4 
-rightLimit = 5.2 
-n = 6 
-print("%.5f"% simpson(leftLimit, rightLimit, n))
+# leftLimit = 4 
+# rightLimit = 5.2 
+# n = 6 
+# print("%.5f"% simpson(leftLimit, rightLimit, n))

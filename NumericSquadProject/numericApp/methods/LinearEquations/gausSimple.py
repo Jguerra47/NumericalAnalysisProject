@@ -39,7 +39,7 @@ def gausSimple(A,b,n):
     for i in range(1,n+1,1):
         print("x" + str(i) + " = " + str(x[i-1]))
 
-A = np.array([[10,20,-60.8319,8],[1,1,-2.1416,0],[17,-14,40.9823,20],[1,4,-12.5664,1]],dtype='float')
-b = np.array([[1],[1],[1],[1]], dtype ='float')
+# A = np.array([[10,20,-60.8319,8],[1,1,-2.1416,0],[17,-14,40.9823,20],[1,4,-12.5664,1]],dtype='float')
+# b = np.array([[1],[1],[1],[1]], dtype ='float')
 
-gausSimple(A,b,4)
+# gausSimple(A,b,4)

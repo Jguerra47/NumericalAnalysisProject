@@ -15,8 +15,8 @@ def CompoundTrapeze(a,b,f,n):
     A = A * (deltaX/2)
     return A
 
-f = sm.ln(sm.sin(x) ** 2+1)-(1/2)
-a = 1
-b = 10
-n = 20
-print(str(CompoundTrapeze(a,b,f,b))+" is the result of the integral")
+# f = sm.ln(sm.sin(x) ** 2+1)-(1/2)
+# a = 1
+# b = 10
+# n = 20
+# print(str(CompoundTrapeze(a,b,f,b))+" is the result of the integral")

@@ -82,6 +82,6 @@ def choleskyAns(A,b):
     return stages,x
 
 #Fill matrix
-A = np.array([[4,-1,0,3],[1,15.5,3,8],[0,-1.3,-4,1.1],[14,5,-2,30]])
-b = np.array([[1],[1],[1],[1]],dtype=complex)
-print(choleskyAns(A,b))
+# A = np.array([[4,-1,0,3],[1,15.5,3,8],[0,-1.3,-4,1.1],[14,5,-2,30]])
+# b = np.array([[1],[1],[1],[1]],dtype=complex)
+# print(choleskyAns(A,b))

@@ -10,9 +10,9 @@ def heun(t, y, h, x):
 
 	print("Approximate solution at x = ", x, " is ", "%.5f"% y)
 	
-t0 = 0
-y0 = 1
-h = 0.025
-x = 0.1
+# t0 = 0
+# y0 = 1
+# h = 0.025
+# x = 0.1
 
-heun(t0, y0, h, x)
+# heun(t0, y0, h, x)

@@ -80,10 +80,10 @@ def jacobi_Ans(a,b,tol,initialValues,itera):
     print(table)
     return x,Tmatrix,iterations,spectralRadious
 
-a = [[4, -1,   0,  3],
-    [1, 15.5, 3,  8],
-    [0, -1.3, -4, 1.1],
-    [14, 5,   -2, 30]]
-b = [[1],[1],[1],[1]]
-initialValues = [[0],[0],[0],[0]]
-jacobi_Ans(a,b,1e-7,initialValues,100)
+# a = [[4, -1,   0,  3],
+#     [1, 15.5, 3,  8],
+#     [0, -1.3, -4, 1.1],
+#     [14, 5,   -2, 30]]
+# b = [[1],[1],[1],[1]]
+# initialValues = [[0],[0],[0],[0]]
+# jacobi_Ans(a,b,1e-7,initialValues,100)

@@ -12,9 +12,9 @@ def euler( x0, y, h, x):
 	print("Approximate solution at x = ", x, " is ", "%.5f"% y)
 	
 
-x0 = 0
-y0 = 1
-h = 0.025
-x = 0.1
+# x0 = 0
+# y0 = 1
+# h = 0.025
+# x = 0.1
 
-euler(x0, y0, h, x)
+# euler(x0, y0, h, x)
