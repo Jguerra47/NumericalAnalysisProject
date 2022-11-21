@@ -63,8 +63,8 @@ def gausTotalPivot(A,b):
     return np.round(Ab,decimals=3),x
 
 
-A = np.array([[-7,2,-3,4],[5,-1,14,-1],[1,9,-7,13],[-12,13,-8,-4]])
-b = np.array([[-12],[13],[31],[-32]])
+# A = np.array([[-7,2,-3,4],[5,-1,14,-1],[1,9,-7,13],[-12,13,-8,-4]])
+# b = np.array([[-12],[13],[31],[-32]])
 
-Ab,x=pivoteototal(A,b)
-Ab,x
+# Ab,x=pivoteototal(A,b)
+# Ab,x

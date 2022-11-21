@@ -14,11 +14,11 @@ def calculate(leftLimit, rightLimit, n ):
         else:
             sumi = sumi + 3 * func(leftLimit + i * interval_size)
      
-    return (( 3 * interval_size) / 8 ) * sumi )
+    return (( 3 * interval_size) / 8 ) * sumi 
  
 
-n = 10
-leftLimit = 1
-rightLimit = 10
+# n = 10
+# leftLimit = 1
+# rightLimit = 10
  
-print("%.5f"% simpson(leftLimit, rightLimit, n))
+# print("%.5f"% simpson(leftLimit, rightLimit, n))

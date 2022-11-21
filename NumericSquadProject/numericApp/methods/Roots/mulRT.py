@@ -33,9 +33,9 @@ def mulRT(f, xi, tol, nIter):
             return ("No root found"),matrix
 
 
-f = sm.sympify("exp(x) - x - 1")
-xi = 1
-tol = 1e-7
-nIter = 100
+# f = sm.sympify("exp(x) - x - 1")
+# xi = 1
+# tol = 1e-7
+# nIter = 100
 
-print(mulRT(f,xi,tol,nIter))
+# print(mulRT(f,xi,tol,nIter))

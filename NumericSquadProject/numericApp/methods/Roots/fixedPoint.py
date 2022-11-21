@@ -32,10 +32,10 @@ def fixedPoint(f, xi, tol, g, maxIter):
             message = "No root was found"
             return message,matrix
 
-f =  sm.sympify("log(sin(x)^2 + 1)-(1/2)-x")
-g =  sm.sympify("log(sin(x)^2 + 1)-(1/2)")
-xi = -0.5
-tol = 1e-7
-niter = 100
+# f =  sm.sympify("log(sin(x)^2 + 1)-(1/2)-x")
+# g =  sm.sympify("log(sin(x)^2 + 1)-(1/2)")
+# xi = -0.5
+# tol = 1e-7
+# niter = 100
 
-fixedPoint(f, xi,tol ,g, niter)
+# fixedPoint(f, xi,tol ,g, niter)

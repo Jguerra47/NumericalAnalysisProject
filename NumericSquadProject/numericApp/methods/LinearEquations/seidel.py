@@ -84,5 +84,5 @@ def seidelAns(a,b,tol,x0,niter):
     
     return x,Tmatrix,iter,spectralRadious
 
-niter,tol,x0 = 100,10**-7,initialValues
+# niter,tol,x0 = 100,10**-7,initialValues
 # seidelAns(niter,tol,x0)

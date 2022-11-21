@@ -25,6 +25,6 @@ def spline1Ans(xi,fi):
     #Find the polynom (polBySeg_i) that applies to the segment (segments_i)    
     return segments,polBySeg
 
-xi = [-1 , 0, 3, 4]
-fi = [15.5, 3, 8, 1]
-print(spline1Ans(xi,fi))
+# xi = [-1 , 0, 3, 4]
+# fi = [15.5, 3, 8, 1]
+# print(spline1Ans(xi,fi))
