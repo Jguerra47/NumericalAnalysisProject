@@ -3,7 +3,7 @@ from sympy import *
 from sympy.parsing.sympy_parser import parse_expr
 
 def polynomNewton(table,n):
-    polynom = "P(X) = " + str(table[0][1])
+    polynom = str(table[0][1])
     coef = []
     coef.append(str(table[0][1]))
     for j in range(2,n+1):
@@ -17,6 +17,7 @@ def polynomNewton(table,n):
                     polynom += "(x - " + str(table[i][0]) + ")"
     F = parse_expr(polynom.replace("P(X) = ","").replace("(","*("))
     polynom = polynom.replace("- -","+").replace("+ -","-").replace("- +","-").replace("(x - 0.0)","x").replace("(x + 0.0)","x")
+    print(polynom)
     return table,polynom,coef
 
 def newton_interpolation(x, y):

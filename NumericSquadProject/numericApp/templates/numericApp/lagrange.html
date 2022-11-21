@@ -112,7 +112,7 @@
                         <p>
                         \(\begin{bmatrix}
                             {% for i in lPolynoms %}
-                                {{i}}
+                                L {{ forloop.counter0 }}(x) = {{i}}
                                 {% if not forloop.last %}
                                 \\\
                                 {% endif %}
