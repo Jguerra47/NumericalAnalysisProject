@@ -174,10 +174,10 @@
                     [1, 15.5, 3, 8,0,0,0,0],
                     [0,-1.3,-4,1.1,0,0,0,0],
                     [14,5,-2,30,0,0,0,0],
-                    [0,0,0,0,0,0,0,0],
-                    [0,0,0,0,0,0,0,0],
-                    [0,0,0,0,0,0,0,0],
-                    [0,0,0,0,0,0,0,0]];
+                    [0,0,0,0,1,0,0,0],
+                    [0,0,0,0,0,1,0,0],
+                    [0,0,0,0,0,0,1,0],
+                    [0,0,0,0,0,0,0,1]];
 
             var bi = [[1],[1],[1],[1],[1],[1],[1],[1]];
 
@@ -196,7 +196,11 @@
                 for(i = 0; i < size; i++){
                     matrixHtml += "<tr>";
                     for (j = 0; j < size; j++){
-                        matrixHtml += "<td><input value="+ Ai[i][j] +" style= \"background: transparent;border: none; width: 100%; outline: none;\" type=\"number\" step=\"1e-8\" name=\"A"+i+j+"\"> </td>";
+                        if (i == j) {
+                            matrixHtml += "<td><input onchange=\"validateZero(this)\" value="+ Ai[i][j] +" style= \"background: transparent;border: none; width: 100%; outline: none;\" type=\"number\" step=\"1e-8\" name=\"A"+i+j+"\"> </td>";
+                        } else {
+                            matrixHtml += "<td><input value="+ Ai[i][j] +" style= \"background: transparent;border: none; width: 100%; outline: none;\" type=\"number\" step=\"1e-8\" name=\"A"+i+j+"\"> </td>";
+                        } 
                     }
                     matrixHtml += "</tr>";
                 }
@@ -218,6 +222,10 @@
             document.getElementById("resultado").innerHTML=block;
         }
         window.onload = program
+
+        function validateZero(event){
+            if (event.value == 0) alert("You cannot put zeros on diagonal");
+        }
 
         document.getElementById("sizePlus").addEventListener("click", (e) => {
             if (size != 8) size++;

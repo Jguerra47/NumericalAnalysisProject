@@ -8,7 +8,7 @@ x = sm.symbols('x')
 def elimination(Ab,n):
     procedure = []  
                                                                 
-    for k in range(n):
+    for k in range(n-1):
         
         for i in range(k+1,n):
             
