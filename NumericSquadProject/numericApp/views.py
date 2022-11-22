@@ -17,6 +17,7 @@ from numericApp.methods.LinearEquations.sor import sorAns
 from numericApp.methods.LinearEquations.doolittle import doolittleAns
 from numericApp.methods.Roots.incrementalSearch import incrementalSearch
 from numericApp.methods.Roots.falsePosition import falsePosition
+from numericApp.methods.Roots.trisection import trisection
 from numericApp.methods.Roots.mulRT import mulRT
 from numericApp.methods.LinearEquations.seidel import seidelAns
 from numericApp.methods.Roots.muller import muller
@@ -305,6 +306,37 @@ def false_position_ep(request):
                 })
     else:
         return render(request, "numericApp/false-position.html")
+
+def trisection_ep(request):
+    if request.method == 'POST':
+        try:
+            if 'graph' in request.POST :
+                return render(request, "numericApp/index.html", {
+                "equation":request.POST['equation'],
+                })
+            ans, procedure = trisection(request.POST['equation'],
+            float(request.POST['xi']),
+            float(request.POST['xf']),
+            float(request.POST['tolerance']),
+            float(request.POST['iterations']))
+
+            return render(request, "numericApp/trisection.html", {
+                "state":1,
+                "ans":ans,
+                "procedure":procedure,
+                "equation":request.POST['equation'],
+                "xi":request.POST['xi'],
+                "xf":request.POST['xf'],
+                "tolerance":request.POST['tolerance']
+                })
+        except Exception as err:
+            print(err)
+            return render(request, "numericApp/trisection.html", {
+                "state":2,
+                "error": "internal error"
+                })
+    else:
+        return render(request, "numericApp/trisection.html")
 
 def mulRT_ep(request):
     if request.method == 'POST':

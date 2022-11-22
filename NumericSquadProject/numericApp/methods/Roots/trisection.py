@@ -2,11 +2,11 @@ import sympy as sm
 
 x = sm.symbols('x')
 
-def trisection(f,left,right,tol):
+def trisection(f,left,right,tol,niter):
+    f = sm.sympify(f)
     fRight = float(f.subs(x,right))
     fLeft = float(f.subs(x,left))
     matrix = []
-    matrix.append(["iteration","left","right","xmid1","xmid2","f(xmid1)","f(xmid2)","error1","error2"])
     if (fRight == 0):
         answer = str(right)+" is a root"
         return answer,[]
@@ -51,7 +51,7 @@ def trisection(f,left,right,tol):
         elif(error1<tol):
             answer = str(xmid1)+" is an approximation with tolerance "+str(tol)
         elif(error2<tol):
-            answer = xmid2+" is an approximation with tolerance "+str(tol)
+            answer = str(xmid2)+" is an approximation with tolerance "+str(tol)
         else:
             answer = "The method fails in "+niter+" iterations"
         return answer,matrix
