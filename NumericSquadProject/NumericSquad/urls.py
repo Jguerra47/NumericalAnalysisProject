@@ -22,6 +22,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index),
     path('user-guide', views.guide),
+    path('user-guide-notes', views.version_notes),
     path('notfound', views.notfound),
 
     #Interpolation

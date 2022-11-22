@@ -47,6 +47,9 @@ def index(request):
 def guide(request):
     return render(request, "numericApp/userGuide.html")
 
+def version_notes(request):
+    return render(request, "numericApp/userGuideNotes.html")
+
 def notfound(request):
     return render(request, "numericApp/notfound.html")
 
