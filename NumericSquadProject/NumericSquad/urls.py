@@ -58,6 +58,7 @@ urlpatterns = [
     path('cholesky', views.cholesky_ep),
     path('doolittle',views.doolittle_ep),
     path('gauss-simple', views.gauss_simple_ep),
+    path('gauss-partial', views.gauss_partial_ep),
 ]
 
 urlpatterns += staticfiles_urlpatterns()
