@@ -20,7 +20,7 @@ def partialPivot(Ab,n):
 
 def partialPivotElimination(Ab,n):
     procedure = []
-    for k in range(n):
+    for k in range(n-1):
         # Ab = partialPivot(Ab,n)
         Ab = partialPivot(Ab,k)
 
