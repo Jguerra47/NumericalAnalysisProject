@@ -13,8 +13,7 @@ def partialPivot(Ab,n):
         if auxM < abs(Ab[i,n]):
             auxI = i
             auxM = abs(Ab[i,n])
-    # if Ab[i][i] == 0:
-    #     raise CustomException("WTF LOCO TAS LOCO?")
+            
     Ab[n,:],Ab[auxI,:] = Ab[auxI,:].copy(),Ab[n,:].copy()
     print(Ab)
     return Ab
@@ -37,6 +36,11 @@ def partialPivotElimination(Ab,n):
     return Ab, procedure
 
 def gaussPartialPivot(A,b):
+    #Validation
+    aux = np.array(A)
+    if not np.linalg.det(aux):
+        raise CustomException("The determinant of the matrix cannot be zero")
+
     Ab = np.append(A,b, axis = 1)
     n = len(Ab)
     Ab, procedure = partialPivotElimination(Ab,n)
