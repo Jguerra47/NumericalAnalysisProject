@@ -66,6 +66,7 @@ urlpatterns = [
     path('simpson1-3',views.simpson1_3_ep),
     path('simpson3-8',views.simpson3_8_ep),
     path('gauss-partial', views.gauss_partial_ep),
+    path('gauss-total', views.gauss_total_ep),
 ]
 
 urlpatterns += staticfiles_urlpatterns()

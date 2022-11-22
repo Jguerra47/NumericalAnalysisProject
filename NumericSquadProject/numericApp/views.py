@@ -35,6 +35,7 @@ from numericApp.methods.LinearEquations.luParcial import lu_decomposition
 
 from numericApp.methods.LinearEquations.gausSimple import gaussSimple
 from numericApp.methods.LinearEquations.gausPartialPivot import gaussPartialPivot
+from numericApp.methods.LinearEquations.gausTotalPivot import gaussTotalPivot
 
 from numericApp.Exceptions.exception import CustomException
 # Create your views here.
@@ -1134,3 +1135,41 @@ def gauss_partial_ep(request):
                 })
     else:
         return render(request, "numericApp/gauss-partial.html")
+
+def gauss_total_ep(request):
+    if request.method == 'POST':
+        try:
+            A = []
+            b = []
+
+            size= int(sqrt(len(request.POST)))
+            for i in range(size):
+                b.append([float(request.POST["B"+str(i)])])
+
+            for i in range(size):
+                q = []
+                for j in range(size):
+                    q.append(float(request.POST["A"+str(i)+str(j)]))
+                A.append(q)
+            
+            x, stages = gaussTotalPivot(A, b)
+
+            return render(request, "numericApp/gauss-total.html", {
+                "state":1,
+                "A":A,
+                "b":b,
+                "size":size,
+                "stages":stages,
+                "x":x
+                })
+        except CustomException as error_message:
+            return render(request, "numericApp/gauss-total.html", {
+                "state":2,
+                "error": error_message,
+                "A":A,
+                "b":b,
+                "size":size
+                })
+    else:
+        return render(request, "numericApp/gauss-total.html")
+
