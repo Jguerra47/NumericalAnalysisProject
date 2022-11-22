@@ -315,3 +315,9 @@
         });
     </script>
 {% endblock content %}
+{% block help %}
+    <li>If w = 1 we is like Gauss-Seidel method.</li>
+    <li>If 0 minus w minus 1 we got sub-relaxation methods (used in non-convergent Gauss-Seidel systems).</li>
+    <li>If 1 minus w minus 2 we got over-relaxation methods (used to "increase" the speed of some methods).</li>
+    <li>The determinant of the matrix cannot be 0.</li>
+{% endblock help %}
