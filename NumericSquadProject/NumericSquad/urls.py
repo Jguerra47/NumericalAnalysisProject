@@ -58,6 +58,13 @@ urlpatterns = [
     path('cholesky', views.cholesky_ep),
     path('doolittle',views.doolittle_ep),
     path('gauss-simple', views.gauss_simple_ep),
+
+    #IVP
+    path('compound-trapeze',views.compound_trapeze_ep),
+    path('euler',views.euler_ep),
+    path('heun',views.heun_ep),
+    path('simpson1-3',views.simpson1_3_ep),
+    path('simpson3-8',views.simpson3_8_ep),
     path('gauss-partial', views.gauss_partial_ep),
 ]
 
