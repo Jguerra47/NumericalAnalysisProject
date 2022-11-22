@@ -2,7 +2,7 @@
 {%load static%}
 
 {% block title %}
-<title>Little Crow - False position</title>
+<title>Little Crow - Trisection</title>
 {% endblock title %}
 
 {% block content %}
@@ -10,7 +10,7 @@
     <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
         <i class="fa fa-bars"></i>
     </button>
-    <h2>False position</h2>
+    <h2>Trisection</h2>
     <ul class="navbar-nav ml-auto">
         
     </ul>
@@ -28,7 +28,7 @@
             <!-- Card Body -->
             <div class="card-body">
                 <!-- AQUI VA TODO EL CONTENT INPUT-->                   
-                <form action="false-position" method="POST" onsubmit="">
+                <form action="trisection" method="POST" onsubmit="">
                     {% csrf_token %}
                     <div class="mb-3">
                         <label for="equation" class="form-label">Function:</label>
@@ -37,7 +37,7 @@
                         type="text" class="form-control" id="equation" placeholder="Put the function here..." name="equation">
                     </div>
                     <div class="mb-3">
-                        <label for="x0" class="form-label">Lowe interval value (a):</label>
+                        <label for="x0" class="form-label">Lower interval value (a):</label>
                         <input 
                         value={% if xi %}"{{xi}}"{% else %}"0"{% endif %}
                         type="number" step="1e-8" class="form-control" id="xi" placeholder="Insert a value" name="xi">
@@ -99,11 +99,15 @@
                         <thead>
                             <tr>
                               <th>\(i\)</th>
-                              <th>\(a\)</th>
-                              <th>\(x_{mid}\)</th>
-                              <th>\(b\)</th>
-                              <th>\(f(x_{mid})\)</th>
-                              <th>\(E\)</th>
+                              <th>\(left\)</th>
+                              
+                              <th>\(right\)</th>
+                              <th>\(x_{xmid1}\)</th>
+                              <th>\(x_{xmid2}\)</th>
+                              <th>\(f(x_{xmid1})\)</th>
+                              <th>\(f(x_{xmid2})\)</th>
+                              <th>\(E_1\)</th>
+                              <th>\(E_2\)</th>
                             </tr>
                           </thead>
                         {% for i in procedure %}

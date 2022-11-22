@@ -21,7 +21,7 @@ def fixedPoint(f, xi, tol, g, maxIter):
             fxi = float(f.subs(x,xi))
             error = abs(xn - xi)
             matrix.append([ite,xi,xn,fxi,error])
-            print(matrix[-1])
+            # print(matrix[-1])
             ite += 1
             xi = xn
 
