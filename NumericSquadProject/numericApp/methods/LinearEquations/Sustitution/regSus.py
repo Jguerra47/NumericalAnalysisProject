@@ -1,7 +1,5 @@
 import sympy as sm 
-import numpy as np 
-import math
-import matplotlib.pyplot as plt
+import numpy as np
 
 x = sm.symbols('x')
 
@@ -21,8 +19,6 @@ def regSus(Ab,n):
             k = x[p]
             sum = sum + (Ab[i][p]*x[p])
           
-        print(x)
         x[i] =(Ab[i][n+1]-sum)/Ab[i][i]
-    print(x)
         
     return x
