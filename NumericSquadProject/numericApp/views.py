@@ -23,6 +23,11 @@ from numericApp.methods.LinearEquations.seidel import seidelAns
 from numericApp.methods.Roots.muller import muller
 from numericApp.methods.Roots.steffensen import steffensen
 from numericApp.methods.Roots.aitken import aitken
+from numericApp.methods.IVP.CompoundTrapeze import CompoundTrapeze
+from numericApp.methods.IVP.euler import euler
+from numericApp.methods.IVP.heun import heun
+from numericApp.methods.IVP.simpson13 import simpson13
+from numericApp.methods.IVP.simpson38 import simpson38
 
 
 from numericApp.methods.LinearEquations.lu import LUGauss
@@ -414,6 +419,172 @@ def false_position_ep(request):
                 })
     else:
         return render(request, "numericApp/false-position.html")
+
+def compound_trapeze_ep(request):
+    if request.method == 'POST':
+        try:
+            if 'graph' in request.POST :
+                return render(request, "numericApp/index.html", {
+                "equation":request.POST['equation'],
+                })
+            ans = CompoundTrapeze(float(request.POST['xi']),
+            float(request.POST['xf']),
+            request.POST['equation'],
+            int(request.POST['iterations']))
+
+            return render(request, "numericApp/CompoundTrapeze.html", {
+                "state":1,
+                "ans":ans,
+                "equation":request.POST['equation'],
+                "xi":request.POST['xi'],
+                "xf":request.POST['xf']
+                })
+        except Exception as err:
+            print(err)
+            return render(request, "numericApp/CompoundTrapeze.html", {
+                "state":2,
+                "error": "internal error"
+                })
+    else:
+        return render(request, "numericApp/CompoundTrapeze.html")
+
+def euler_ep(request):
+    if request.method == 'POST':
+        # try:
+            if 'graph' in request.POST :
+                return render(request, "numericApp/index.html", {
+                "equation":request.POST['equation'],
+                })
+            ans = euler(float(request.POST['x0']),
+            float(request.POST['y0']),
+            float(request.POST['h']),
+            float(request.POST['x']),
+            request.POST['equation'],)
+
+            return render(request, "numericApp/euler.html", {
+                "state":1,
+                "ans":ans,
+                "x0":request.POST['x0'],
+                "y0":request.POST['y0'],
+                "h":request.POST['h'],
+                "x":request.POST['x'],
+                "equation":request.POST['equation'],
+                })
+        # except Exception as err:
+        #     print(err)
+        #     return render(request, "numericApp/euler.html", {
+        #         "state":2,
+        #         "error": "internal error",
+        #         "x0":request.POST['x0'],
+        #         "y0":request.POST['y0'],
+        #         "h":request.POST['h'],
+        #         "x":request.POST['x'],
+        #         "equation":request.POST['equation'],
+        #         })
+    else:
+        return render(request, "numericApp/euler.html")
+
+def heun_ep(request):
+    if request.method == 'POST':
+        try:
+            if 'graph' in request.POST :
+                return render(request, "numericApp/index.html", {
+                "equation":request.POST['equation'],
+                })
+            ans = heun(float(request.POST['t']),
+            float(request.POST['y']),
+            float(request.POST['h']),
+            float(request.POST['x']),
+            request.POST['equation'],)
+
+            return render(request, "numericApp/heun.html", {
+                "state":1,
+                "ans":ans,
+                "x0":request.POST['t'],
+                "y0":request.POST['y'],
+                "h":request.POST['h'],
+                "x":request.POST['x'],
+                "equation":request.POST['equation']
+                })
+        except Exception as err:
+            print(err)
+            return render(request, "numericApp/heun.html", {
+                "state":2,
+                "error": "internal error",
+                "x0":request.POST['t'],
+                "y0":request.POST['y'],
+                "h":request.POST['h'],
+                "x":request.POST['x'],
+                "equation":request.POST['equation']
+                })
+    else:
+        return render(request, "numericApp/heun.html")
+
+def simpson1_3_ep(request):
+    if request.method == 'POST':
+        try:
+            if 'graph' in request.POST :
+                return render(request, "numericApp/index.html", {
+                "equation":request.POST['equation'],
+                })
+            ans = simpson13(float(request.POST['left']),
+            float(request.POST['right']),
+            float(request.POST['n']),
+            request.POST['equation'])
+
+            return render(request, "numericApp/simpson1-3.html", {
+                "state":1,
+                "ans":ans,
+                "left":request.POST['left'],
+                "right":request.POST['right'],
+                "n":request.POST['n'],
+                "equation":request.POST['equation']
+                })
+        except Exception as err:
+            print(err)
+            return render(request, "numericApp/simpson1-3.html", {
+                "state":2,
+                "error": "internal error",
+                "left":request.POST['left'],
+                "right":request.POST['right'],
+                "n":request.POST['n'],
+                "equation":request.POST['equation']
+                })
+    else:
+        return render(request, "numericApp/simpson1-3.html")
+
+def simpson3_8_ep(request):
+    if request.method == 'POST':
+        try:
+            if 'graph' in request.POST :
+                return render(request, "numericApp/index.html", {
+                "equation":request.POST['equation'],
+                })
+            ans = simpson38(float(request.POST['left']),
+            float(request.POST['right']),
+            int(request.POST['n']),
+            request.POST['equation'])
+
+            return render(request, "numericApp/simpson3-8.html", {
+                "state":1,
+                "ans":ans,
+                "left":request.POST['left'],
+                "right":request.POST['right'],
+                "n":request.POST['n'],
+                "equation":request.POST['equation']
+                })
+        except Exception as err:
+            print(err)
+            return render(request, "numericApp/simpson3-8.html", {
+                "state":2,
+                "error": "internal error",
+                "left":request.POST['left'],
+                "right":request.POST['right'],
+                "n":request.POST['n'],
+                "equation":request.POST['equation']
+                })
+    else:
+        return render(request, "numericApp/simpson3-8.html")
 
 def trisection_ep(request):
     if request.method == 'POST':

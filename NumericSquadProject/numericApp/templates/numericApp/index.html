@@ -34,7 +34,21 @@
 <script>
     var elt = document.getElementById('calculator');
     var calculator = Desmos.GraphingCalculator(elt);
-    calculator.setExpression({ id: 'graph1', latex: "{% if equation %}{{equation}}{% else %}y=x^2{% endif %}" });
+    let words = ['ln', 'sin', 'log', 'cos', 'exp', 'tan', 'cosh', 'sinh', 'tanh', 'sec', 'csc'];
+    {% if equation %}
+        var pattern = "{{equation}}";
+        words.forEach( word => {
+            var ans = pattern.indexOf(word);
+
+            if (ans != -1){
+                pattern = pattern.substring(0, ans) + '\\' + pattern.substring(ans);
+                console.log(pattern, word, ans);
+            }
+        });
+    {% else %}
+        var pattern = "y=x^2";
+    {% endif %}
+    calculator.setExpression({ id: 'graph1', latex: pattern });
 </script>
 
 

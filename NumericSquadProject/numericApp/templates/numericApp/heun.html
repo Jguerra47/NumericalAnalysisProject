@@ -1,0 +1,104 @@
+{% extends 'aux/base.html' %}
+{%load static%}
+
+{% block title %}
+<title>Little Crow - Heun</title>
+{% endblock title %}
+
+{% block content %}
+<nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+        <i class="fa fa-bars"></i>
+    </button>
+    <h2>Heun</h2>
+    <ul class="navbar-nav ml-auto">
+        
+    </ul>
+</nav>
+
+<!-- Begin Page Content -->
+<div class="container-fluid">
+    <div>
+        <!-- INPUT CARD -->
+        <div class="card shadow mb-4">
+            <div
+                class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">Input</h6>
+            </div>
+            <!-- Card Body -->
+            <div class="card-body">
+                <!-- AQUI VA TODO EL CONTENT INPUT-->                   
+                <form action="heun" method="POST" onsubmit="">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="equation" class="form-label">Function:</label>
+                        <input 
+                        value={% if equation %}"{{equation}}"{% else %}"log(sin(x)^2 + 1)-(1/2)"{% endif %}
+                        type="text" class="form-control" id="equation" placeholder="Put the function here..." name="equation">
+                    </div>
+                    <div class="mb-3">
+                        <label for="t" class="form-label">t:</label>
+                        <input 
+                        value={% if t %}"{{t}}"{% else %}"0"{% endif %}
+                        type="number" step="1e-8" class="form-control" id="t" placeholder="Insert a value" name="t">
+                    </div>
+                    <div class="mb-3">
+                        <label for="y" class="form-label">y:</label>
+                        <input 
+                        value={% if y0 %}"{{y0}}"{% else %}"1"{% endif %}
+                        type="number" step="1e-8" class="form-control" id="y" placeholder="Insert a value" name="y">
+                    </div>
+                    <div class="mb-3">
+                        <label for="h" class="form-label">h:</label>
+                        <input 
+                        value={% if h %}"{{h}}"{% else %}"0.025"{% endif %}
+                        type="number" step="1e-8" class="form-control" id="h" placeholder="Insert a value" name="h">
+                    </div>
+                    <div class="mb-3">
+                        <label for="x" class="form-label">x:</label>
+                        <input 
+                        value={% if x %}"{{x}}"{% else %}"0.1"{% endif %}
+                        type="number" step="1e-8" class="form-control" id="x" placeholder="Insert a value" name="x">
+                    </div>
+                    <div class="container text-center">
+                        <div class="row justify-content-center">
+                            <div class="col-8">
+                                <a class="btn btn-primary btn-icon-split">
+                                    <input style="color:white;" class="icon text-white-5" type="submit" value="Submit">
+                                </a>
+                            </div>
+                            <div class="col-8">
+                                <a class="btn btn-primary btn-icon-split">
+                                    <input style="color:white;" class="icon text-white-5" type="submit" value="Graph" name="graph" formtarget="_blank">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <!-- AQUI TERMINA TODO EL CONTENT INPUT-->
+            </div>
+        </div>
+    </div>
+
+    <div>
+
+    <!-- RESULT CARD -->
+    {% if state == 1%}
+        
+        <div class="card shadow mb-4">
+            <!-- Card Header - Dropdown -->
+            <div
+                class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">Results</h6>
+            </div>
+            <!-- Card Body -->
+            
+            <div class="card-body">
+                <div>
+                    <p style="text-align:center; font-size:big;">{{ans}}</p>
+                </div>                                    
+            </div>
+        </div>
+    {% endif %}
+
+{% endblock content %}
