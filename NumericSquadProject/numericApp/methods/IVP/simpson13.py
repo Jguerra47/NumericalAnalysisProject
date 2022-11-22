@@ -1,12 +1,10 @@
-import math
+import sympy as sm
+
+xx = sm.symbols('x')
 
 
-def func( x ):
-	return math.log(x)
-
-
-def simpson(leftLimit, rightLimit, n):
-
+def simpson13(leftLimit, rightLimit, n,f):
+	f = sm.sympify(f)
 	h = ( rightLimit - leftLimit )/n	
 	x = []
 	fx = []
@@ -14,7 +12,7 @@ def simpson(leftLimit, rightLimit, n):
 	i = 0
 	while i<= n:
 		x.append(leftLimit + i * h)
-		fx.append(func(x[i]))
+		fx.append(float(f.subs(xx,x[i])))
 		i += 1
 
 	ans = 0
@@ -31,7 +29,7 @@ def simpson(leftLimit, rightLimit, n):
 	return ans
 	
 
-leftLimit = 4 
-rightLimit = 5.2 
-n = 6 
-print("%.5f"% simpson(leftLimit, rightLimit, n))
+# leftLimit = 4 
+# rightLimit = 5.2 
+# n = 6 
+# print("%.5f"% simpson(leftLimit, rightLimit, n))

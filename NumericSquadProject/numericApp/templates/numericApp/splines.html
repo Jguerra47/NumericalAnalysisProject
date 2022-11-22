@@ -1,336 +1,219 @@
+{% extends 'aux/base.html' %}
 {%load static%}
-<!DOCTYPE html>
-<html lang="en">
-<head>
 
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    
-    
-    <title>SB Admin 2 - Dashboard</title>
+{% block title %}{% endblock title %}
+<title>Little Crow - Splines</title>
 
-    <!-- Custom fonts for this template-->
-    <link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
+{% block content %}
 
-    <!-- Custom styles for this template-->
-    <link href="{% static '/css/cssa.css' %}" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.3/dist/katex.min.css" integrity="sha384-Juol1FqnotbkyZUT5Z7gUPjQ9gzlwCENvUZTpQBAPxtusdwFLRy382PSDx5UUJ4/" crossorigin="anonymous">
 
-    <!-- The loading of KaTeX is deferred to speed up page rendering -->
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.3/dist/katex.min.js" integrity="sha384-97gW6UIJxnlKemYavrqDHSX3SiygeOwIZhwyOKRfSaf0JWKRVj9hLASHgFTzT+0O" crossorigin="anonymous"></script>
+<nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+        <i class="fa fa-bars"></i>
+    </button>
+    <h2>Splines</h2>
+    <ul class="navbar-nav ml-auto">
+        
+    </ul>
+</nav>
 
-    <!-- To automatically render math in text elements, include the auto-render extension: -->
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.3/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous"
-        onload="renderMathInElement(document.body);"></script>
-</head>
 
-<body id="page-top">
+        
 
-    <!-- Page Wrapper -->
-    <div id="wrapper">
 
-        <!-- Sidebar -->
-        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
-            <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
-                <div class="sidebar-brand-icon rotate-n-15">
-                    <i class='fas fa-crow'></i>
-                </div>
-                <div class="sidebar-brand-text mx-3">Numeric Squad</div>
-            </a>
 
-            <!-- Divider -->
-            <hr class="sidebar-divider my-0">
 
-            <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
-                <a class="nav-link" href="/">
-                    <span>Home</span></a>
-            </li>
 
-            <!-- Divider -->
-            <hr class="sidebar-divider">
 
-            <!-- Heading -->
-            <div class="sidebar-heading">
-                METHODS
-            </div>
 
-            <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="{% static '#' %} " data-toggle="collapse" data-target="#collapseTwo"
-                    aria-expanded="true" aria-controls="collapseTwo">
-                    <i class='fas fa-chart-line'></i>
-                    <span>Interpolation</span>
-                </a>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Methods:</h6>
-                        <a class="collapse-item" href="vandermonde">Vandermonde</a>
-                        <a class="collapse-item" href="newton-interpolation">Newton</a>
-                        <a class="collapse-item" href="lagrange">Lagrange</a>
-                        <a class="collapse-item" href="splines">Splines</a>
+
+
+
+
+
+<!-- End of Topbar -->
+
+<!-- Begin Page Content -->
+{% comment %} <div class="container-fluid">
+    <!-- Page Heading -->
+            
+    <div class="card shadow mb-4">
+        <div
+            class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+            <h6 class="m-0 font-weight-bold text-primary">Input</h6>
+        </div>
+        <!-- Card Body -->
+        <div class="card-body">
+            
+            <!-- AQUI VA TODO EL CONTENT INPUT-->
+            <div class="h5 mb-0 font-weight-bold text-gray-800">                     
+                <form action="splines" method="POST" onsubmit="">
+                    {% csrf_token %}
+                    <p style="text-align:center;">Size</p><hr class="sidebar-divider">
+                    <div class="container text-center">
+                        <div class="row justify-content-center">
+                            
+                            <div class="col-5">
+                                <a id="sizeMinus" class="btn btn-primary btn-icon-split">
+                                    <span class="icon text-white-5">
+                                        -
+                                    </span>
+                                </a>
+                            </div>
+                            
+                            <div class="col-0">
+                                <label id="size">
+                                    {% if size %}
+                                        {{size}}
+                                    {% else %}
+                                        4
+                                    {% endif %}
+                                </label>
+                            </div>
+
+                            <div class="col-5">
+                                <a id="sizePlus" class="btn btn-primary btn-icon-split">
+                                    <span class="icon text-white-5">
+                                        +
+                                    </span>
+                                </a>
+                            </div>
+                            
+                        </div>
                     </div>
-                </div>
-            </li>
+                    <br>
 
-            <!-- Divider -->
-            <hr class="sidebar-divider d-none d-md-block">
-
-            <!-- Sidebar Toggler (Sidebar) -->
-            <div class="text-center d-none d-md-inline">
-                <button class="rounded-circle border-0" id="sidebarToggle"></button>
-            </div>
-
-            <!-- Sidebar Message -->
-        </ul>
-        <!-- End of Sidebar -->
-
-
-
-
-        <!-- Content Wrapper -->
-        <div id="content-wrapper" class="d-flex flex-column">
-
-            <!-- Main Content -->
-            <div id="content">
-
-                <!-- Topbar -->
-                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-
-                    <!-- Sidebar Toggle (Topbar) -->
-                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-                        <i class="fa fa-bars"></i>
-                    </button>
-
-                    <!-- Topbar Search -->
-                    <h2>Splines</h2>
-
-                    <!-- Topbar Navbar -->
-                    <ul class="navbar-nav ml-auto">
-                    </ul>
-
-                </nav>
-                <!-- End of Topbar -->
-
-                <!-- Begin Page Content -->
-                <div class="container-fluid">
-                    <!-- Page Heading -->
-                    
+                    <div id="resultado"></div>
                     
 
-                    <div class="row">
-                        <!-- INPUT CARD -->
-                        <div class="col-xl-2 col-lg-5">
-                            
-                            <div class="card shadow mb-4">
-                                <div
-                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Input</h6>
-                                </div>
-                                <!-- Card Body -->
-                                <div class="card-body">
-                                    
-                                    <!-- AQUI VA TODO EL CONTENT INPUT-->
-                                    <div class="h5 mb-0 font-weight-bold text-gray-800">                     
-                                        <form action="splines" method="POST" onsubmit="">
-                                            {% csrf_token %}
-                                            <p style="text-align:center;">Size</p><hr class="sidebar-divider">
-                                            <div class="container text-center">
-                                                <div class="row justify-content-center">
-                                                    
-                                                    <div class="col-5">
-                                                        <a id="sizeMinus" class="btn btn-primary btn-icon-split">
-                                                            <span class="icon text-white-5">
-                                                                -
-                                                            </span>
-                                                        </a>
-                                                    </div>
-                                                    
-                                                    <div class="col-0">
-                                                        <label id="size">
-                                                            {% if size %}
-                                                                {{size}}
-                                                            {% else %}
-                                                                3
-                                                            {% endif %}
-                                                        </label>
-                                                    </div>
-
-                                                    <div class="col-5">
-                                                        <a id="sizePlus" class="btn btn-primary btn-icon-split">
-                                                            <span class="icon text-white-5">
-                                                                +
-                                                            </span>
-                                                        </a>
-                                                    </div>
-                                                    
-                                                </div>
-                                            </div>
-                                            <br>
-    
-                                            <div id="resultado"></div>
-                                            
-
-                                            <div class="container text-center">
-                                                <div class="row justify-content-center">
-                                                    <div class="col-8">
-                                                        <a class="btn btn-primary btn-icon-split">
-                                                            <input style="color:white;" class="icon text-white-5" type="submit" value="Submit">
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                        </form>
-                                    </div>
-                                    <!-- AQUI TERMINA TODO EL CONTENT INPUT-->
-                                </div>
+                    <div class="container text-center">
+                        <div class="row justify-content-center">
+                            <div class="col-8">
+                                <a class="btn btn-primary btn-icon-split">
+                                    <input style="color:white;" class="icon text-white-5" type="submit" value="Submit">
+                                </a>
                             </div>
                         </div>
-
-
-
-                        <!-- RESULT CARD -->
-                        {% if state == 1%}
-                        <div class="col-xl-10 col-lg-7">
-                            
-                            <div class="card shadow mb-4">
-                                <!-- Card Header - Dropdown -->
-                                <div
-                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Lineal Spline</h6>
-                                </div>
-                                <!-- Card Body 1-->
-                                <div class="card-body">
-                                    <p style="text-align:center">Lineal spline</p>
-                                    <p style="text-align:center">Polynoms by segmen:</p>
-                                    
-                                        <div style="text-align:center;">
-                                            <p>
-                                                \(P(x) = \begin{cases}
-                                                {% for seg,polBySeg in segments1 %}
-                                                    {{polBySeg}}&\text{if } {{seg}} 
-                                                    {% if not forloop.last %}
-                                                    \\
-                                                    {% endif %}
-                                                {% endfor %}
-                                            \end{cases}\)
-                                            </p>
-                                        </div>
-                                </div>
-                                <div class="card-body">
-                                    <p style="text-align:center">Cuadratic spline</p>
-                                    <p style="text-align:center">Polynoms by segmen:</p>
-                                    
-                                        <div style="text-align:center;">
-                                            <p>
-                                                \(P(x) = \begin{cases}
-                                                {% for seg,polBySeg in segments2 %}
-                                                    {{polBySeg}}&\text{if } {{seg}} 
-                                                    {% if not forloop.last %}
-                                                    \\
-                                                    {% endif %}
-                                                {% endfor %}
-                                            \end{cases}\)
-                                            </p>
-                                        </div>
-                                    
-                                </div>
-                                <div class="card-body">
-                                    <p style="text-align:center">Cubic spline</p>
-                                    <p style="text-align:center">Polynoms by segmen:</p>
-                                        {{xd}}
-                                        <div style="text-align:center;">
-                                            <p>
-                                                \(P(x) = \begin{cases}
-                                                {% for seg,polBySeg in segments3 %}
-                                                    {{polBySeg}}&\text{if } {{seg}} 
-                                                    {% if not forloop.last %}
-                                                    \\
-                                                    {% endif %}
-                                                {% endfor %}
-                                            \end{cases}\)
-                                            </p>
-                                        </div>
-                                </div>
-                            </div>
-                        </div>
-                        {% endif %}
                     </div>
-                </div>
+
+                </form>
             </div>
         </div>
+    </div>
 
-                    
-    
+    <!-- RESULT CARD -->
+    {% if state == 1%}
+        
+        <div class="card shadow mb-4">
+            <!-- Card Header - Dropdown -->
+            <div
+                class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">Result</h6>
+            </div>
+            <!-- Card Body 1-->
+            <div class="card-body">
+                <p style="text-align:center">Lineal spline</p>
+                <p style="text-align:center">Polynoms by segment:</p>
+                
+                    <div style="text-align:center;">
+                        <p>
+                            \(P(x) = \begin{cases}
+                            {% for seg,polBySeg in segments1 %}
+                                {{polBySeg}}&\text{if } {{seg}} 
+                                {% if not forloop.last %}
+                                \\
+                                {% endif %}
+                            {% endfor %}
+                        \end{cases}\)
+                        </p>
+                    </div>
+            </div>
+            <div class="card-body">
+                <p style="text-align:center">Cuadratic spline</p>
+                <p style="text-align:center">Polynoms by segment:</p>
+                
+                    <div style="text-align:center;">
+                        <p>
+                            \(P(x) = \begin{cases}
+                            {% for seg,polBySeg in segments2 %}
+                                {{polBySeg}}&\text{if } {{seg}} 
+                                {% if not forloop.last %}
+                                \\
+                                {% endif %}
+                            {% endfor %}
+                        \end{cases}\)
+                        </p>
+                    </div>
+                
+            </div>
+            <div class="card-body">
+                <p style="text-align:center">Cubic spline</p>
+                <p style="text-align:center">Polynoms by segment:</p>
+                    {{xd}}
+                    <div style="text-align:center;">
+                        <p>
+                            \(P(x) = \begin{cases}
+                            {% for seg,polBySeg in segments3 %}
+                                {{polBySeg}}&\text{if } {{seg}} 
+                                {% if not forloop.last %}
+                                \\
+                                {% endif %}
+                            {% endfor %}
+                        \end{cases}\)
+                        </p>
+                    </div>
+            </div>
+        </div>
+    {% endif %} {% endcomment %}
 
-    <!-- Bootstrap core JavaScript-->
-    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
-    <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
 
-    <!-- Core plugin JavaScript-->
-    <script src="{% static 'vendor/jquery-easing/jquery.easing.min.js' %}"></script>
+            
+<!-- Handle matrix -->
+<script type="text/javascript">
+    let size = 4;
+    {% if size %}
+    size = {{size}};
+    {% endif %}
+    const program = () => {
+        var tabla="<table class=\"table table-bordered table-secondary\">";
+        var xvalues = [-2, -1, 2, 3];
+        var yvalues = [12.135, 6.3678, -4.61, 2.085];
 
-    <!-- Custom scripts for all pages-->
-    <script src="{% static 'js/sb-admin-2.min.js' %}"></script>
-
-    <!-- Page level plugins -->
-    <script src="{% static 'vendor/chart.js/Chart.min.js' %}"></script>
-
-    <!-- Page level custom scripts -->
-    <script src="{% static 'js/demo/chart-area-demo.js' %}"></script>
-    <script src="{% static 'js/demo/chart-pie-demo.js' %}"></script>
-
-    <!-- Handle matrix -->
-    <script type="text/javascript">
-        let size = 3;
-        {% if size %}
-        size = {{size}};
+        {% if X %}
+        xvalues = []
+        yvalues = []
+        {% for p in X %}
+            xvalues.push({{p}});
+        {% endfor %}
+        {% for p in Y %}
+            yvalues.push({{p}});
+        {% endfor %}
         {% endif %}
-        const program = () => {
-            var tabla="<table class=\"table table-bordered table-secondary\">";
-            var xvalues = [];
-            var yvalues = [];
-
-            {% if X %}
-            {% for p in X %}
-                xvalues.push({{p}});
-            {% endfor %}
-            {% for p in Y %}
-                yvalues.push({{p}});
-            {% endfor %}
-            {% endif %}
-            tabla += "<tr><td> X </td><td> Y </td></tr>"
-            for(j = 0; j < size; j++){
-                tabla += "<tr>";
-                tabla += "<td><input value="+xvalues[j]+" style= \"background: transparent;border: none; width: 100%; outline: none;\" type=\"number\" step=\"1e-8\" name=\"X"+j+"\"> </td>";
-                tabla += "<td><input value="+yvalues[j]+" style= \"background: transparent;border: none; width: 100%; outline: none;\" type=\"number\" step=\"1e-8\" name=\"Y"+j+"\"> </td>";
-                tabla += "</tr>";
-            }
-
-            tabla+="</table>";
-            document.getElementById("resultado").innerHTML=tabla;
+        tabla += "<tr><td> X </td><td> Y </td></tr>"
+        for(j = 0; j < size; j++){
+            tabla += "<tr>";
+            tabla += "<td><input value="+xvalues[j]+" style= \"background: transparent;border: none; width: 100%; outline: none;\" type=\"number\" step=\"1e-8\" name=\"X"+j+"\"> </td>";
+            tabla += "<td><input value="+yvalues[j]+" style= \"background: transparent;border: none; width: 100%; outline: none;\" type=\"number\" step=\"1e-8\" name=\"Y"+j+"\"> </td>";
+            tabla += "</tr>";
         }
-        window.onload = program
 
-        document.getElementById("sizePlus").addEventListener("click", (e) => {
-            size++;
-            document.getElementById("size").innerHTML = size;
-            program();
-        });
+        tabla+="</table>";
+        document.getElementById("resultado").innerHTML=tabla;
+    }
+    window.onload = program
 
-        document.getElementById("sizeMinus").addEventListener("click", (e) => {
-            if (size != 0) size--;
-            document.getElementById("size").innerHTML = size;
-            program();
-        });
-    </script>
+    document.getElementById("sizePlus").addEventListener("click", (e) => {
+        size++;
+        document.getElementById("size").innerHTML = size;
+        program();
+    });
 
-</body>
+    document.getElementById("sizeMinus").addEventListener("click", (e) => {
+        if (size != 0) size--;
+        document.getElementById("size").innerHTML = size;
+        program();
+    });
+</script>
 
-</html>
+{% endblock content %}

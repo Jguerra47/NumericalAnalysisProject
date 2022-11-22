@@ -42,7 +42,7 @@
                             <label for="x0" class="form-label">First initial value (x0):</label>
                             <input 
                             value={% if x0 %}"{{x0}}"{% else %}"0.5"{% endif %}
-                            type="number" class="form-control" id="x0" placeholder="Insert a value" name="x0">
+                            type="number" step="1e-8" class="form-control" id="x0" placeholder="Insert a value" name="x0">
                         </div>
                         <div class="mb-3">
                             <label for="x1" class="form-label">Second initial value (x1):</label>
@@ -51,7 +51,7 @@
                             type="number" step="1e-8" class="form-control" id="x1" placeholder="Insert a value" name="x1">
                         </div>
                         <div class="mb-3">
-                            <label for="tolerance" class="form-label">Tolarence:</label>
+                            <label for="tolerance" class="form-label">Tolerance:</label>
                             <input
                             value={% if tolerance %}"{{tolerance}}"{% else %}"1e-7"{% endif %}
                             type="number" step="1e-8" class="form-control" id="tolerance" placeholder="Insert a tolerance" name="tolerance">
@@ -67,6 +67,11 @@
                                 <div class="col-8">
                                     <a class="btn btn-primary btn-icon-split">
                                         <input style="color:white;" class="icon text-white-5" type="submit" value="Submit">
+                                    </a>
+                                </div>
+                                <div class="col-8">
+                                    <a class="btn btn-primary btn-icon-split">
+                                        <input style="color:white;" class="icon text-white-5" type="submit" value="Graph" name="graph" formtarget="_blank">
                                     </a>
                                 </div>
                             </div>
@@ -97,6 +102,13 @@
                 <p style="text-align:center">MATRIX</p>
                 <div style="text-align:center;">
                     <table class="table table-bordered table-secondary">
+                        <thead>
+                            <tr>
+                              <th>\(i\)</th>
+                              <th>\(x_i\)</th>
+                              <th>\(E\)</th>
+                            </tr>
+                          </thead>
                         {% for i in procedure %}
                             <tr>
                                 {% for j in i %}
@@ -125,3 +137,10 @@
     {% endif %}
 
 {% endblock content %}
+{% block help %}
+    <li>The method requires two initial values which should be chosen to lie close to the root, to be more fast.</li>
+    <li>Be sure that the function have a root.</li>
+    <li>The function must be continuous and differentiable.</li>
+    <li>Tolerance must have a positive value.</li>
+    <li>The iteration number must be positive.</li>
+{% endblock help %}

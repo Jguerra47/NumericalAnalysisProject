@@ -59,32 +59,30 @@ def gaussSeidel(niter,tol,x0):
         matrix.append([cont,dispersion]+x1)
     return [ matrix[-1][2+i] for i in range(len(matrix[-1])-2) ],matrix
 
+def seidelAns(a,b,tol,x0,niter):
+    x,iter= gaussSeidel(niter,tol,x0)
+    
 
-x = gaussSeidel(100,10**-7,initialValues)
- 
- 
-
-D = np.diag((np.diag(a)))
-L = np.tril(a,-1)
-U = np.triu(a,1)
-Tmatrix = np.dot(linalg.inv(D-L), U)
-
+    D = np.diag((np.diag(a)))
+    L = np.tril(a,-1)
+    U = np.triu(a,1)
+    Tmatrix = np.dot(linalg.inv(D-L), U)
 
 
-#print("T Matrix:")
-#prettyPrint("T",Tmatrix)
- 
-valor1 = np.linalg.eig(Tmatrix)
-lista = []
-for i in range(len(valor1)):
-    lista.append(abs(valor1[i]))
-value = max(lista[0])
- 
-#print("The spectral radius is: ")
-#print(value)
- 
-table = PrettyTable()
-table.field_names = [f"x{i}" for i in range(n)]
-table.add_row(x)
-print("\nX:")
-print(table)
+
+    #print("T Matrix:")
+    #prettyPrint("T",Tmatrix)
+    
+    valor1 = np.linalg.eig(Tmatrix)
+    lista = []
+    for i in range(len(valor1)):
+        lista.append(abs(valor1[i]))
+    spectralRadious = max(lista[0])
+    
+    #print("The spectral radius is: ")
+    #print(value)
+    
+    return x,Tmatrix,iter,spectralRadious
+
+# niter,tol,x0 = 100,10**-7,initialValues
+# seidelAns(niter,tol,x0)

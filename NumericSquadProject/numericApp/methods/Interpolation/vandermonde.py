@@ -1,4 +1,5 @@
 import numpy as np
+import sympy as sm 
 
 def vandermonde(x, y):
     n = len(x)
@@ -34,12 +35,14 @@ def vandermonde(x, y):
 def vandermondeAns(x,y):
     ans,A = vandermonde(x, y)
 
-    ansF = [f"{'+' if i >= 0 else '-'}{abs(i):g}x^{e}" for i,e in zip(ans,range(len(ans)))]
+    ansF = [f"{'+' if i >= 0 else '-'}{abs(i):g}x**{e}" for i,e in zip(ans,range(len(ans)))]
 
     ansF[0] = ansF[0][0 if ansF[0][0] == '-' else 1:-3]
-    f = " ".join(ansF)
+    f = "".join(ansF)
     # Matrix, coefficients, function
-    return A,ans,f
+    transformations = (sm.parsing.sympy_parser.standard_transformations +
+    (sm.parsing.sympy_parser.implicit_multiplication_application,))
+    return A,ans,str(sm.parse_expr(f,transformations=transformations)).replace("**","^")
 
 # x = [-1, 0, 3, 4]
 # y = [15.5, 3, 8, 1]

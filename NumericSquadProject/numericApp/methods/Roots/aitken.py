@@ -3,12 +3,13 @@ import sympy as sm
 x = sm.symbols('x')
 
 def aitken(f,x0,tol,n):
+    f = sm.sympify(f)
     fxi = float(f.subs(x,x0))
     if fxi == 0:
         return "A root was found",[]
     else:
-        matrix = [["counter","xi","fxi","error"]]
-        matrix.append([1,x0,fxi,2])
+        matrix = []
+        matrix.append([1,x0,fxi,1])
         x1 = float(f.subs(x,x0))
         error = abs(x1-x0)
         fxi = float(f.subs(x,x1))

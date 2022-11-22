@@ -1,0 +1,36 @@
+{% extends 'aux/base.html' %}
+{%load static%}
+
+{% block title %}
+<title>Little Crow - User Guide</title>
+{% endblock title %}
+
+{% block content %}
+<nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+        <i class="fa fa-bars"></i>
+    </button>
+    <h2>User Guide</h2>
+    <ul class="navbar-nav ml-auto">
+        
+    </ul>
+</nav>
+
+<!-- Begin Page Content -->
+<div class="container-fluid">
+        <!-- INPUT CARD -->
+        <div class="card shadow mb-4">
+            <div
+                class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">Video</h6>
+            </div>
+            <!-- Card Body -->
+            <div class="card-body" style="align-self: center;">
+                <div>
+                    <iframe style="position: absolute;top: 50px;left: 0;width: 100%;height: max-height;" width="860" height="615" src="https://www.youtube.com/embed/hxj5zPhPxTc" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+</div>
+
+{% endblock content %}

@@ -1,72 +1,99 @@
+from math import *
 import numpy as np
-import sympy as sym
+import numericApp.methods.Interpolation.totalPivoting as totalPivoting
 
-def spline3(xi,yi):
-    print("DEBUGGING ___________________________")
-    n = len(xi)
-    
-    h = np.zeros(n-1, dtype = float)
-    for j in range(0,n-1,1):
-        h[j] = xi[j+1] - xi[j]
- 
-    A = np.zeros(shape=(n-1,n-1), dtype = float)
-    print(A)
-    B = np.zeros(n-2, dtype = float)
-    S = np.zeros(n, dtype = float)
-    A[0,0] = 2*(h[0]+h[1])
-    A[0,1] = h[1]
-    B[0] = 6*((yi[2]-yi[1])/h[1] - (yi[1]-yi[0])/h[0])
-    for i in range(1,n-3,1):
-        A[i,i-1] = h[i]
-        A[i,i] = 2*(h[i]+h[i+1])
-        A[i,i+1] = h[i+1]
-        B[i] = 6*((yi[i+2]-yi[i+1])/h[i+1] - (yi[i+1]-yi[i])/h[i])
-    A[n-3,n-4] = h[n-3]
-    A[n-3,n-3] = 2*(h[n-3]+h[n-2])
-    B[n-3] = 6*((yi[n-1]-yi[n-2])/h[n-2] - (yi[n-2]-yi[n-3])/h[n-3])
-    
-   
-    r = np.linalg.solve(A,B)
+def spline3Ans(x,y):
+    A = []
+    B = []
+    n = len(x)
+    m = 4*(n-1)
+    A = np.zeros([m,m])
+    B = np.zeros([m,1])
+    coef = np.zeros([n-1,4])
+    z = 0
+    for i in range(1,n):
+        A[i][z] = (x[i])**3
+        A[i][z+1] = (x[i])**2
+        A[i][z+2] = x[i]
+        A[i][z+3] = 1
+        z = z+4
+        B[i][0]=y[i]
 
-    for j in range(1,n-1,1):
-        S[j] = r[j-1]
-    S[0] = 0
-    S[n-1] = 0
+    A[0][0] = x[0]**3
+    A[0][1] = x[0]**2
+    A[0][2] = x[0]**1
+    A[0][3] = 1
     
-    a = np.zeros(n-1, dtype = float)
-    b = np.zeros(n-1, dtype = float)
-    c = np.zeros(n-1, dtype = float)
-    d = np.zeros(n-1, dtype = float)
-    for j in range(0,n-1,1):
-        a[j] = (S[j+1]-S[j])/(6*h[j])
-        b[j] = S[j]/2
-        c[j] = (yi[j+1]-yi[j])/h[j] - (2*h[j]*S[j]+h[j]*S[j+1])/6
-        d[j] = yi[j]
-    
-    x = sym.Symbol('x')
-    polynom = []
-    for j in range(0,n-1,1):
-        pseg = a[j]*(x-xi[j])**3 + b[j]*(x-xi[j])**2 + c[j]*(x-xi[j])+ d[j]
-        pseg = pseg.expand()
-    
-        polynom.append(str(pseg).replace("**","^").replace("*",""))
-    
-    return(polynom)
+    B[0][0] = y[0]
+    z=0
+    for i in range(2,n):
+        A[n-2+i][z] = x[i-1]**3
+        A[n-2+i][z+1] = x[i-1]**2
+        A[n-2+i][z+2] = x[i-1]
+        A[n-2+i][z+3] = 1
+        A[n-2+i][z+4] = -(x[i-1]**3)
+        A[n-2+i][z+5] = -(x[i-1]**2)
+        A[n-2+i][z+6] = -x[i-1]
+        A[n-2+i][z+7] = -1
+        z=z+4 
+        B[n-1+i][0]=0
+    z=0
+    for i in range(2, n):
+        A[2*n-4+i][z] = (x[i-1]**2)*3
+        A[2*n-4+i][z+1] = x[i-1]*2
+        A[2*n-4+i][z+2] = 1
+        A[2*n-4+i][z+3] = 0
+        A[2*n-4+i][z+4] = -(x[i-1]**2)*3
+        A[2*n-4+i][z+5] = -(x[i-1]*2)
+        A[2*n-4+i][z+6] = -1
+        A[2*n-4+i][z+7] = 0
+        z=z+4
+        B[2*n-3+i][0]=0
+    z=0
+    for i in range(2, n):
+        A[3*n-6+i][z] = (x[i-1]*6)
+        A[3*n-6+i][z+1] = 2
+        A[3*n-6+i][z+2] = 0
+        A[3*n-6+i][z+3] = 0
+        A[3*n-6+i][z+4] = -(x[i-1]*6)
+        A[3*n-6+i][z+5] = -2
+        A[3*n-6+i][z+6] = 0
+        A[3*n-6+i][z+7] = 0
+        z=z+4
+        B[n+4+i][0]=0
+    A[m-2][0]=x[0]*6
+    A[m-2][1]=2
+    B[m-1][0]=1
+    A[m-1][m-4]=x[n-1]*6
+    A[m-1][m-3]=2
+    B[m-2][0]=1
 
-def spline3Ans(xi,fi):
-    n = len(xi)
-    polynom = spline3(xi,fi)
+    #Solution
+    A = np.concatenate((A,B),axis=1)
+    totalPivoting.a = A.tolist()
+    totalPivoting.n = len(A)
+    totalPivoting.tags = [i for i in range(0,totalPivoting.n)]
+    result = totalPivoting.elimination()
+
+
+    toit=0
+    for i in range(1, len(coef)+1):
+        coef[i-1][0] = result[toit]
+        coef[i-1][1] = result[toit+1]
+        coef[i-1][2] = result[toit+2]
+        coef[i-1][3] = result[toit+3]
+        toit = toit+4
+
     segments = []
     polBySeg = []
-    #print('polynoms by segment: ')
     for seg in range(1,n,1):
+        segments.append(f"{x[seg-1]:g} ≤ x ≤ {x[seg]:g}")
+        polBySeg.append(f"{coef[seg-1,0]:4g}x^3 + {coef[seg-1,1]:4g}x^2 + {coef[seg-1,2]:4g}x + {coef[seg-1,3]:4g}")
         
-        segments.append(f"{xi[seg-1]:g} ≤ x ≤ {xi[seg]:g}")
-        polBySeg.append(polynom[seg-1])
-
-    #Find the polynom (polBySeg_i) that applies to the segment (segments_i)
+        
     return segments,polBySeg
 
-xi = np.array([1, 2, 3, 7])
-fi = np.array([4, 5, 6, 8])
-print(spline3Ans(xi,fi))
+#x = [1,2,3,4]
+#y = [5,6,7,8]
+#print(spline3Ans(x,y))
+

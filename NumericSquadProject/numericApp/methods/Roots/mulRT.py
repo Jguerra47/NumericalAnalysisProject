@@ -3,6 +3,7 @@ import sympy as sm
 x = sm.symbols('x')
 
 def mulRT(f, xi, tol, nIter):
+    f = sm.sympify(f)
     dx = sm.diff(f,x)
     dx2 = sm.diff(dx,x)
 
@@ -32,9 +33,9 @@ def mulRT(f, xi, tol, nIter):
             return ("No root found"),matrix
 
 
-f = sm.sympify("exp(x) - x - 1")
-xi = 1
-tol = 1e-7
-nIter = 100
+# f = sm.sympify("exp(x) - x - 1")
+# xi = 1
+# tol = 1e-7
+# nIter = 100
 
-print(mulRT(f,xi,tol,nIter))
+# print(mulRT(f,xi,tol,nIter))

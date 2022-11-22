@@ -8,7 +8,7 @@ def secant(f, x0, x1, tol, nIter):
     fx1 = float(f.subs(x, x1))
     matrix = []
     if(fx0 == 0):
-        print(f"%E is root"%(x0))
+        return(f"%E is root"%(x0)),[]
     
     else:
         cont = 1

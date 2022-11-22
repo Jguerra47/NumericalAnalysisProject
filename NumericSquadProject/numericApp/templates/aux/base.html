@@ -65,14 +65,25 @@
             <li class="nav-item">
                 <a class="nav-link collapsed" href="{% static '#' %} " data-toggle="collapse" data-target="#collapseOne"
                     aria-expanded="true" aria-controls="collapseOne">
-                    <i class='fas fa-chart-line'></i>
+                    <i class='fas fa-subscript'></i>
                     <span>Roots</span>
                 </a>
                 
                 <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Related methods:</h6>
+                        <a class="collapse-item" href="incremental-search">Incremental search</a>
                         <a class="collapse-item" href="secant">Secant</a>
+
+                        <a class="collapse-item" href="fixedPoint">FixedPoint</a>
+                        <a class="collapse-item" href="bisection">Bisection</a>
+                        <a class="collapse-item" href="newton-roots">Newton</a>
+                        <a class="collapse-item" href="false-position">False position</a>
+                        <a class="collapse-item" href="mulRT">Multiple Roots</a>
+                        <a class="collapse-item" href="muller">Muller</a>
+                        <a class="collapse-item" href="steffensen">Steffensen</a>
+                        <a class="collapse-item" href="aitken">Aitken</a>
+                        <a class="collapse-item" href="trisection">Trisection</a>
                     </div>
                 </div>
             </li>
@@ -80,7 +91,7 @@
             <li class="nav-item">
                 <a class="nav-link collapsed" href="{% static '#' %} " data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
-                    <i class='fas fa-chart-line'></i>
+                    <i class='fas fa-table'></i>
                     <span>Linear equations</span>
                 </a>
                 
@@ -88,9 +99,20 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Related methods:</h6>
                         <a class="collapse-item" href="crout">Crout</a>
-                        <a class="collapse-item" href="crout">Jacobi</a>
-                        <a class="collapse-item" href="crout">Cholesky</a>
+                        <a class="collapse-item" href="jacobi">Jacobi</a>
+                        <a class="collapse-item" href="cholesky">Cholesky</a>
                         <a class="collapse-item" href="doolittle">Doolittle</a>
+
+                        <a class="collapse-item" href="sor">Sor</a>
+                        <a class="collapse-item" href="seidel">Seidel</a>
+
+                        <a class="collapse-item" href="simple-lu">Simple LU</a>
+                        <a class="collapse-item" href="partial-lu">Partial LU</a>
+                        <a class="collapse-item" href="gauss-simple">Gauss Simple</a>
+                        <a class="collapse-item" href="gauss-partial">Gauss Partial Pivot</a>
+                        <a class="collapse-item" href="gauss-total">Gauss Total Pivot</a>
+                        <a class="collapse-item" href="gausSimple">Tridiagonal</a>
+
                     </div>
                 </div>
             </li>
@@ -106,9 +128,30 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Related methods:</h6>
                         <a class="collapse-item" href="vandermonde">Vandermonde</a>
-                        <a class="collapse-item" href="newton-interpolation">Newton</a>
+                        <a class="collapse-item" href="newton-interpolation">Newton Div. Diff.</a>
                         <a class="collapse-item" href="lagrange">Lagrange</a>
-                        <a class="collapse-item" href="splines">Splines</a>
+                        <a class="collapse-item" href="linear-spline">Linear Spline</a>
+                        <a class="collapse-item" href="cuadratic-spline">Cuadratic Spline</a>
+                        <a class="collapse-item" href="cubic-spline">Cubic Spline</a>
+                    </div>
+                </div>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="{% static '#' %} " data-toggle="collapse" data-target="#collapseFour"
+                    aria-expanded="true" aria-controls="collapseFour">
+                    <i class='fas fa-calculator'></i>
+                    <span>IVP</span>
+                </a>
+                
+                <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Related methods:</h6>
+                        <a class="collapse-item" href="compound-trapeze">Compound Trapeze</a>
+                        <a class="collapse-item" href="euler">Euler</a>
+                        <a class="collapse-item" href="heun">Heun</a>
+                        <a class="collapse-item" href="simpson1-3">Simpson 1/3</a>
+                        <a class="collapse-item" href="simpson3-8">Simpson 3/8</a>
                     </div>
                 </div>
             </li>
@@ -120,13 +163,13 @@
             </div>
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="{% static '#' %} " data-toggle="collapse" data-target="#collapseFour"
-                    aria-expanded="true" aria-controls="collapseFour">
-                    <i class='fas fa-chart-line'></i>
+                <a class="nav-link collapsed" href="{% static '#' %} " data-toggle="collapse" data-target="#collapseFive"
+                    aria-expanded="true" aria-controls="collapseFive">
+                    <i class='fas fa-book'></i>
                     <span>User guide</span>
                 </a>
                 
-                <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionSidebar">
+                <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="user-guide">Example video</a>
                     </div>
@@ -146,6 +189,26 @@
             <!-- Main Content -->
             <div id="content">
                 {% block content %}{% endblock content %}
+                <div class="card-body">
+                    {% if state == 2%}
+                        <div>
+                            <p class="alert alert-danger" style="text-align:center; font-size:big;">{{error}}</p>
+                        </div>
+                    {% endif %}
+                </div>
+                
+            </div>
+            <div class="card shadow mb-4">
+                <div
+                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">Help</h6>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                    <ul>
+                        {% block help %}{% endblock help %}
+                    </ul>
+                </div>
             </div>
         </div>
     </div>

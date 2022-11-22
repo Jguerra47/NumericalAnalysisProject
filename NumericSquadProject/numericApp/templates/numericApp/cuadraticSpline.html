@@ -1,0 +1,172 @@
+{% extends 'aux/base.html' %}
+{%load static%}
+
+{% block title %}{% endblock title %}
+<title>Little Crow - Cuadratic Spline</title>
+
+{% block content %}
+
+
+<nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+        <i class="fa fa-bars"></i>
+    </button>
+    <h2>Cuadratic Spline</h2>
+    <ul class="navbar-nav ml-auto">
+        
+    </ul>
+</nav>
+
+<!-- End of Topbar -->
+
+<!-- Begin Page Content -->
+<div class="container-fluid">
+    <!-- Page Heading -->
+            
+    <div class="card shadow mb-4">
+        <div
+            class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+            <h6 class="m-0 font-weight-bold text-primary">Input</h6>
+        </div>
+        <!-- Card Body -->
+        <div class="card-body">
+            
+            <!-- AQUI VA TODO EL CONTENT INPUT-->
+            <div class="h5 mb-0 font-weight-bold text-gray-800">                     
+                <form action="cuadratic-spline" method="POST" onsubmit="">
+                    {% csrf_token %}
+                    <p style="text-align:center;">Size</p><hr class="sidebar-divider">
+                    <div class="container text-center">
+                        <div class="row justify-content-center">
+                            
+                            <div class="col-5">
+                                <a id="sizeMinus" class="btn btn-primary btn-icon-split">
+                                    <span class="icon text-white-5">
+                                        -
+                                    </span>
+                                </a>
+                            </div>
+                            
+                            <div class="col-0">
+                                <label id="size">
+                                    {% if size %}
+                                        {{size}}
+                                    {% else %}
+                                        4
+                                    {% endif %}
+                                </label>
+                            </div>
+
+                            <div class="col-5">
+                                <a id="sizePlus" class="btn btn-primary btn-icon-split">
+                                    <span class="icon text-white-5">
+                                        +
+                                    </span>
+                                </a>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <br>
+
+                    <div id="resultado"></div>
+                    
+
+                    <div class="container text-center">
+                        <div class="row justify-content-center">
+                            <div class="col-8">
+                                <a class="btn btn-primary btn-icon-split">
+                                    <input style="color:white;" class="icon text-white-5" type="submit" value="Submit">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- RESULT CARD -->
+    {% if state == 1%}
+        
+        <div class="card shadow mb-4">
+            <!-- Card Header - Dropdown -->
+            <div
+                class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">Result</h6>
+            </div>
+            <!-- Card Body 1-->
+            <div class="card-body">
+                <p style="text-align:center">Cuadratic spline</p>
+                <p style="text-align:center">Polynoms by segment:</p>
+                
+                    <div style="text-align:center;">
+                        <p>
+                            \(P(x) = \begin{cases}
+                            {% for seg,polBySeg in segments2 %}
+                                {{polBySeg}}&\text{if } {{seg}} 
+                                {% if not forloop.last %}
+                                \\
+                                {% endif %}
+                            {% endfor %}
+                        \end{cases}\)
+                        </p>
+                    </div>
+            </div>
+        </div>
+    {% endif %}
+
+
+            
+<!-- Handle matrix -->
+<script type="text/javascript">
+    let size = 4;
+    {% if size %}
+    size = {{size}};
+    {% endif %}
+    const program = () => {
+        var tabla="<table class=\"table table-bordered table-secondary\">";
+        var xvalues = [-2, -1, 2, 3];
+        var yvalues = [12.135, 6.3678, -4.61, 2.085];
+
+        {% if X %}
+        xvalues = []
+        yvalues = []
+        {% for p in X %}
+            xvalues.push({{p}});
+        {% endfor %}
+        {% for p in Y %}
+            yvalues.push({{p}});
+        {% endfor %}
+        {% endif %}
+        tabla += "<tr><td> X </td><td> Y </td></tr>"
+        for(j = 0; j < size; j++){
+            tabla += "<tr>";
+            tabla += "<td><input value="+xvalues[j]+" style= \"background: transparent;border: none; width: 100%; outline: none;\" type=\"number\" step=\"1e-8\" name=\"X"+j+"\"> </td>";
+            tabla += "<td><input value="+yvalues[j]+" style= \"background: transparent;border: none; width: 100%; outline: none;\" type=\"number\" step=\"1e-8\" name=\"Y"+j+"\"> </td>";
+            tabla += "</tr>";
+        }
+
+        tabla+="</table>";
+        document.getElementById("resultado").innerHTML=tabla;
+    }
+    window.onload = program
+
+    document.getElementById("sizePlus").addEventListener("click", (e) => {
+        size++;
+        document.getElementById("size").innerHTML = size;
+        program();
+    });
+
+    document.getElementById("sizeMinus").addEventListener("click", (e) => {
+        if (size != 0) size--;
+        document.getElementById("size").innerHTML = size;
+        program();
+    });
+</script>
+
+{% endblock content %}
+{% block help %}
+    <li>Remind that the method does not allow two values for the same 'x' (no repeated points)</li>
+{% endblock help %}
