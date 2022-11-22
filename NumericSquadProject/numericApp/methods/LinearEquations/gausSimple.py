@@ -1,5 +1,6 @@
 import sympy as sm 
 import numpy as np
+from numericApp.Exceptions.exception import CustomException
 
 from numericApp.methods.LinearEquations.Sustitution.regSus import regSus
 
@@ -11,15 +12,14 @@ def elimination(Ab,n):
     for k in range(n-1):
         
         for i in range(k+1,n):
-            
-            if(Ab[k][k] == 0):
-                print("Division by 0, Gaussian elimination is not possible.")
-                return Ab, procedure #HANDLEAR ERROR 
-                
             multiplier = Ab[i][k]/Ab[k][k]
             
             for j in range(k, n+1):
                 Ab[i,j] = Ab[i,j] - multiplier*Ab[k,j]
+
+        for i in range(n):
+            if Ab[i][i] == 0:
+                raise CustomException("Division by 0, Gaussian elimination is not possible.")
         procedure.append(Ab.tolist().copy())
     return Ab, procedure
 
@@ -29,6 +29,11 @@ def gaussSimple(A,b):
     b = np.array(b)
     n = len(b)
     Ab = np.append(A,b, axis = 1)
+
+    for i in range(n):
+        if Ab[i][i] == 0:
+            raise CustomException("Division by 0, Gaussian elimination is not possible.")
+
     Ab, procedure = elimination(Ab,n)
 
     A = Ab[:,0:n-1]
