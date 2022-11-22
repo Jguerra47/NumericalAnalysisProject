@@ -59,8 +59,8 @@ def vandermonde_ep(request):
                 "Y":Y,
                 "size":size
                 })
-        except:
-           return render(request, "numericApp/vandermonde.html", {
+        except :
+            return render(request, "numericApp/vandermonde.html", {
                 "state": 2,
                 "error": "internal error"
                 }) 
@@ -76,16 +76,17 @@ def lagrange_ep(request):
             X.append(float(request.POST["X"+str(i)]))
             Y.append(float(request.POST["Y"+str(i)]))
         try:
-            lagrange_polynoms, polynom = lagrange(X, Y)
+            lagrange_polynoms, polynom,fullPolynom = lagrange(X, Y)
             return render(request, "numericApp/lagrange.html", {
                 "state": 1, #Carga correcta
                 "lPolynoms": lagrange_polynoms,
                 "polynom": polynom,
+                "fullPolynom": fullPolynom,
                 "X":X,
                 "Y":Y,
                 "size":size
                 })
-        except:
+        except :
             return render(request, "numericApp/lagrange.html", {
                 "state": 2, #Carga erronea
                 "error": "internal error",
@@ -112,7 +113,8 @@ def newton_interpolation_ep(request):
                 "Y":Y,
                 "size":size
                 })
-        except:
+        except Exception as err:
+            print(err)
             return render(request, "numericApp/newton-interpolation.html", {
                 "state": 2,
                 "error": "internal error",
@@ -145,7 +147,8 @@ def splines_ep(request):
                 "Y":Y,
                 "size":size
                 })
-        except:
+        except Exception as err:
+            print(err)
             return render(request, "numericApp/splines.html", {
                 "state": 2,
                 "error": "internal error",
@@ -428,9 +431,13 @@ def aitken_ep(request):
 def fixedPoint_ep(request):
     if request.method == 'POST':
         try:
-            if 'graph' in request.POST :
+            if 'graph1' in request.POST :
                 return render(request, "numericApp/index.html", {
                 "equation":request.POST['equation'],
+                })
+            if 'graph2' in request.POST :
+                return render(request, "numericApp/index.html", {
+                "equation":request.POST['equation2'],
                 })
             message, matrix = fixedPoint(request.POST['equation'],
             float(request.POST['x0']),

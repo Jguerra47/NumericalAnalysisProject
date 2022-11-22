@@ -1,14 +1,11 @@
 from sympy import *
+import sympy as sm 
 from sympy.parsing.sympy_parser import parse_expr
 import math
 
 def lagrange(x,y):
     valor = len(x)
-    pol = ""
-    G = Function('G')
-    F = Function('F')
     n = len(x) #quantity of points
-    result = 0
     ansL = []
     for k in range(n):
         productoria = 1
@@ -17,26 +14,25 @@ def lagrange(x,y):
             if i != k:
                 productoria *=  (valor - x[i])/(x[k] - x[i])
                 termino += "(x-"+str(x[i])+")"
-        termino += ")/("
+        termino += ") / ("
         for i in range(n):
             if i != k:
                 termino += "(" + str(x[k]) + "-" + str(x[i]) + ")"
         termino += ")"
         termino = termino.replace(")(",") * (")
-        F = parse_expr(termino)
-        aux = termino.replace("((","(").replace("))",")")
-        ansL.append(aux)
-        toReplace = "L" + str(k) + "(x) = "
-        pol += "(" + str(expand(F)) + ")*" + str(y[k])
-        if k != n-1:
-            pol += " + "
-        result += productoria*y[k]
-    G = str(expand(pol))
+        ansL.append(termino)
+        ansL[-1] = str(sm.sympify(ansL[-1])).replace("**","^")
+        
     # print ("\nLagrange´s polynom")
     ans = [f"{y[i]}*L{i} +" for i in range(len(y))] 
     ans[-1] = ans[-1][:-1]
     polynom = (" ".join(ans))
+    fullPolynom = polynom
+    for i in range(len(y)):
+        fullPolynom = fullPolynom.replace(f"L{i}",ansL[i])
+    fullPolynom = str(sm.sympify(fullPolynom)).replace("**","^")
+    polynom = str(sm.sympify(polynom)).replace("**","^")
     #AnsL is each one of lagrange's polynom and polynom is the use of them with its respective coefficients
-    return ansL,polynom
+    return ansL,polynom,fullPolynom
 
 # print(lagrange([-1,0,3,4],[15.5,3,8,1]))
