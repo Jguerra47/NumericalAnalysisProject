@@ -2,7 +2,7 @@ import sympy as sm
 
 x = sm.symbols('x')
 
-def trisection(f,left,right,tol,n):
+def trisection(f,left,right,tol):
     fRight = float(f.subs(x,right))
     fLeft = float(f.subs(x,left))
     matrix = []

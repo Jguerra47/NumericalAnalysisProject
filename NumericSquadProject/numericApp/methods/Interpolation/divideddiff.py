@@ -1,5 +1,6 @@
 import numpy as np
 from sympy import *
+import sympy as sm
 from sympy.parsing.sympy_parser import parse_expr
 
 def polynomNewton(table,n):
@@ -15,9 +16,6 @@ def polynomNewton(table,n):
                 polynom += " + " + str(table[i][j])
                 for i in range(0,i):
                     polynom += "(x - " + str(table[i][0]) + ")"
-    F = parse_expr(polynom.replace("P(X) = ","").replace("(","*("))
-    polynom = polynom.replace("- -","+").replace("+ -","-").replace("- +","-").replace("(x - 0.0)","x").replace("(x + 0.0)","x")
-    print(polynom)
     return table,polynom,coef
 
 def newton_interpolation(x, y):
@@ -34,6 +32,11 @@ def newton_interpolation(x, y):
         res[i].pop(0)
     res.pop()
     # Divided Difference Table, polynom, coefficients
+    print(polynom)
+    transformations = (sm.parsing.sympy_parser.standard_transformations +
+    (sm.parsing.sympy_parser.implicit_multiplication_application,))
+    f = sm.parse_expr(polynom,transformations=transformations)
+    polynom = str(sm.sympify(f)).replace("**","^")
     return np.array(res).tolist(),polynom,coef
 
 # print(newton_interpolation([1,3,5],[2,4,6]))
