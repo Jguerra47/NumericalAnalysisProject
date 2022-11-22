@@ -2,7 +2,7 @@
 {%load static%}
 
 {% block title %}
-<title>Little Crow - Gauss Total</title>
+<title>Little Crow - Gauss-Simple</title>
 {% endblock title %}
 
 {% block content %}
@@ -10,7 +10,7 @@
     <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
         <i class="fa fa-bars"></i>
     </button>
-    <h2>Gauss Total</h2>
+    <h2>Gauss-Simple</h2>
     <ul class="navbar-nav ml-auto">
         
     </ul>
@@ -30,7 +30,7 @@
                 <!-- Card Body -->
                 <div class="card-body">
                     <!-- AQUI VA TODO EL CONTENT INPUT-->                   
-                    <form action="gauss-Total" method="POST" onsubmit="">
+                    <form action="gaussSimple" method="POST" onsubmit="">
                         {% csrf_token %}
                         <p style="text-align:center;">Size</p><hr class="sidebar-divider">
                         <div class="container text-center">
@@ -98,16 +98,13 @@
             
 
             <div class="card-body">
-                {% for stage in stages %}
+                {% for stage in stages%}
                     <h5 style="text-align:center">Stage {{forloop.counter}}</h5>
                     <div style="text-align:center">
+                        {% for element in stage %}
                             <div style="font-size:100%">
-                                \(\left[\begin{array}{
-                                {% for sm in A %}
-                                    c
-                                {% endfor %}
-                                :c}
-                                    {% for i in stage %}
+                                \({% if forloop.last %}U{% else %}L{% endif %}=\begin{bmatrix}
+                                    {% for i in element %}
                                         {% for j in i %}
                                             {% if j < 1e5 and j > 0.001 %}                                              
                                                 {{j|floatformat:"-4" }}
@@ -128,8 +125,10 @@
                                             \\\
                                         {% endif %}
                                     {% endfor %}
-                                \end{array}\right]\)
+                                \end{bmatrix}\)
                             </div>
+                            <br>
+                        {% endfor %}
                     </div>
                     <hr class="sidebar-divider">
                 {% endfor %}
@@ -170,31 +169,24 @@
         size = {{size}};
         {% endif %}
         const program = () => {
-            console.log("SOLICTUD RECIBIDA");
-            var Ai = [[2, -1, 0, 3,0,0,0,0],
-                    [1, 0.5, 3, 8,0,0,0,0],
-                    [0,13,-2,11,0,0,0,0],
-                    [14,5,-2,3,0,0,0,0],
-                    [0,0,0,0,1,0,0,0],
-                    [0,0,0,0,0,1,0,0],
-                    [0,0,0,0,0,0,1,0],
-                    [0,0,0,0,0,0,0,1]];
+            var Ai = [[4, -1, 0, 3,0,0,0,0],
+                    [1, 15.5, 3, 8,0,0,0,0],
+                    [0,-1.3,-4,1.1,0,0,0,0],
+                    [14,5,-2,30,0,0,0,0],
+                    [0,0,0,0,0,0,0,0],
+                    [0,0,0,0,0,0,0,0],
+                    [0,0,0,0,0,0,0,0],
+                    [0,0,0,0,0,0,0,0]];
 
             var bi = [[1],[1],[1],[1],[1],[1],[1],[1]];
-            
+
             {% if A %}
-            let arr = []
-            {% for e in A %}
-                arr = {{e}};
-                for(let i = 0; i < size; i++){
-                    Ai[{{forloop.counter0}}][i] = arr[i];
-                }
+            A = []
+            {% for e in Ai %}
+                Ai.push({{e}});
             {% endfor %}
             {% for e in b%}
-                arr = {{e}};
-                for(let i = 0; i < size; i++){
-                    bi[{{forloop.counter0}}][i] = arr[i];
-                }
+                bi.push({{e}});
             {% endfor %}
             {% endif %}
 
@@ -203,11 +195,7 @@
                 for(i = 0; i < size; i++){
                     matrixHtml += "<tr>";
                     for (j = 0; j < size; j++){
-                        if (i == 0 && j == 0) {
-                            matrixHtml += "<td><input onchange=\"validateZero(this)\" value="+ Ai[i][j] +" style= \"background: transparent;border: none; width: 100%; outline: none;\" type=\"number\" step=\"1e-8\" name=\"A"+i+j+"\"> </td>";
-                        } else {
-                            matrixHtml += "<td><input value="+ Ai[i][j] +" style= \"background: transparent;border: none; width: 100%; outline: none;\" type=\"number\" step=\"1e-8\" name=\"A"+i+j+"\"> </td>";
-                        } 
+                        matrixHtml += "<td><input value="+ Ai[i][j] +" style= \"background: transparent;border: none; width: 100%; outline: none;\" type=\"number\" step=\"1e-8\" name=\"A"+i+j+"\"> </td>";
                     }
                     matrixHtml += "</tr>";
                 }
@@ -229,10 +217,6 @@
             document.getElementById("resultado").innerHTML=block;
         }
         window.onload = program
-
-        function validateZero(event){
-            if (event.value == 0) alert("You cannot put zeros on the first value");
-        }
 
         document.getElementById("sizePlus").addEventListener("click", (e) => {
             if (size != 8) size++;
