@@ -96,3 +96,4 @@ def spline3Ans(x,y):
 #x = [1,2,3,4]
 #y = [5,6,7,8]
 #print(spline3Ans(x,y))
+

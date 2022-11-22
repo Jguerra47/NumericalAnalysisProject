@@ -23,7 +23,6 @@ def gaussTotalPivot(aux,b):
             mayor=0
             majorRow=k
             majorColumn=k
-
             for f in range(k,n):
                 for c in range(k,n):
                     if(mayor<abs(Ab[f][c])):
