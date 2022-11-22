@@ -18,74 +18,19 @@
 
 <!-- Begin Page Content -->
 <div class="container-fluid">
-    <div class="row">
         <!-- INPUT CARD -->
-        <div class="col-xl-12 col-lg-5">
-            
-            <div class="card shadow mb-4">
-                <div
-                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">Input</h6>
-                </div>
-                <!-- Card Body -->
-                <div class="card-body">
-                    <iframe width="860" height="615" src="https://www.youtube.com/embed/hxj5zPhPxTc" allowfullscreen></iframe>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-
-    <!-- RESULT CARD -->
-    {% if state == 1%}
-    <div class="col-xl-12 col-lg-7">
-        
         <div class="card shadow mb-4">
-            <!-- Card Header - Dropdown -->
             <div
                 class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                <h6 class="m-0 font-weight-bold text-primary">Results</h6>
+                <h6 class="m-0 font-weight-bold text-primary">Video</h6>
             </div>
             <!-- Card Body -->
-            
-
-            <div class="card-body">
-                <p style="text-align:center">MATRIX</p>
-                <div style="text-align:center;">
-                    <table class="table table-bordered table-secondary">
-                        <thead>
-                            <tr>
-                              <th>\(i\)</th>
-                              <th>\(x_i\)</th>
-                              <th>\(E\)</th>
-                            </tr>
-                          </thead>
-                        {% for i in procedure %}
-                            <tr>
-                                {% for j in i %}
-                                    <td>
-                                    {% if j < 1e5 and j > 0.001 %}                                              
-                                        {{j|floatformat:"-8" }}
-                                    {% elif  j > -1e5 and j < -0.001%}
-                                        {{j|floatformat:"-8" }}
-                                    {% elif  j == 0 %}
-                                        {{j|floatformat:"-8" }}
-                                    {% else %}
-                                        {{ j|stringformat:".8e" }}
-                                    {% endif %}
-                                    </td>
-                                {% endfor %}
-                            </tr>
-                        {% endfor %}
-                    </table>
-                </div>
+            <div class="card-body" style="align-self: center;">
                 <div>
-                    <p style="text-align:center; font-size:big;">{{ans}}</p>
-                </div>                                    
+                    <iframe style="position: absolute;top: 50px;left: 0;width: 100%;height: max-height;" width="860" height="615" src="https://www.youtube.com/embed/hxj5zPhPxTc" allowfullscreen></iframe>
+                </div>
             </div>
         </div>
-    </div>
-    {% endif %}
+</div>
 
 {% endblock content %}
