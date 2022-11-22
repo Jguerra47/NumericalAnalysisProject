@@ -51,7 +51,8 @@ urlpatterns = [
     path('simple-lu', views.simple_LU_ep),
     path('partial-lu', views.partial_LU_ep),
     path('cholesky', views.cholesky_ep),
-    path('doolittle',views.doolittle_ep)
+    path('doolittle',views.doolittle_ep),
+    path('gauss-simple', views.gauss_simple_ep),
 ]
 
 urlpatterns += staticfiles_urlpatterns()
