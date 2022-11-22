@@ -41,6 +41,7 @@ urlpatterns = [
     path('muller', views.muller_ep),
     path('steffensen', views.steffensen_ep),
     path('aitken', views.aitken_ep),
+    path('trisection', views.trisection_ep),
 
     #Linear equations
     path('crout', views.crout_ep),
