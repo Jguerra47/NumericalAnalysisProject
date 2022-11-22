@@ -30,6 +30,7 @@ from numericApp.methods.LinearEquations.luParcial import lu_decomposition
 
 from numericApp.methods.LinearEquations.gausSimple import gaussSimple
 
+from numericApp.Exceptions.exception import CustomException
 # Create your views here.
 from math import sqrt
 
@@ -914,10 +915,13 @@ def gauss_simple_ep(request):
                 "stages":stages,
                 "x":x
                 })
-        except:
+        except CustomException as error_message:
             return render(request, "numericApp/gauss-simple.html", {
                 "state":2,
-                "error": "internal error"
+                "error": error_message,
+                "A":A,
+                "b":b,
+                "size":size
                 })
     else:
         return render(request, "numericApp/gauss-simple.html")
