@@ -125,7 +125,7 @@ def newton_interpolation_ep(request):
     else:
         return render(request, "numericApp/newton-interpolation.html")
 
-def splines_ep(request):
+"""def splines_ep(request):
     if request.method == 'POST':
         try:
             X = []
@@ -157,7 +157,110 @@ def splines_ep(request):
                 "error": "internal error",
                 })
     else:
-        return render(request, "numericApp/splines.html")
+        return render(request, "numericApp/splines.html")"""
+
+#--------------------------------------------------------------------------------------------------------------------------------
+
+def linearSplines_ep(request):
+    if request.method == 'POST':
+        try:
+            X = []
+            Y = []
+            size = (len(request.POST) - 1)//2
+            for i in range(size):
+                X.append(float(request.POST["X"+str(i)]))
+                Y.append(float(request.POST["Y"+str(i)]))
+
+            Y = [xd for _, xd in sorted(zip(X, Y), key=lambda pair: pair[0])]
+            X.sort()
+
+            segments1,polBySeg1 = spline1Ans(X,Y)
+            return render(request, "numericApp/linearSpline.html", {
+                "state": 1, #Carga correcta
+                "segments1": zip(segments1,polBySeg1),
+                "X":X,
+                "Y":Y,
+                "size":size
+                })
+        except Exception as err:
+            print(err)
+            return render(request, "numericApp/linearSpline.html", {
+                "state": 2,
+                "error": "internal error",
+                })
+    else:
+        return render(request, "numericApp/linearSpline.html")
+
+
+#--------------------------------------------------------------------------------------------------------------------------------
+
+
+def cuadraticSplines_ep(request):
+    if request.method == 'POST':
+        try:
+            X = []
+            Y = []
+            size = (len(request.POST) - 1)//2
+            for i in range(size):
+                X.append(float(request.POST["X"+str(i)]))
+                Y.append(float(request.POST["Y"+str(i)]))
+
+            Y = [xd for _, xd in sorted(zip(X, Y), key=lambda pair: pair[0])]
+            X.sort()
+            segments2,polBySeg2 = spline2Ans(X,Y)
+            
+            return render(request, "numericApp/cuadraticSpline.html", {
+                "state": 1, #Carga correcta
+                "segments2": zip(segments2,polBySeg2),
+                "X":X,
+                "Y":Y,
+                "size":size
+                })
+        except Exception as err:
+            print(err)
+            return render(request, "numericApp/cuadraticSpline.html", {
+                "state": 2,
+                "error": "internal error",
+                })
+    else:
+        return render(request, "numericApp/cuadraticSpline.html")
+
+
+#-------------------------------------------------------------------------------------------------------------------------------
+
+
+def cubicSplines_ep(request):
+    if request.method == 'POST':
+        try:
+            X = []
+            Y = []
+            size = (len(request.POST) - 1)//2
+            for i in range(size):
+                X.append(float(request.POST["X"+str(i)]))
+                Y.append(float(request.POST["Y"+str(i)]))
+
+            Y = [xd for _, xd in sorted(zip(X, Y), key=lambda pair: pair[0])]
+            X.sort()
+            segments3,polBySeg3 = spline3Ans(X,Y)
+            return render(request, "numericApp/cubicSpline.html", {
+                "state": 1, #Carga correcta
+                "segments3": zip(segments3,polBySeg3),
+                "X":X,
+                "Y":Y,
+                "size":size
+                })
+        except Exception as err:
+            print(err)
+            return render(request, "numericApp/cubicSpline.html", {
+                "state": 2,
+                "error": "internal error",
+                })
+    else:
+        return render(request, "numericApp/cubicSpline.html")
+
+
+#--------------------------------------------------------------------------------------------------------------------------------
+
 
 #ROOTS METHODS
 def incremental_search_ep(request):

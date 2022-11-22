@@ -28,7 +28,11 @@ urlpatterns = [
     path('vandermonde', views.vandermonde_ep),#, name="script_vandermonde"),
     path('lagrange', views.lagrange_ep),
     path('newton-interpolation', views.newton_interpolation_ep),
-    path('splines', views.splines_ep),
+    #path('splines', views.splines_ep),
+    path('linear-spline', views.linearSplines_ep),
+    path('cuadratic-spline', views.cuadraticSplines_ep),
+    path('cubic-spline', views.cubicSplines_ep),
+    
 
     #Roots
     path('secant', views.secant_ep),
