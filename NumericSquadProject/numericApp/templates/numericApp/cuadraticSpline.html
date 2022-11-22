@@ -2,7 +2,7 @@
 {%load static%}
 
 {% block title %}{% endblock title %}
-<title>Little Crow - Splines</title>
+<title>Little Crow - Cuadratic Spline</title>
 
 {% block content %}
 
@@ -11,31 +11,16 @@
     <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
         <i class="fa fa-bars"></i>
     </button>
-    <h2>Splines</h2>
+    <h2>Cuadratic Spline</h2>
     <ul class="navbar-nav ml-auto">
         
     </ul>
 </nav>
 
-
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
 <!-- End of Topbar -->
 
 <!-- Begin Page Content -->
-{% comment %} <div class="container-fluid">
+<div class="container-fluid">
     <!-- Page Heading -->
             
     <div class="card shadow mb-4">
@@ -48,7 +33,7 @@
             
             <!-- AQUI VA TODO EL CONTENT INPUT-->
             <div class="h5 mb-0 font-weight-bold text-gray-800">                     
-                <form action="splines" method="POST" onsubmit="">
+                <form action="cuadratic-spline" method="POST" onsubmit="">
                     {% csrf_token %}
                     <p style="text-align:center;">Size</p><hr class="sidebar-divider">
                     <div class="container text-center">
@@ -113,23 +98,6 @@
             </div>
             <!-- Card Body 1-->
             <div class="card-body">
-                <p style="text-align:center">Lineal spline</p>
-                <p style="text-align:center">Polynoms by segment:</p>
-                
-                    <div style="text-align:center;">
-                        <p>
-                            \(P(x) = \begin{cases}
-                            {% for seg,polBySeg in segments1 %}
-                                {{polBySeg}}&\text{if } {{seg}} 
-                                {% if not forloop.last %}
-                                \\
-                                {% endif %}
-                            {% endfor %}
-                        \end{cases}\)
-                        </p>
-                    </div>
-            </div>
-            <div class="card-body">
                 <p style="text-align:center">Cuadratic spline</p>
                 <p style="text-align:center">Polynoms by segment:</p>
                 
@@ -145,27 +113,9 @@
                         \end{cases}\)
                         </p>
                     </div>
-                
-            </div>
-            <div class="card-body">
-                <p style="text-align:center">Cubic spline</p>
-                <p style="text-align:center">Polynoms by segment:</p>
-                    {{xd}}
-                    <div style="text-align:center;">
-                        <p>
-                            \(P(x) = \begin{cases}
-                            {% for seg,polBySeg in segments3 %}
-                                {{polBySeg}}&\text{if } {{seg}} 
-                                {% if not forloop.last %}
-                                \\
-                                {% endif %}
-                            {% endfor %}
-                        \end{cases}\)
-                        </p>
-                    </div>
             </div>
         </div>
-    {% endif %} {% endcomment %}
+    {% endif %}
 
 
             
