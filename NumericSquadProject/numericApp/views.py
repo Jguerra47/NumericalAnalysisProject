@@ -79,10 +79,10 @@ def vandermonde_ep(request):
                 "Y":Y,
                 "size":size
                 })
-        except :
+        except CustomException as m:
             return render(request, "numericApp/vandermonde.html", {
                 "state": 2,
-                "error": "internal error"
+                "error": m
                 }) 
     else:
         return render(request, "numericApp/vandermonde.html")
@@ -95,8 +95,15 @@ def lagrange_ep(request):
         for i in range(size):
             X.append(float(request.POST["X"+str(i)]))
             Y.append(float(request.POST["Y"+str(i)]))
+
+        
+
         try:
             lagrange_polynoms, polynom,fullPolynom = lagrange(X, Y)
+
+            if len(X) != len(set(X)):
+                raise CustomException("There's repeated values in X")
+
             return render(request, "numericApp/lagrange.html", {
                 "state": 1, #Carga correcta
                 "lPolynoms": lagrange_polynoms,
@@ -106,10 +113,10 @@ def lagrange_ep(request):
                 "Y":Y,
                 "size":size
                 })
-        except :
+        except CustomException as m:
             return render(request, "numericApp/lagrange.html", {
                 "state": 2, #Carga erronea
-                "error": "internal error",
+                "error": m,
                 })
     else:
         return render(request, "numericApp/lagrange.html")
@@ -139,11 +146,11 @@ def newton_interpolation_ep(request):
                 "Y":Y,
                 "size":size
                 })
-        except Exception as err:
+        except CustomException as err:
             print(err)
             return render(request, "numericApp/newton-interpolation.html", {
                 "state": 2,
-                "error": "internal error",
+                "error": err,
                 })
     else:
         return render(request, "numericApp/newton-interpolation.html")
@@ -208,11 +215,11 @@ def linearSplines_ep(request):
                 "Y":Y,
                 "size":size
                 })
-        except Exception as err:
+        except CustomException as err:
             print(err)
             return render(request, "numericApp/linearSpline.html", {
                 "state": 2,
-                "error": "internal error",
+                "error": err,
                 })
     else:
         return render(request, "numericApp/linearSpline.html")
@@ -245,11 +252,11 @@ def cuadraticSplines_ep(request):
                 "Y":Y,
                 "size":size
                 })
-        except Exception as err:
+        except CustomException as err:
             print(err)
             return render(request, "numericApp/cuadraticSpline.html", {
                 "state": 2,
-                "error": "internal error",
+                "error": err,
                 })
     else:
         return render(request, "numericApp/cuadraticSpline.html")
@@ -274,7 +281,7 @@ def cubicSplines_ep(request):
 
             if len(X) != len(set(X)):
                 raise CustomException("There's repeated values in X")
-                
+
             return render(request, "numericApp/cubicSpline.html", {
                 "state": 1, #Carga correcta
                 "segments3": zip(segments3,polBySeg3),
@@ -282,11 +289,11 @@ def cubicSplines_ep(request):
                 "Y":Y,
                 "size":size
                 })
-        except Exception as err:
+        except CustomException as err:
             print(err)
             return render(request, "numericApp/cubicSpline.html", {
                 "state": 2,
-                "error": "internal error",
+                "error": err,
                 })
     else:
         return render(request, "numericApp/cubicSpline.html")
