@@ -63,6 +63,12 @@ def vandermonde_ep(request):
                 X.append(float(request.POST["X"+str(i)]))
                 Y.append(float(request.POST["Y"+str(i)]))
 
+            Y = [xd for _, xd in sorted(zip(X, Y), key=lambda pair: pair[0])]
+            X.sort()
+
+            if len(X) != len(set(X)):
+                raise CustomException("There's repeated values in X")
+
             matrix, coefficients, f = vandermondeAns(X, Y)
             return render(request, "numericApp/vandermonde.html", {
                 "state": 1, #Carga correcta
@@ -117,6 +123,12 @@ def newton_interpolation_ep(request):
             for i in range(size):
                 X.append(float(request.POST["X"+str(i)]))
                 Y.append(float(request.POST["Y"+str(i)]))
+
+            Y = [xd for _, xd in sorted(zip(X, Y), key=lambda pair: pair[0])]
+            X.sort()
+
+            if len(X) != len(set(X)):
+                raise CustomException("There's repeated values in X")
 
             DDTable, polynom, coef = newton_interpolation(X, Y)
             return render(request, "numericApp/newton-interpolation.html", {
@@ -185,6 +197,9 @@ def linearSplines_ep(request):
             Y = [xd for _, xd in sorted(zip(X, Y), key=lambda pair: pair[0])]
             X.sort()
 
+            if len(X) != len(set(X)):
+                raise CustomException("There's repeated values in X")
+
             segments1,polBySeg1 = spline1Ans(X,Y)
             return render(request, "numericApp/linearSpline.html", {
                 "state": 1, #Carga correcta
@@ -219,6 +234,9 @@ def cuadraticSplines_ep(request):
             Y = [xd for _, xd in sorted(zip(X, Y), key=lambda pair: pair[0])]
             X.sort()
             segments2,polBySeg2 = spline2Ans(X,Y)
+
+            if len(X) != len(set(X)):
+                raise CustomException("There's repeated values in X")
             
             return render(request, "numericApp/cuadraticSpline.html", {
                 "state": 1, #Carga correcta
@@ -253,6 +271,10 @@ def cubicSplines_ep(request):
             Y = [xd for _, xd in sorted(zip(X, Y), key=lambda pair: pair[0])]
             X.sort()
             segments3,polBySeg3 = spline3Ans(X,Y)
+
+            if len(X) != len(set(X)):
+                raise CustomException("There's repeated values in X")
+                
             return render(request, "numericApp/cubicSpline.html", {
                 "state": 1, #Carga correcta
                 "segments3": zip(segments3,polBySeg3),
